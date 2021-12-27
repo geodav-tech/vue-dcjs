@@ -2,14 +2,20 @@
   "name": "vue-dcjs",
   "version": "0.1.0",
   "private": true,
+  "author": "shawn@geodav.tech",
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "bundle": "bili --name index --plugin vue --vue.css false",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "crossfilter2": "^1.5.4",
+    "d3": "^7.2.1",
+    "dc": "^4.2.7",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0"
   },
@@ -20,10 +26,15 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
+    "bili": "^5.0.5",
     "chromedriver": "96",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "geckodriver": "^1.20.0",
+    "rollup-plugin-vue": "^6.0.0",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "files": [
+    "bundle/*"
+  ]
 }
