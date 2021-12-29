@@ -1,7 +1,7 @@
 {
   "name": "vue-dcjs",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "author": "shawn@geodav.tech",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -34,6 +34,7 @@
     "rollup-plugin-vue": "^6.0.0",
     "vue-template-compiler": "^2.6.11"
   },
+  "main": "bundle/index.js",
   "files": [
     "bundle/*"
   ]

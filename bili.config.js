@@ -2,7 +2,8 @@ module.exports = {
   banner: true,
   output: {
     extractCSS: false,
-    dir: 'bundle'
+    dir: 'bundle',
+    minify: true
   },
   plugins: {
     vue: {
