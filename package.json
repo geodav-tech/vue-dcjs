@@ -48,5 +48,5 @@
   "files": [
     "bundle/*"
   ],
-  "keywords": ["vue", "dc", "dcjs", "chart", "graph", "dc-js"],  
+  "keywords": ["vue", "dc", "dcjs", "chart", "graph", "dc-js"]
 }
