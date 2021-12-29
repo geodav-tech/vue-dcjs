@@ -1,5 +1,6 @@
 import * as dc from 'dc'
 import * as d3 from 'd3'
+import crossfilter from 'crossfilter2'
 import { AxisChart } from './axis-chart.class'
 
 /**
@@ -17,5 +18,6 @@ export default {
 
     Vue.prototype.$dc = dc
     Vue.prototype.$d3 = d3
+    Vue.prototype.$crossfilter = crossfilter
   }
 }
