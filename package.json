@@ -1,8 +1,16 @@
 {
   "name": "vue-dcjs",
-  "version": "0.1.1",
+  "description": "A Vue component library and bindings for dc, the charting javascript library.",
+  "version": "0.1.2",
   "private": false,
-  "author": "shawn@geodav.tech",
+  "contributors": [
+    {
+      "name": "Shawn Pacarar",
+      "email": "shawn@geodav.tech",
+      "url": "https://geodav.tech"
+    }
+  ],
+  "repository": "https://github.com/geodav-tech/vue-dcjs",
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
@@ -39,5 +47,6 @@
   "main": "bundle/index.js",
   "files": [
     "bundle/*"
-  ]
+  ],
+  "keywords": ["vue", "dc", "dcjs", "chart", "graph", "dc-js"],  
 }
