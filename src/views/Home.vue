@@ -3,7 +3,7 @@
     <dc-row-chart
       :ndx="ndx"
       :options="rowChartOptions"
-      dimension-constructor="user_id"
+      :dimension-constructor="d => `${d.user_id}.${d.first_name} ${d.last_name}`"
       reducer="hours"
       :group-options="{ orderNatural: true }"
     />
@@ -29,7 +29,9 @@ export default {
   computed: {
     rowChartOptions () {
       return {
-        labelAccessor: d => `${d.first_name} ${d.last_name}`
+         // label is going to show their name (dimension key part)
+         // if they had a . in their name keep it I guess
+        labelAccessor: d => d.key.split('.').slice(1).join('.')
       }
     }
   }

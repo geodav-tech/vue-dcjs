@@ -33,7 +33,7 @@ export default {
     drawChart () {
       const defaultMargin = { top: 30, right: 30, bottom: 30, left: 30}
       // merge in default options
-      let { margins, elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
+      let { margins, elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor, labelAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
       
@@ -49,6 +49,9 @@ export default {
       
       if (elastic) {
         this.chart.elasticX(true)
+      }
+      if (labelAccessor) {
+        this.chart.label(accessorFunc(labelAccessor))
       }
 
       if (scrollable) {
@@ -71,7 +74,6 @@ export default {
           this.axisChart.elastic(true)
         }
       }
-
 
       this.$emit('pre-render', this.chart)
       this.$nextTick(() => {
