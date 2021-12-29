@@ -10,7 +10,6 @@ import BaseChartMixin from '../mixins/base-chart.mixin.vue'
 import DimensionMixin from '../mixins/dimension.mixin.vue'
 import GroupMixin from '../mixins/group.mixin.vue'
 import { accessorFunc } from '../dc-utils.js'
-import { AxisChart } from '../plugins/axis-chart.class.js'
 
 export default {
   name: 'DcRowChart',
@@ -37,7 +36,7 @@ export default {
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
       
-      this.chart = this.$dc.rowChart(`#chart-${this._uid}`)
+      this.chart = new this.$dc.RowChart(`#chart-${this._uid}`)
         .dimension(this.$options.dimension)
         .group(group)
       
@@ -59,7 +58,7 @@ export default {
         this.chart.transitionDuration(1000)
 
         let computedMargin = Object.assign({}, defaultMargin, margins, { top: 0 }) // enforce top margin
-        this.axisChart = new AxisChart(`#chart-${this._uid}-axis`)
+        this.axisChart = new this.$dc.AxisChart(`#chart-${this._uid}-axis`)
           .dimension(this.$options.dimension)
           .group(group)
           .height(axisChartHeight)
