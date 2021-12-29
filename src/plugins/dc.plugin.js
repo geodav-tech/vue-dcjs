@@ -11,7 +11,7 @@ import { AxisChart } from './axis-chart.class'
 export default {
   install (Vue, options) {
     dc.AxisChart = AxisChart
-    if (options.defaultColors) {
+    if (options?.defaultColors) {
       dc.config.defaultColors = options.defaultColors
     }
 

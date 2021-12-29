@@ -1,5 +1,6 @@
-import DcPlugin from '@/plugins/dc.plugin'
-import DcRowChart from '@/components/dc-row-chart'
+// it seems important to use FULL filenames with extensions
+import DcPlugin from './plugins/dc.plugin.js'
+import DcRowChart from './components/dc-row-chart.vue'
 
 const VueDc = {
   install (Vue, options) {

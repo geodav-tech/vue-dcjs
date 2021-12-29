@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import BaseChartMixin from '../mixins/base-chart.mixin'
-import DimensionMixin from '../mixins/dimension.mixin'
-import GroupMixin from '../mixins/group.mixin'
-import { accessorFunc } from '@/dc-utils'
-import { AxisChart } from '@/plugins/axis-chart.class'
+import BaseChartMixin from '../mixins/base-chart.mixin.vue'
+import DimensionMixin from '../mixins/dimension.mixin.vue'
+import GroupMixin from '../mixins/group.mixin.vue'
+import { accessorFunc } from '../dc-utils.js'
+import { AxisChart } from '../plugins/axis-chart.class.js'
 
 export default {
   name: 'DcRowChart',

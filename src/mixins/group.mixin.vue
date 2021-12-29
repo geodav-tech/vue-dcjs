@@ -1,5 +1,5 @@
 <script>
-import { accessorFunc } from '@/dc-utils'
+import { accessorFunc } from '../dc-utils.js'
 export default {
   name: 'GroupMixin',
   props: {

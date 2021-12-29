@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import DcRowChart from '@/components/dc-row-chart'
-import sampleData from '@/sample-data'
+import DcRowChart from '../components/dc-row-chart.vue'
+import sampleData from '../sample-data.js'
 import crossfilter from 'crossfilter2'
 
 export default {
