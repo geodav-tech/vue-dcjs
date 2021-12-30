@@ -1,5 +1,5 @@
 // it seems important to use FULL filenames with extensions
-import DcPlugin from './plugins/dc.plugin.js'
+import {DcPlugin, dc, d3, crossfilter} from './plugins/dc.plugin.js'
 import DcRowChart from './components/dc-row-chart.vue'
 
 const VueDc = {
@@ -28,5 +28,8 @@ const VueDc = {
 
 // fix warning prefer_named_exports by naming this export
 export {
-  VueDc
+  VueDc,
+  dc,
+  d3,
+  crossfilter
 }
