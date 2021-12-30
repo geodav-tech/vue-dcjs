@@ -1,6 +1,7 @@
 // it seems important to use FULL filenames with extensions
 import {DcPlugin, dc, d3, crossfilter} from './plugins/dc.plugin.js'
 import DcRowChart from './components/dc-row-chart.vue'
+import DcPieChart from './components/dc-pie-chart.vue'
 
 const VueDc = {
   install (Vue, options) {
@@ -23,6 +24,7 @@ const VueDc = {
 
     // register out of the box components
     Vue.component('dc-row-chart', DcRowChart)
+    Vue.component('dc-pie-chart', DcPieChart)
   }
 }
 
