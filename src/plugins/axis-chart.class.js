@@ -58,6 +58,11 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
   }
 
   _doRender() {
+    this.minHeight(1)
+    this.height(50)
+    // idk why the minHeight, height kept getting reset
+    // so you must call these before resetSvg()
+    // otherwise the axisHeight is like 200px or 156px (depending on minHeight)
     this.resetSvg()
     this._g = this.svg().append('g').attr('transform', `translate(${this.margins().left}, ${this.margins().top})`)
     this.drawChart()
@@ -141,7 +146,7 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
   }
 
   constructor(parent, chartGroup) {
-    super()
-    return this.anchor(parent, chartGroup)
+    super(parent, chartGroup)
+    this.anchor(parent, chartGroup)
   }
 }
