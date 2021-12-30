@@ -6,3 +6,14 @@
 export function accessorFunc(accessor) {
   return typeof accessor === 'function' ? accessor : d => d[accessor]
 }
+
+/**
+ * 
+ * @param {Number} target the value you wish to ensure is within the bounds
+ * @param {Number} minValue the minimum returned value (inclusive)
+ * @param {Number} maxValue the maximum returned value (inclusive)
+ * @returns {Number} the target value, limited to the bounds provided by min/max inclusively
+ */
+export function constrain (target, minValue = -Infinity, maxValue = Infinity) {
+  return Math.max(minValue, Math.min(target, maxValue))
+}
