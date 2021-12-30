@@ -2,6 +2,7 @@ import * as dc from 'dc'
 import * as d3 from 'd3'
 import crossfilter from 'crossfilter2'
 import { AxisChart } from './axis-chart.class'
+require('dc/dist/style/dc.min.css')
 
 dc.AxisChart = AxisChart
 
