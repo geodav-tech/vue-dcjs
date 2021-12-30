@@ -1,4 +1,5 @@
 <script>
+import { accessorFunc } from '../dc-utils.js'
 export default {
   name: 'BaseChartMixin',
   dimension: null, //crossfilter.dimension
@@ -33,11 +34,16 @@ export default {
         this.chart.filter(null)
       }
     },
+    drawChart() {
+      // clear chart?
+      this.createChart()
+      this.renderChart()
+    },
     /**
      * you are able to call this.$super(BaseChartMixin).drawChart()
      * but you must create the chart first
      */
-    drawChart() {
+    createChart() {
       const { valueAccessor, margins, keyAccessor, title, label } = this.computedOptions
       if (valueAccessor) {
         this.chart.valueAccessor(accessorFunc(valueAccessor))
@@ -55,6 +61,22 @@ export default {
         this.chart.label(accessorFunc(label))
       }
     },
+    // allows children to hook into pre/post render hooks
+    renderChart () {
+      return new Promise((resolve) => {
+        this.$emit('pre-render', this.chart)
+        this.$nextTick(() => {
+          this.render()
+          this.$nextTick(() => {
+            this.$emit('post-render')
+            return resolve()
+          })
+        })
+      })
+    },
+    render () { // to be extended by children if needed
+      this.chart.render()
+    }
   },
   computed: {
     computedOptions () {

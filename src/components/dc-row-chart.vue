@@ -29,10 +29,10 @@ export default {
     }
   },
   methods: {
-    drawChart () {
+    createChart () {
       const defaultMargin = { top: 30, right: 30, bottom: 30, left: 30}
       // merge in default options
-      let { margins, elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor, labelAccessor } = this.computedOptions
+      let { margins, elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
       
@@ -40,17 +40,14 @@ export default {
         .dimension(this.$options.dimension)
         .group(group)
       
-      this.$super(BaseChartMixin).drawChart()
+      this.$super(BaseChartMixin).createChart()
       if (margins || scrollable) {
         let computedMargin = scrollable ? Object.assign({}, defaultMargin, margins, { bottom: -1 }) : margins || defaultMargin
         this.chart.margins(computedMargin)
       }
-      
+
       if (elastic) {
         this.chart.elasticX(true)
-      }
-      if (labelAccessor) {
-        this.chart.label(accessorFunc(labelAccessor))
       }
 
       if (scrollable) {
@@ -73,16 +70,10 @@ export default {
           this.axisChart.elastic(true)
         }
       }
-
-      this.$emit('pre-render', this.chart)
-      this.$nextTick(() => {
-        this.chart.render()
-        this.axisChart.render()
-        this.$nextTick(() => {
-          this.$emit('post-render')
-        })
-      })
-
+    },
+    render () {
+      this.$super(BaseChartMixin).render()
+      this.axisChart.render()
     }
   },
   computed: {
