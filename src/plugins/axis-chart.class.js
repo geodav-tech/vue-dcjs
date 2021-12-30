@@ -31,7 +31,7 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
   axisCap
 
   calculateAxisScale () {
-    if (!this._scale || !this._elastic) {
+    if (!this._scale || this._elastic) {
       var extent = d3Extent(this._axisData, (d, i) => this.cappedValueAccessor(d, i))
       if (extent[0] > 0) {
         extent[0] = 0
