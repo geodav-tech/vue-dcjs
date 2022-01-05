@@ -45,7 +45,7 @@ export default {
      * but you must create the chart first
      */
     createChart() {
-      const { valueAccessor, margins, keyAccessor, title, label } = this.computedOptions
+      const { valueAccessor, margins, keyAccessor, title, label, height, width } = this.computedOptions
       if (valueAccessor) {
         this.chart.valueAccessor(accessorFunc(valueAccessor))
       }
@@ -61,10 +61,16 @@ export default {
       if (label) {
         this.chart.label(accessorFunc(label))
       }
+
+      if (height) {
+        this.chart.height(height)
+      }
+      if (width) {
+        this.chart.width(width)
+      }
     },
     // allows children to hook into pre/post render hooks
     renderChart () {
-      console.log('render chart', this)
       return new Promise((resolve) => {
         this.$emit('pre-render', this.chart)
         this.$nextTick(() => {
