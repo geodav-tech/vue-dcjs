@@ -3,6 +3,7 @@ import { accessorFunc } from '../dc-utils.js'
 export default {
   name: 'BaseChartMixin',
   dimension: null, //crossfilter.dimension
+  myName: 'baseChart',
   props: {
     ndx: { // crossfilter object. e.g. this.$crossfilter(dataArray)
       type: Object,
@@ -63,6 +64,7 @@ export default {
     },
     // allows children to hook into pre/post render hooks
     renderChart () {
+      console.log('render chart', this)
       return new Promise((resolve) => {
         this.$emit('pre-render', this.chart)
         this.$nextTick(() => {
@@ -79,6 +81,9 @@ export default {
     }
   },
   computed: {
+    computedMargins () {
+      return Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
+    },
     computedOptions () {
       return Object.assign({}, this.$options.baseDefaultOptions, this.$options.defaultOptions, this.options)
     }

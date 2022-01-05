@@ -30,9 +30,8 @@ export default {
   },
   methods: {
     createChart () {
-      const defaultMargin = { top: 30, right: 30, bottom: 30, left: 30}
       // merge in default options
-      let { margins, elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
+      let { elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
       
@@ -41,10 +40,8 @@ export default {
         .group(group)
       
       this.$super(BaseChartMixin).createChart()
-      if (margins || scrollable) {
-        let computedMargin = scrollable ? Object.assign({}, defaultMargin, margins, { bottom: -1 }) : margins || defaultMargin
-        this.chart.margins(computedMargin)
-      }
+      let rowChartMargin = scrollable ? Object.assign({}, this.computedMargins, { bottom: -1 }) : this.computedMargins
+      this.chart.margins(rowChartMargin)
 
       if (elastic) {
         this.chart.elasticX(true)
@@ -54,12 +51,12 @@ export default {
         this.chart.height(Math.max(minHeight, group.size() * barHeight))
         this.chart.transitionDuration(1000)
 
-        let computedMargin = Object.assign({}, defaultMargin, margins, { top: 0 }) // enforce top margin
+        let axisChartMargin = Object.assign({}, this.computedMargins, { top: 0 }) // enforce top margin
         this.axisChart = new this.$dc.AxisChart(`#chart-${this._uid}-axis`)
           .dimension(this.$options.dimension)
           .group(group)
           .height(axisChartHeight)
-          .margins(computedMargin)
+          .margins(axisChartMargin)
         if (valueAccessor) {
           this.axisChart.valueAccessor(accessorFunc(valueAccessor))
         }
