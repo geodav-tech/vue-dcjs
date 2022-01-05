@@ -16,8 +16,8 @@ export default {
     }
   },
   methods: {
-    createGroup (dimension) {
-      let group = dimension.group()
+    createGroup(dimension, groupAll = false) {
+      let group = groupAll ? dimension.groupAll() : dimension.group()
 
       if (this.groupOptions && this.groupOptions.order) {
         if (typeof this.groupOptions.order === 'string') {
@@ -38,7 +38,52 @@ export default {
 
       this.$emit('group-created', group)
       return group
-    }
-  }
+    },
+    // https://github.com/dc-js/dc.js/blob/develop/web-src/examples/focus-ordinal-bar.html
+    ordinalToLinear(group, valueFunc, isGroupAll = false) {
+      var _ord2int, _int2ord
+      return {
+        top: function (number = 1) {
+          if (isGroupAll) {
+            return Object.entries(group.value())
+              .map(([key, value]) => ({key, value}))
+              .sort((a, b) => valueFunc(b.value) - valueFunc(a.value))
+              .slice(0, number)
+          } else {
+            return group.order((d) => valueFunc(d)).top(number)
+          }
+        },
+        all: function () {
+          var ret = []
+          if (isGroupAll) {
+            ret = Object.entries(group.value())
+              .map(([key, value]) => ({key, value}))
+              .sort((a, b) => valueFunc(b.value) - valueFunc(a.value))
+          } else {
+            ret = group.order((d) => valueFunc(d)).top(Infinity)
+          }
+          _ord2int = {}
+          _int2ord = []
+          ret.forEach(function (d, i) {
+            _ord2int[d.key] = i
+            _int2ord[i] = d.key
+          })
+          return ret
+        },
+        ord2int: function (o) {
+          if (!_ord2int) {
+            this.all()
+          }
+          return _ord2int[o]
+        },
+        int2ord: function (i) {
+          if (!_int2ord) {
+            this.all()
+          }
+          return _int2ord[i]
+        },
+      }
+    },
+  },
 }
 </script>
