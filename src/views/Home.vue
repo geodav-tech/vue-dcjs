@@ -6,12 +6,24 @@
       :dimension-constructor="d => `${d.user_id}.${d.first_name} ${d.last_name}`"
       reducer="hours"
     />
-    <dc-pie-chart
-      :ndx="ndx"
-      :options="pieChartOptions"
-      dimension-constructor="team"
-      reducer="hours"
-    />
+    <div style="display: flex">
+      <dc-checklist
+        style="flex: 1"
+        v-if="pieChart"
+        :chart="pieChart"
+        :options="pieChartOptions"
+        :digits="0"
+        :max-height="300"
+      />
+      <dc-pie-chart
+        style="flex: 1"
+        :ndx="ndx"
+        :options="pieChartOptions"
+        dimension-constructor="team"
+        reducer="hours"
+        @post-render="chart => pieChart = chart"
+      />
+    </div>
     <dc-bar-chart
       :ndx="ndx"
       :options="barChartOptions"
@@ -48,17 +60,20 @@ import DcRowChart from '../components/dc-row-chart.vue'
 import sampleData from '../sample-data.js'
 import DcPieChart from '../components/dc-pie-chart.vue'
 import DcBarChart from '../components/dc-bar-chart.vue'
+import DcChecklist from '../components/dc-checklist.vue'
 
 export default {
   name: 'Home',
   components: {
     DcRowChart,
     DcPieChart,
-    DcBarChart
+    DcBarChart,
+    DcChecklist
   },
   data () {
     return {
-      ndx: null
+      ndx: null,
+      pieChart: null
     }
   },
   created () {
