@@ -25,11 +25,7 @@ export default {
   name: 'DcChecklist',
   props: {
     chart: {
-      type: Object,
-      required: true
-    },
-    options: { // computedOptions from the chart
-      type: Object,
+      type: [String, Object],
       required: true
     },
     searchable: {
@@ -62,22 +58,24 @@ export default {
       groups: [],
       others: [], // groups for pie charts which list an "others" category
       inFilter: [],
-
+      waitInterval: null,
+      waitingTimer: 1
     }
   },
   mounted () {
-    this.resetFilters()
-    this.updateListValues()
-    this.chart.on('renderlet', () => {
+    if (this.dcChart) {
+      console.log(this.dcChart)
+      this.watchChartChanges()
+    } else {
+      this.waitForChartInit()
+    }
+  },
+  watch: {
+    dcChart (to, from) {
+      this.resetFilters()
       this.updateListValues()
-    })
-    this.chart.on('filtered', () => {
-      this.$nextTick(() => {
-        this.checkOthersFilterToggled()
-        this.resetFilters()
-        this.updateListValues()
-      })
-    })
+      this.watchChartChanges()
+    }
   },
   filters: { 
     formatFilter (value, digits) {
@@ -91,12 +89,12 @@ export default {
   methods: {
     resetFilters () {
       // set the inFilter to match the chart
-      this.inFilter = Array.from(new Set(flat(this.chart.filters())))
+      this.inFilter = Array.from(new Set(flat(this.dcChart.filters())))
       this.groupFilter = ''
     },
     updateListValues () {
       // deep copy the groups so values do not get messed up when filtering
-      this.groups = JSON.parse(JSON.stringify(this.chart.group().order((value) => this.valueAccessor({ value })).top(Infinity)))
+      this.groups = JSON.parse(JSON.stringify(this.dcChart.group().order((value) => this.valueAccessor({ value })).top(Infinity)))
       if (this.options.slicesCap || this.othersLimit) {
         this.others = this.groups.slice(this.options.slicesCap || this.othersLimit).map(d => d.key)
       } else {
@@ -108,13 +106,13 @@ export default {
       // - check a box in the 'others' category from this list
       // - click the 'others' category on the pie chart after
       // check for this case and add back in the category you clicked if necessary
-      let currentFilters = this.chart.filters()
+      let currentFilters = this.dcChart.filters()
       let othersLabel = this.othersLabel || this.options.othersLabel || 'others'
       const fixFilters = this.others.filter(k => !currentFilters.includes(k) && this.inFilter.includes(k))
       if (currentFilters.includes(othersLabel) && fixFilters.length) {
         currentFilters.push(...fixFilters)
         this.inFilter = currentFilters
-        this.chart.replaceFilter([currentFilters])
+        this.dcChart.replaceFilter([currentFilters])
       }
     },
     toggleFilterFor (key) {
@@ -127,15 +125,46 @@ export default {
       // yes this has to be an array of arrays thus [inFilter]
       // https://stackoverflow.com/questions/38920359/how-to-filter-multiple-values-in-a-dc-crossfilter-dimension
       // marked answer, first part mentions this
-      this.chart.replaceFilter([this.inFilter])
+      this.dcChart.replaceFilter([this.inFilter])
       this.$nextTick(() => this.$dc.redrawAll())
     },
     updateSearch () {
       this.$emit('update:search', this.groupFilter)
       this.$emit('update-search', this.groupFilter)
+    },
+    watchChartChanges () {
+      this.dcChart.on('renderlet', () => {
+        this.updateListValues()
+      })
+      this.dcChart.on('filtered', () => {
+        this.$nextTick(() => {
+          this.checkOthersFilterToggled()
+          this.resetFilters()
+          this.updateListValues()
+        })
+      })
+    },
+    waitForChartInit () {
+      this.waitInterval = setInterval(() => {
+        this.waitingTimer = ((this.waitingTimer + 1) % 100) + 1
+        this.$nextTick(() => {
+          if (this.dcChart) {
+            clearInterval(this.waitInterval)
+            this.waitInterval = null
+          }
+        })
+      }, 300)
     }
   },
   computed: {
+    dcChart () {
+      // add waitingTimer (reactive) to the computed property as a dependency since this.$dc.chartRegistry.list() is not reactive
+      if (typeof this.chart === 'string' && this.waitingTimer) {
+        return this.$dc.chartRegistry.list().find(c => c.name === this.chart)
+      } else {
+        return this.chart
+      }
+    },
     shownGroups () {
       if (!this.groupFilter || !this.groupFilter.length) {
         return this.groups
@@ -168,8 +197,16 @@ export default {
       }
 
       return styles.join('; ')
+    },
+    options() {
+      return this.dcChart?.vueOptions || {}
     }
   },
+  beforeDestroy() {
+    if (this.waitInterval) {
+      clearInterval(this.waitInterval)
+    }
+  }
 }
 </script>
 

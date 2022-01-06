@@ -9,8 +9,7 @@
     <div style="display: flex">
       <dc-checklist
         style="flex: 1"
-        v-if="pieChart"
-        :chart="pieChart"
+        chart="TeamPieChart"
         :options="pieChartOptions"
         :digits="0"
         :max-height="300"
@@ -21,7 +20,6 @@
         :options="pieChartOptions"
         dimension-constructor="team"
         reducer="hours"
-        @post-render="chart => pieChart = chart"
       />
     </div>
     <dc-bar-chart
@@ -72,8 +70,7 @@ export default {
   },
   data () {
     return {
-      ndx: null,
-      pieChart: null
+      ndx: null
     }
   },
   created () {
@@ -89,6 +86,7 @@ export default {
     },
     pieChartOptions () {
       return {
+        name: 'TeamPieChart',
         title: d =>`${d.key}: ${d.value.toFixed(2)} hours`,
         slicesCap: 6,
         maxRadius: 300,

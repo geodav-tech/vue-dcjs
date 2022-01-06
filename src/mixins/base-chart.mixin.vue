@@ -9,6 +9,9 @@ export default {
       type: Object,
       required: true
     },
+    name: {
+      type: String
+    },
     options: {
       type: Object
     }
@@ -38,6 +41,7 @@ export default {
     drawChart() {
       // clear chart?
       this.createChart()
+      this.addChartExtras()
       this.renderChart()
     },
     /**
@@ -84,6 +88,13 @@ export default {
     },
     render () { // to be extended by children if needed
       this.chart.render()
+    },
+    addChartExtras () {
+      if (this.name || this.computedOptions.name) {
+        this.chart.name = this.name || this.computedOptions.name
+      }
+      // set chart.vueOptions to be able to pass chart without having to additionally pass it's computedOptions
+      this.chart.vueOptions = this.computedOptions
     }
   },
   computed: {
