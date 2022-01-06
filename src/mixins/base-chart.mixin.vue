@@ -17,7 +17,9 @@ export default {
     }
   },
   baseDefaultOptions: {
-    disposeDimension: true, // beforeDestroy: dimension.dispose()
+    disposeDimension: true,
+    render: true, // set false to stop rendering on startup
+    // beforeDestroy: dimension.dispose()
     // valueAccessor: string, function,
     // margins: {top, left, bottom, right},
     // keyAccessor: string, function,
@@ -42,7 +44,9 @@ export default {
       // clear chart?
       this.createChart()
       this.addChartExtras()
-      this.renderChart()
+      if (this.computedOptions.render) {
+        this.renderChart()
+      }
     },
     /**
      * you are able to call this.$super(BaseChartMixin).drawChart()
