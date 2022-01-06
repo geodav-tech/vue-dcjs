@@ -1,5 +1,5 @@
 <template>
-  <div class="dc-chart-container">
+  <div class="dc-chart-container dc-row-chart-container">
     <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :style="computedStyle"></div>
     <div v-if="computedOptions.scrollable" :id="`chart-${_uid}-axis`" class="dc-chart dc-axis-chart dc-row-axis-chart"></div>
   </div>
@@ -21,7 +21,7 @@ export default {
     barHeight: 20,
     axisChartheight: 50,
     scrollHeight: '200px',
-
+    scrollbarPadding: 8 // about the width of the scroll bar we are padding
   },
   data () {
     return {
@@ -70,16 +70,27 @@ export default {
     },
     render () {
       this.$super(BaseChartMixin).render()
-      this.axisChart.render()
+      this.axisChart?.render()
     }
   },
   computed: {
     computedStyle () {
-      if (this.computedOptions.scrollable && this.computedOptions.scrollHeight) {
-        return `max-height: ${this.computedOptions.scrollHeight}; overflow-y: auto;`
-      } else {
-        return ''
-      } 
+      let styles = []
+      if (this.computedOptions.scrollable) {
+        styles.push('overflow-y: auto; overflow-x: hidden;')
+        if (this.computedOptions.scrollHeight) {
+          styles.push(`max-height: ${this.computedOptions.scrollHeight}`)
+        }
+      }
+      return styles.join('; ')
+    },
+    computedMargins () {
+      let margins = Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
+      const { scrollable, scrollbarPadding } = this.computedOptions
+      if (scrollable && scrollbarPadding) {
+        margins.right += scrollbarPadding
+      }
+      return margins
     }
   }
 }
