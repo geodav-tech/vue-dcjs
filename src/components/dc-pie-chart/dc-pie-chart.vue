@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import BaseChartMixin from '../mixins/base-chart.mixin.vue'
-import DimensionMixin from '../mixins/dimension.mixin.vue'
-import GroupMixin from '../mixins/group.mixin.vue'
-import { constrain } from '../dc-utils.js'
+import BaseChartMixin from '../../mixins/base-chart.mixin.vue'
+import DimensionMixin from '../../mixins/dimension.mixin.vue'
+import GroupMixin from '../../mixins/group.mixin.vue'
+import { constrain } from '../../dc-utils.js'
 
 export default {
   name: 'DcPieChart',
@@ -77,8 +77,12 @@ export default {
             }
 
             const tString = el.attr('transform')
-            const x = parseFloat(tString.slice(tString.indexOf('translate(') + 10, tString.indexOf(',') - 1))
+            const x = parseFloat(tString.slice(tString.indexOf('translate(') + 10, tString.indexOf(',')))
             const y = parseFloat(tString.slice(tString.indexOf(',') + 1, tString.indexOf(')')))
+            if (Number.isNaN(x) || Number.isNaN(y)) {
+              console.warn('unable to wrap text', tString, x, y, tString.slice(tString.indexOf('translate(') + 10, tString.indexOf(',')))
+              return
+            }
             let tspan = el.text(null).append('tspan').attr('transform', `translate(${x}, ${y})`).attr('x', 0).attr('y', 0)
             tspan.text(words[0])
             tspan = el.append('tspan').attr('transform', `translate(${x}, ${y})`).attr('x', 0).attr('y', 14)

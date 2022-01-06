@@ -72,6 +72,11 @@ export default {
   watch: {
     dcChart (to, from) {
       this.reset()  
+    },
+    search () {
+      if (this.search != this.groupFilter) {
+        this.groupFilter = this.search
+      }
     }
   },
   filters: { 
