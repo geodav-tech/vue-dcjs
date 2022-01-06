@@ -3,7 +3,7 @@
     <dc-row-chart
       :ndx="ndx"
       :options="rowChartOptions"
-      :dimension-constructor="d => `${d.user_id}.${d.first_name} ${d.last_name}`"
+      :dimension-constructor="d => `${d.user_id}.${d.name}`"
       reducer="hours"
     />
     <div style="display: flex">
