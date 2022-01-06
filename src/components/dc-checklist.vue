@@ -64,17 +64,14 @@ export default {
   },
   mounted () {
     if (this.dcChart) {
-      console.log(this.dcChart)
-      this.watchChartChanges()
+      this.reset()
     } else {
-      this.waitForChartInit()
+      this.waitForChartInit(true)
     }
   },
   watch: {
     dcChart (to, from) {
-      this.resetFilters()
-      this.updateListValues()
-      this.watchChartChanges()
+      this.reset()  
     }
   },
   filters: { 
@@ -87,6 +84,11 @@ export default {
     }
   },
   methods: {
+    reset () {
+      this.resetFilters()
+      this.updateListValues()
+      this.watchChartChanges()
+    },
     resetFilters () {
       // set the inFilter to match the chart
       this.inFilter = Array.from(new Set(flat(this.dcChart.filters())))
@@ -144,16 +146,17 @@ export default {
         })
       })
     },
-    waitForChartInit () {
+    waitForChartInit (firstTry = false) {
       this.waitInterval = setInterval(() => {
         this.waitingTimer = ((this.waitingTimer + 1) % 100) + 1
         this.$nextTick(() => {
           if (this.dcChart) {
+            this.reset()
             clearInterval(this.waitInterval)
             this.waitInterval = null
           }
         })
-      }, 300)
+      }, firstTry ? 50 : 300)
     }
   },
   computed: {
