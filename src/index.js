@@ -7,8 +7,14 @@ import {
   DcRowChart
 } from './components'
 
+const defaultOptions = {
+  registerComponents: true // Vue.component(everything) by default? will use dc-chart-name for prefixes
+  // defaultColors: for dc plugin, array of string colors (or I think there is a function definition as well)
+}
+
 const VueDc = {
-  install (Vue, options) {
+  install (Vue, _options) {
+    const options = Object.assign({}, defaultOptions, options)
     // hmm do we prevent this from polluting the namespace?
     // what if the user overrides $super in their code??
     // https://forum.vuejs.org/t/call-the-overrided-method-from-extend-mixin-think-super/1469
@@ -27,14 +33,17 @@ const VueDc = {
     Vue.use(DcPlugin, options)
 
     // register out of the box components
-    Vue.component('dc-bar-chart', DcBarChart)
-    Vue.component('dc-checklist', DcChecklist)
-    Vue.component('dc-row-chart', DcRowChart)
-    Vue.component('dc-pie-chart', DcPieChart)
+    if (options.registerComponents) {
+      Vue.component('dc-bar-chart', DcBarChart)
+      Vue.component('dc-checklist', DcChecklist)
+      Vue.component('dc-row-chart', DcRowChart)
+      Vue.component('dc-pie-chart', DcPieChart)
+    }
   }
 }
 
 // fix warning prefer_named_exports by naming this export
+export * from './components'
 export {
   VueDc,
   dc,
