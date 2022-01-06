@@ -50,6 +50,15 @@
         init: () => ({})
       }"
     />
+    <dc-bar-chart
+      :ndx="ndx"
+      :options="{
+        height: 250,
+        margins: { top: 40, right: 40, left: 40, bottom: 40 }
+      }"
+      dimension-constructor="team"
+      reducer="hours"
+    />
   </div>
 </template>
 
@@ -97,6 +106,7 @@ export default {
       return {
         groupAll: true,
         height: 300,
+        scrollable: true,
         minScrollable: 18,
         margins: {
           top: 40,

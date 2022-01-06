@@ -20,7 +20,7 @@ export default {
   mixins: [BaseChartMixin, DimensionMixin, GroupMixin],
   defaultOptions: {
     elastic: true,
-    scrollable: true,
+    scrollable: false,
     minScrollable: 12, // will not scroll if less than this number
     scrollHeight: 12, // how tall the scroll chart is
     mouseZoom: true
