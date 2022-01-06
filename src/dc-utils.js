@@ -17,3 +17,15 @@ export function accessorFunc(accessor) {
 export function constrain (target, minValue = -Infinity, maxValue = Infinity) {
   return Math.max(minValue, Math.min(target, maxValue))
 }
+
+/**
+ * 
+ * @param {Array} array 2d+ array 
+ * @returns  1d array
+ */
+export function flat (array) {
+  if (!Array.isArray(array)) {
+    return []
+  }
+  return array.reduce((acc, val) => acc.concat(val), [])
+}
