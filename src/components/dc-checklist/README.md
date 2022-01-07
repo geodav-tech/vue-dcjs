@@ -1,4 +1,4 @@
-### <dc-checklist>
+### \<dc-checklist>
 - [Home](../../../#available-components)
 
 ### Options

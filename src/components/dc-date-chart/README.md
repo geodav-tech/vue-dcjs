@@ -1,4 +1,4 @@
-### <dc-bar-chart>
+### \<dc-bar-chart>
 - [Home](../../../#available-components)
 
 ### extends

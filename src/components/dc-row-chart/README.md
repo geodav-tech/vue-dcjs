@@ -1,4 +1,4 @@
-# <dc-row-chart>
+# \<dc-row-chart>
 - [Home](../../../#available-components)
 
 ### extends

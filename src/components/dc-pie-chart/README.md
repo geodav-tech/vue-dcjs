@@ -1,4 +1,4 @@
-### <dc-pie-chart>
+### \<dc-pie-chart>
 - [Home](../../../#available-components)
 
 ### extends
