@@ -1,7 +1,8 @@
 <template>
   <div class="example-container bar-tasks-container">
     <label class="example-label">
-      Bar chart by tasks
+      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-bar-chart" target="_blank">Bar chart</a>
+      by tasks
     </label>
     <dc-bar-chart
       :ndx="computedNdx"

@@ -1,7 +1,8 @@
 <template>
   <div class="bar-team-container example-container">
     <label class="example-label">
-      Bar chart by team
+      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-bar-chart" target="_blank">Bar chart</a>
+      by team
     </label>
     <dc-bar-chart
       :ndx="computedNdx"

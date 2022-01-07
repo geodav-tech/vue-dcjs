@@ -1,7 +1,8 @@
 <template>
   <div class="row-users-container example-container">
     <label class="example-label">
-      Row chart by users
+      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-row-chart" target="_blank">Row chart</a>
+      by users
     </label>
     <dc-row-chart
       v-if="computedNdx"

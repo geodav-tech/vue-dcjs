@@ -1,7 +1,8 @@
 <template>
   <div class="pie-team-container example-container">
     <label class="example-label">
-      Pie chart by team
+      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-pie-chart" target="_blank">Pie chart</a>
+      by team
     </label>
     <dc-pie-chart
       :ndx="computedNdx"
