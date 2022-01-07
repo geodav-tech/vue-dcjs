@@ -7,7 +7,6 @@
     <dc-pie-chart
       :ndx="computedNdx"
       :options="{
-        name: 'TeamPieChart',
         title: d =>`${d.key}: ${d.value.toFixed(2)} hours`,
         slicesCap: 6,
         maxRadius: 300,
@@ -15,6 +14,8 @@
       }"
       dimension-constructor="team"
       reducer="hours"
+      @pre-render="$emit('pre-render', $event)"
+      @post-render="$emit('post-render', $event)"
     />
   </div>
 </template>

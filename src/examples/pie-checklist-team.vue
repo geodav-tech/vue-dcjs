@@ -1,14 +1,15 @@
 <template>
   <div class="pie-checklist-container example-container">
     <div class="flex-container">
-      <pie-team :ndx="computedNdx" class="flex-item"/>
+      <pie-team :ndx="computedNdx" class="flex-item" @post-render="chart => pieChart = chart"/>
       <div class="flex-item" style="padding-left: 1rem;">
         <label class="example-label">
           <a href="" target="_blank">Checklist</a>
           for pie chart
         </label>
         <dc-checklist
-          chart="TeamPieChart"
+          v-if="pieChart"
+          :chart="pieChart"
           :digits="0"
           :max-height="324"
         />
@@ -30,6 +31,7 @@ export default {
   },
   data () {
     return {
+      pieChart: null,
       constructedNdx: null
     }
   },
