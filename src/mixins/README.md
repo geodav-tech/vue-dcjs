@@ -73,3 +73,26 @@ handles `dimension.group()` or `dimension.groupAll()` based functions. Includes 
 `ordinalToLinear(group, valueFunc, isGroupAll = false): group`
 - transforms an ordinal group (having string keys) to a linear group (having integer keys)
 - used with the scrollable bar chart for linear focus
+
+
+# axis
+
+### props
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| axisOptions | object | | x,y axisOptions specified below. Can also be passed via `options.axisOptions` | 
+
+### options
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| x | scale | | scale to apply to `this.chart.x()` e.g. `this.$d3.scaleTime().domain(['2021-01-01', '2021-01-31'])` |
+| y | scale | | scale to apply to `this.chart.y()` |
+| ticks | number | | the count of ticks to show |
+| format | string, number, (d) => value | `axis.tickFormat()` if string `d3.format(string)`, if number `d3.format(,.${number}f)`, if function just call function |
+| values | number[], string[] | | apply `axis.tickValues(values)` if you wish to show only specific values, this is the best option |
+| size | number | 6 | apply `axis.tickSize(size)` changes the size in px of the ticks on this axis
+
+
+### methods
+`applyAxisOptions(): void`
+apply the options specified in either the `axisOptions` prop or `computedOptions.axisOptions`

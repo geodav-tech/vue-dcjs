@@ -5,6 +5,7 @@
     <pie-checklist-team :ndx="ndx" />
     <bar-tasks :ndx="ndx" />
     <bar-team :ndx="ndx" />
+    <date-hour :ndx="ndx" />
   </div>
 </template>
 
@@ -15,9 +16,10 @@ import PieTeam from './pie-team.vue'
 import BarTasks from './bar-tasks.vue'
 import BarTeam from './bar-team.vue'
 import PieChecklistTeam from './pie-checklist-team.vue'
+import DateHour from './date-hour.vue'
 
 export default {
-  components: { RowUsers, PieTeam, BarTasks, BarTeam, PieChecklistTeam },
+  components: { RowUsers, PieTeam, BarTasks, BarTeam, PieChecklistTeam, DateHour },
   data () {
     return {
       ndx: null
