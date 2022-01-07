@@ -8,7 +8,7 @@
       <ul>
         <li v-for="info, index in aboutInfo" :key="`info-${index}`">
           <b>{{info.text}}</b>:
-          <a v-if="info.href" :href="info.href">{{ info.value }}</a>
+          <a v-if="info.href" :href="info.href" target="_blank">{{ info.value }}</a>
           <span v-else>{{ info.value }}</span>
         </li>
       </ul>
