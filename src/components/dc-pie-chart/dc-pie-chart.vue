@@ -108,7 +108,6 @@ export default {
             this.chart.width(radius)
             this.chart.redraw()
           }
-          handleLabelTransition()
         })
         this.chart.on('pretransition', handleLabelTransition)
       }
@@ -126,11 +125,16 @@ export default {
       })
     },
     getRadius () {
-      const container = document.querySelector(`#chart-${this._uid}`)
+      let container = document.querySelector(`#chart-${this._uid}`)
       if (!container) {
         return 0
       }
       let suggestedRadius = container.clientWidth
+      // in flex containers, this was returning 0 always
+      // look outside the dc-chart-container element to see the available space there
+      if (!suggestedRadius && container.parentNode && container.parentNode.parentNode) {
+        suggestedRadius = container.parentNode.parentNode.clientWidth
+      }
       let { minRadius, maxRadius } = this.computedOptions
       return constrain(suggestedRadius, minRadius, maxRadius)
     }
