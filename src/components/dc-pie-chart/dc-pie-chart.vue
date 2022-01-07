@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import BaseChartMixin from '../../mixins/base-chart.mixin.vue'
-import DimensionMixin from '../../mixins/dimension.mixin.vue'
-import GroupMixin from '../../mixins/group.mixin.vue'
+import { BaseChartMixin, DimensionMixin, GroupMixin } from '../../mixins'
 import { constrain } from '../../dc-utils.js'
 
 export default {
