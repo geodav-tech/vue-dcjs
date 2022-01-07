@@ -19,10 +19,8 @@
     "bundle": "bili src/index.js",
     "build-all": "npm run build && npm run bundle",
 
-    "publish-npm": "npm publish",
-    "publish-git": "git push",
     "publish-pages": "git subtree push --prefix dist origin gh-pages",
-    "publish-all": "npm run publish-git && npm run publish-npm && npm run publish-pages",
+    "publish-all": "git push && npm publish && npm run publish-pages",
 
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"

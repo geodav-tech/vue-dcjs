@@ -1,4 +1,8 @@
 # vue-dcjs
+A custom built binding for dc in vue. Comes with built in Vue component charts as well as bindings for `dc` `d3` and `crossfilter` for you to customize and create your own charts as necessary.
+
+Check out the [DEMO PAGE](https://geodav-tech.github.io/vue-dcjs/) or follow the api reference links below.
+
 ### cli
 ```npm install --save vue-dcjs```
 
@@ -11,7 +15,7 @@ Vue.use(VueDc)
 ### anywhere in vue instance
 - `this.$dc` [dc instance](https://dc-js.github.io/dc.js/) with added [AxisChart](./src/plugins/axis-chart.class.js)
 - `this.$d3` [d3 instance](https://github.com/d3/d3/blob/main/API.md)
--`this.$crossfilter` [crossfilter2 instance](https://github.com/crossfilter/crossfilter/wiki/API-Reference) use this to make `ndx` prop on charts
+- `this.$crossfilter` [crossfilter2 instance](https://github.com/crossfilter/crossfilter/wiki/API-Reference) use this to make `ndx` prop on charts
 
 ### available components
 - [`<dc-bar-chart>`](./src/components/dc-bar-chart)
@@ -37,31 +41,35 @@ npm ci
 #### Compiles and hot-reloads for development
 ```
 npm run serve
-
 or
-
 npm run dev
 ```
 
-#### Compiles and minifies (the demo) for production
-```
-npm run build
-```
-
-#### compiles the components for npm
+### how to build npm bundle
+- bump npm package version in package.json
 ```
 npm run bundle
 ```
-
-#### Run your end-to-end tests
+- commit your changes
 ```
-npm run test:e2e
-```
-
-#### Lints and fixes files
-```
-npm run lint
+npm npm publish
 ```
 
-#### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### how to build demo for github pages
+- commit changes
+```
+npm run publish-pages
+```
+
+
+### how to build both demo and github pages
+- commit all changes before building
+- bump the package version (you can probably just commit that with the build that you're gonna do next)
+```
+npm run build-all
+```
+- commit the build with a meaningful message
+```
+npm run publish-all
+```
+boom, you're done
