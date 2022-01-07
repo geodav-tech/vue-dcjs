@@ -18,11 +18,13 @@ Vue.use(VueDc)
 - [`<dc-checklist>`](./src/components/dc-checklist)
 - [`<dc-pie-chart>`](./src/components/dc-pie-chart)
 - [`<dc-row-chart>`](./src/components/dc-row-chart)
+- [`<dc-date-chart`](./src/components/dc-date/chart)
 
 ### mixins
 - [BaseChartMixin](./src/mixins#base-chart)
 - [DimensionMixin](./src/mixins/#dimension)
 - [GroupMixin]('./src/mixins/#group)
+- [AxisMixin]('./src/mixin/#axis)
 
 #
 
