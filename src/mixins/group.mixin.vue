@@ -8,7 +8,6 @@ export default {
     },
     groupOptions: {
       /**
-       * sumKey: string | function
        * order: d => orderValue,
        * orderNatural: boolean (not compatable with order),
        */

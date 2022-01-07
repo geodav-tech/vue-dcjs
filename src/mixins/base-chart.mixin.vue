@@ -85,7 +85,7 @@ export default {
           this.render()
           this.$nextTick(() => {
             this.$emit('post-render', this.chart)
-            return resolve()
+            return resolve(this.chart)
           })
         })
       })

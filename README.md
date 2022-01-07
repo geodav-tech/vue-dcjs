@@ -19,6 +19,10 @@ Vue.use(VueDc)
 - [`<dc-pie-chart>`](./src/components/dc-pie-chart)
 - [`<dc-row-chart>`](./src/components/dc-row-chart)
 
+### mixins
+- [BaseChartMixin](./src/mixins#base-chart)
+- [DimensionMixin](./src/mixins/#dimension)
+- [GroupMixin]('./src/mixins/#group)
 
 #
 

@@ -1,4 +1,5 @@
 ### <dc-checklist>
+- [Home](../../../#available-components)
 
 ### Options
 | Name | Type | Default | Description |

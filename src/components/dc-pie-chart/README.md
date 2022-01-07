@@ -1,4 +1,5 @@
 ### <dc-pie-chart>
+- [Home](../../../#available-components)
 
 ### extends
 - [BaseChartMixin](../../mixins#base-chart)
