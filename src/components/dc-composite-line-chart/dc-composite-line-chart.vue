@@ -32,14 +32,13 @@ export default {
     }
   },
   methods: {
-    createChart () {
+    createChart() {
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
 
       let { elastic, keyAccessor, renderArea } = this.computedOptions
 
-      this.chart = new this.$dc.CompositeChart(`#chart-${this._uid}`)
-        .dimension(this.$options.dimension)
+      this.chart = new this.$dc.CompositeChart(`#chart-${this._uid}`).dimension(this.$options.dimension)
 
       this.$super(BaseChartMixin).createChart()
       this.applyAxisOptions()
@@ -49,17 +48,17 @@ export default {
       }
 
       if (!this.computedAxisOptions.x?.x) {
-        let keyAccessor = accessorFunc(this.computedOptions.keyAccessor || (d => d.key))
+        let keyAccessor = accessorFunc(this.computedOptions.keyAccessor || ((d) => d.key))
         let top = keyAccessor(this.$options.dimension.top(1)[0])
         let bottom = keyAccessor(this.$options.dimension.bottom(1)[0])
         this.chart.x(this.$d3.scaleLinear().domain([bottom, top]))
       }
 
-      let groupCharts = this.groups.map(chartGroup => {
+      let groupCharts = this.groups.map((chartGroup) => {
         let groupChart = new this.$dc.LineChart(this.chart)
           .group(group, chartGroup.name)
-          .valueAccessor(accessorFunc(chartGroup.valueAccessor || (d => d.value)))
-          .keyAccessor(accessorFunc(keyAccessor || (d => d.key)))
+          .valueAccessor(accessorFunc(chartGroup.valueAccessor || ((d) => d.value)))
+          .keyAccessor(accessorFunc(keyAccessor || ((d) => d.key)))
         if (renderArea || chartGroup.renderArea) {
           groupChart.renderArea(true)
         }
@@ -76,6 +75,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

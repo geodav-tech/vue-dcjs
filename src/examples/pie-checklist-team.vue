@@ -1,18 +1,13 @@
 <template>
   <div class="pie-checklist-container example-container">
     <div class="flex-container">
-      <pie-team :ndx="computedNdx" class="flex-item" @post-render="chart => pieChart = chart"/>
-      <div class="flex-item" style="padding-left: 1rem;">
+      <pie-team :ndx="computedNdx" class="flex-item" @post-render="(chart) => (pieChart = chart)" />
+      <div class="flex-item" style="padding-left: 1rem">
         <label class="example-label">
           <a href="" target="_blank">Checklist</a>
           for pie chart
         </label>
-        <dc-checklist
-          v-if="pieChart"
-          :chart="pieChart"
-          :digits="0"
-          :max-height="324"
-        />
+        <dc-checklist v-if="pieChart" :chart="pieChart" :digits="0" :max-height="324" />
       </div>
     </div>
   </div>
@@ -25,23 +20,24 @@ import PieTeam from './pie-team.vue'
 export default {
   components: { DcChecklist, PieTeam },
   props: {
-    ndx: { // if not passed we will construct our own
+    ndx: {
+      // if not passed we will construct our own
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       pieChart: null,
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }

@@ -1,5 +1,5 @@
 import { CapMixin, ColorMixin, MarginMixin, transition } from 'dc'
-import {axisBottom, extent as d3Extent, scaleLinear} from 'd3'
+import { axisBottom, extent as d3Extent, scaleLinear } from 'd3'
 
 // https://gist.github.com/ialarmedalien/ebca7eeb67c6d0b0a7809c46ef160cd0
 // Adapted into a class implementation by shawn@geodav.tech
@@ -30,7 +30,7 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
   validAxisTypes = ['axisBottom', 'axisTop', 'axisLeft', 'axisRight']
   axisCap
 
-  calculateAxisScale () {
+  calculateAxisScale() {
     if (!this._scale || this._elastic) {
       var extent = d3Extent(this._axisData, (d, i) => this.cappedValueAccessor(d, i))
       if (extent[0] > 0) {
@@ -39,13 +39,14 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
       if (extent[1] < 0) {
         extent[1] = 0
       }
-      this._scale = scaleLinear().domain(extent)
-        .range([0, (this._type === 'axisBottom' || this._type === 'axisTop' ? this.effectiveWidth() : this.effectiveHeight())])
+      this._scale = scaleLinear()
+        .domain(extent)
+        .range([0, this._type === 'axisBottom' || this._type === 'axisTop' ? this.effectiveWidth() : this.effectiveHeight()])
     }
     this._theAxis.scale(this._scale)
   }
 
-  drawAxis () {
+  drawAxis() {
     var axisG = this._g.select('g.axis')
 
     this.calculateAxisScale()
@@ -97,21 +98,21 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
    * @param {d3.scale} [scale] any value d3 scale
    * @returns {d3.scale|dc.axisChart} no args: chart scale; args: axis chart
    */
-  scale (scale) {
+  scale(scale) {
     if (!arguments.length) {
       return this._scale
     }
     this._scale = scale
     return this
   }
-  
+
   /**
    * Get or set the elasticity on the axis. If this attribute is set to true,
    * then the axis will rescale to auto-fit the data range when filtered.
    * @param {Boolean} [elastic] any valid boolean
    * @returns {Boolean|dc.axisChart} no args: boolean; args: axis chart
    */
-  elastic (elastic) {
+  elastic(elastic) {
     if (!arguments.length) {
       return this._elastic
     }
@@ -135,12 +136,12 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
     return this._theAxis
   }
 
-  drawChart () {
+  drawChart() {
     this._axisData = this.data()
     this.drawAxis()
   }
 
-  _doRedraw () {
+  _doRedraw() {
     this.drawChart()
     return this
   }

@@ -13,7 +13,7 @@ Vue.prototype.$super = function (options) {
       if (options.methods && name in options.methods) {
         return options.methods[name].bind(this)
       }
-    },
+    }
   })
 }
 
@@ -21,5 +21,5 @@ Vue.use(dcPlugin)
 
 new Vue({
   router,
-  render: (h) => h(App),
+  render: (h) => h(App)
 }).$mount('#app')

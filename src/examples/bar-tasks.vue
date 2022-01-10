@@ -17,15 +17,16 @@
           left: 60,
           bottom: 60
         },
-        filterFunction: (filters, item) => ((filters.includes('none') && (!item.tasks || !item.tasks.length)) || item.tasks.some(task => filters.includes(task)))
+        filterFunction: (filters, item) =>
+          (filters.includes('none') && (!item.tasks || !item.tasks.length)) || item.tasks.some((task) => filters.includes(task))
       }"
-      :dimension-constructor="d => d"
+      :dimension-constructor="(d) => d"
       :reducer="{
         add: (p, v) => {
           if (!v.tasks || !v.tasks.length) {
             p.none = (p.none || 0) + v.hours
           } else {
-            v.tasks.forEach(task => {
+            v.tasks.forEach((task) => {
               p[task] = (p[task] || 0) + v.hours
             })
           }
@@ -35,7 +36,7 @@
           if (!v.tasks || !v.tasks.length) {
             p.none = (p.none || 0) - v.hours
           } else {
-            v.tasks.forEach(task => {
+            v.tasks.forEach((task) => {
               p[task] = (p[task] || 0) - v.hours
             })
           }
@@ -54,28 +55,27 @@ import sampleData from '../sample-data.js'
 export default {
   components: { DcBarChart },
   props: {
-    ndx: { // if not passed we will construct our own
+    ndx: {
+      // if not passed we will construct our own
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

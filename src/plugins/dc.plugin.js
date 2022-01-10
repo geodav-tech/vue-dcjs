@@ -9,11 +9,11 @@ dc.AxisChart = AxisChart
 /**
  * import DcPlugin from 'this.file'
  * Vue.use(DcPlugin)
- * 
+ *
  * binds dc, d3, and crossfilter to vue via $dc, $d3, $crossfilter
  */
 const DcPlugin = {
-  install (Vue, options) {
+  install(Vue, options) {
     if (options?.defaultColors) {
       dc.config.defaultColors = options.defaultColors
     }
@@ -25,9 +25,4 @@ const DcPlugin = {
 }
 
 export default DcPlugin
-export {
-  DcPlugin,
-  dc,
-  d3,
-  crossfilter
-}
+export { DcPlugin, dc, d3, crossfilter }

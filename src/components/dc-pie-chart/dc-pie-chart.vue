@@ -21,13 +21,10 @@ export default {
     labelWrapSeparator: ';|;' // if using improved labels you can separate key and value by this separator
   },
   methods: {
-    createChart () {
+    createChart() {
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
-      this.chart = new this.$dc.PieChart(`#chart-${this._uid}`)
-        .dimension(this.$options.dimension)
-        .group(group)
-        .externalRadiusPadding(12)
+      this.chart = new this.$dc.PieChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group).externalRadiusPadding(12)
       this.$super(BaseChartMixin).createChart()
 
       let radius = this.getRadius()
@@ -43,7 +40,7 @@ export default {
       }
       if (innerRadius) {
         // either exact number or 'X%' e.g. '50%'
-        let ir = typeof innerRadius === 'number' ? innerRadius : radius * (parseInt(innerRadius) || 0) / 100
+        let ir = typeof innerRadius === 'number' ? innerRadius : (radius * (parseInt(innerRadius) || 0)) / 100
         this.chart.innerRadius(ir)
       }
 
@@ -56,7 +53,7 @@ export default {
 
         const labelPosition = (d, arc) => {
           const centroid = arc.centroid(d)
-          if (centroid.some(coord => isNaN(coord))) {
+          if (centroid.some((coord) => isNaN(coord))) {
             return [0, 0]
           } else {
             return centroid
@@ -101,7 +98,7 @@ export default {
           this.chart.selectAll('.pie-label-group text.pie-label').transition().call(wrap)
         }
 
-        this.chart.on('renderlet', chart => {
+        this.chart.on('renderlet', (chart) => {
           const radius = this.getRadius()
           if (this.chart.radius() !== radius) {
             this.chart.height(radius)
@@ -112,19 +109,21 @@ export default {
         this.chart.on('pretransition', handleLabelTransition)
       }
     },
-    renderChart () {
-      return new Promise(resolve => {
-        this.$super(BaseChartMixin).renderChart().then(() => {
-          this.$nextTick(() => {
-            if (this.computedOptions.useImprovedLabels) {
-              this.chart.redraw() // fix label position
-            }
-            return resolve()
+    renderChart() {
+      return new Promise((resolve) => {
+        this.$super(BaseChartMixin)
+          .renderChart()
+          .then(() => {
+            this.$nextTick(() => {
+              if (this.computedOptions.useImprovedLabels) {
+                this.chart.redraw() // fix label position
+              }
+              return resolve()
+            })
           })
-        })
       })
     },
-    getRadius () {
+    getRadius() {
       let container = document.querySelector(`#chart-${this._uid}`)
       if (!container) {
         return 0
@@ -139,7 +138,6 @@ export default {
       return constrain(suggestedRadius, minRadius, maxRadius)
     }
   }
-
 }
 </script>
 

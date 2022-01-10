@@ -1,13 +1,6 @@
 // it seems important to use FULL filenames with extensions
-import {DcPlugin, dc, d3, crossfilter} from './plugins/dc.plugin.js'
-import {
-  DcBarChart,
-  DcChecklist,
-  DcCompositeLineChart,
-  DcDateChart,
-  DcPieChart,
-  DcRowChart
-} from './components'
+import { DcPlugin, dc, d3, crossfilter } from './plugins/dc.plugin.js'
+import { DcBarChart, DcChecklist, DcCompositeLineChart, DcDateChart, DcPieChart, DcRowChart } from './components'
 
 const defaultOptions = {
   registerComponents: true // Vue.component(everything) by default? will use dc-chart-name for prefixes
@@ -15,7 +8,7 @@ const defaultOptions = {
 }
 
 const VueDc = {
-  install (Vue, _options) {
+  install(Vue, _options) {
     const options = Object.assign({}, defaultOptions, options)
     // hmm do we prevent this from polluting the namespace?
     // what if the user overrides $super in their code??
@@ -27,7 +20,7 @@ const VueDc = {
           if (options.methods && name in options.methods) {
             return options.methods[name].bind(this)
           }
-        },
+        }
       })
     }
 
@@ -48,9 +41,4 @@ const VueDc = {
 
 // fix warning prefer_named_exports by naming this export
 export * from './components'
-export {
-  VueDc,
-  dc,
-  d3,
-  crossfilter
-}
+export { VueDc, dc, d3, crossfilter }

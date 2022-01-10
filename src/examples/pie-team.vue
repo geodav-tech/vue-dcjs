@@ -7,10 +7,10 @@
     <dc-pie-chart
       :ndx="computedNdx"
       :options="{
-        title: d =>`${d.key}: ${d.value.toFixed(2)} hours`,
+        title: (d) => `${d.key}: ${d.value.toFixed(2)} hours`,
         slicesCap: 6,
         maxRadius: 300,
-        label: d => `${d.key};|;${d.value.toFixed(0)}`
+        label: (d) => `${d.key};|;${d.value.toFixed(0)}`
       }"
       dimension-constructor="team"
       reducer="hours"
@@ -26,28 +26,27 @@ import { DcPieChart } from '../components'
 export default {
   components: { DcPieChart },
   props: {
-    ndx: { // if not passed we will construct our own
+    ndx: {
+      // if not passed we will construct our own
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

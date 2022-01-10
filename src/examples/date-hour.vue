@@ -1,16 +1,10 @@
 <template>
   <div class="example-container date-hour-container">
     <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-date-chart" target="_blank">
-        Date chart
-      </a>
+      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-date-chart" target="_blank"> Date chart </a>
       showing hours
     </label>
-    <dc-date-chart
-      :ndx="computedNdx"
-      :options="{}"
-      reducer="hours"
-    />
+    <dc-date-chart :ndx="computedNdx" :options="{}" reducer="hours" />
   </div>
 </template>
 
@@ -27,24 +21,22 @@ export default {
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

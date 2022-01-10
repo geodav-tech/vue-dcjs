@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     createDimension() {
-      let dimensionAccessor = d => d
+      let dimensionAccessor = (d) => d
       if (typeof this.dimensionConstructor === 'string') {
         dimensionAccessor = this.$dc.pluck(this.dimensionConstructor)
       } else if (typeof this.dimensionConstructor === 'function') {
@@ -24,6 +24,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

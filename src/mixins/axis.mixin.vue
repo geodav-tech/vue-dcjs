@@ -4,7 +4,7 @@ export default {
     /**
      * x: AxisOptions,
      * y: AxisOptions,
-     * 
+     *
      * AxisOptions: {
      *  x: scale,
      *  y: scale,
@@ -14,7 +14,8 @@ export default {
      *  size: number
      * }
      */
-    axisOptions: { // can also be in this.options
+    axisOptions: {
+      // can also be in this.options
       type: Object
     }
   },
@@ -79,8 +80,8 @@ export default {
     }
   },
   computed: {
-    computedAxisOptions () {
-      let options = {x: null, y: null}
+    computedAxisOptions() {
+      let options = { x: null, y: null }
       if (this.computedOptions.xAxis) {
         options.x = Object.assign({}, this.computedOptions.xAxis)
       }

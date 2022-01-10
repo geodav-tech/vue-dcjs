@@ -21,29 +21,29 @@ import PieTeam from './pie-team.vue'
 import RowUsers from './row-users.vue'
 
 export default {
-  components: { BarTasks, BarTeam, CompositeLineMetric, DateHour, PieChecklistTeam, PieTeam, RowUsers},
-  data () {
+  components: { BarTasks, BarTeam, CompositeLineMetric, DateHour, PieChecklistTeam, PieTeam, RowUsers },
+  data() {
     return {
       ndx: null
     }
   },
-  created () {
+  created() {
     this.ndx = this.$crossfilter(sampleData)
   }
 }
 </script>
 
 <style>
-  .examples-page > .example-container {
-    margin-top: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid gainsboro;  
-  }
+.examples-page > .example-container {
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid gainsboro;
+}
 
-  .examples-page .example-label {
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-decoration: underline;
-  }
+.examples-page .example-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: underline;
+}
 </style>

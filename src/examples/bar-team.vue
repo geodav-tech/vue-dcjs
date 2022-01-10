@@ -23,28 +23,27 @@ import sampleData from '../sample-data'
 export default {
   components: { DcBarChart },
   props: {
-    ndx: { // if not passed we will construct our own
+    ndx: {
+      // if not passed we will construct our own
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

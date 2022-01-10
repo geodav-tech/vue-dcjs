@@ -8,9 +8,9 @@
       v-if="computedNdx"
       :ndx="computedNdx"
       :options="{
-        label: d => d.key.split('.').slice(1).join('.')
+        label: (d) => d.key.split('.').slice(1).join('.')
       }"
-      :dimension-constructor="d => `${d.user_id}.${d.name}`"
+      :dimension-constructor="(d) => `${d.user_id}.${d.name}`"
       reducer="hours"
     />
   </div>
@@ -23,28 +23,27 @@ import sampleData from '../sample-data.js'
 export default {
   components: { DcRowChart },
   props: {
-    ndx: { // if not passed we will construct our own
+    ndx: {
+      // if not passed we will construct our own
       type: Object
     }
   },
-  data () {
+  data() {
     return {
       constructedNdx: null
     }
   },
-  mounted () {
+  mounted() {
     if (!this.ndx) {
       this.constructedNdx = this.$crossfilter(sampleData)
     }
   },
   computed: {
-    computedNdx () {
+    computedNdx() {
       return this.ndx || this.constructedNdx
     }
   }
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

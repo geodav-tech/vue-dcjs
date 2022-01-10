@@ -21,22 +21,20 @@ export default {
     scrollHeight: '200px',
     scrollbarPadding: 8 // about the width of the scroll bar we are padding
   },
-  data () {
+  data() {
     return {
       axisChart: null
     }
   },
   methods: {
-    createChart () {
+    createChart() {
       // merge in default options
       let { elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
-      
-      this.chart = new this.$dc.RowChart(`#chart-${this._uid}`)
-        .dimension(this.$options.dimension)
-        .group(group)
-      
+
+      this.chart = new this.$dc.RowChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group)
+
       this.$super(BaseChartMixin).createChart()
       let rowChartMargin = scrollable ? Object.assign({}, this.computedMargins, { bottom: -1 }) : this.computedMargins
       this.chart.margins(rowChartMargin)
@@ -66,13 +64,13 @@ export default {
         }
       }
     },
-    render () {
+    render() {
       this.$super(BaseChartMixin).render()
       this.axisChart?.render()
     }
   },
   computed: {
-    computedStyle () {
+    computedStyle() {
       let styles = []
       if (this.computedOptions.scrollable) {
         styles.push('overflow-y: auto; overflow-x: hidden;')
@@ -82,8 +80,12 @@ export default {
       }
       return styles.join('; ')
     },
-    computedMargins () {
-      let margins = Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
+    computedMargins() {
+      let margins = Object.assign(
+        { top: 30, right: 30, bottom: 30, left: 30 },
+        this.$options.defaultOptions?.margins,
+        this.options?.margins
+      )
       const { scrollable, scrollbarPadding } = this.computedOptions
       if (scrollable && scrollbarPadding) {
         margins.right += scrollbarPadding
@@ -94,6 +96,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

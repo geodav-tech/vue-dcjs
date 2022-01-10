@@ -9,8 +9,8 @@
     <div class="dc-checkbox-container">
       <div class="dc-checkbox" v-for="item in shownGroups" :key="item.key" @click="toggleFilterFor(item.key)">
         <slot name="option" v-bind:option="item" v-bind:value="inFilter.includes(item.key)">
-          <span class="dc-option-box" :class="{'selected': inFilter.includes(item.key)}" />
-          <span class="dc-option-label" :class="{'selected': inFilter.includes(item.key)}">
+          <span class="dc-option-box" :class="{ selected: inFilter.includes(item.key) }" />
+          <span class="dc-option-label" :class="{ selected: inFilter.includes(item.key) }">
             {{ item.key }} ({{ item.value | formatFilter(computedDigits) }})
           </span>
         </slot>
@@ -32,7 +32,8 @@ export default {
       type: Boolean,
       default: true
     },
-    search: { // if you want to override search string functionality
+    search: {
+      // if you want to override search string functionality
       type: String,
       default: ''
     },
@@ -44,7 +45,8 @@ export default {
     digits: {
       type: Number
     },
-    maxHeight: { // will make checkboxes scrollable with a max-height
+    maxHeight: {
+      // will make checkboxes scrollable with a max-height
       type: [String, Number],
       default: null
     },
@@ -52,7 +54,7 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       groupFilter: '',
       groups: [],
@@ -62,7 +64,7 @@ export default {
       waitingTimer: 1
     }
   },
-  mounted () {
+  mounted() {
     if (this.dcChart) {
       this.reset()
     } else {
@@ -70,17 +72,17 @@ export default {
     }
   },
   watch: {
-    dcChart (to, from) {
-      this.reset()  
+    dcChart(to, from) {
+      this.reset()
     },
-    search () {
+    search() {
       if (this.search != this.groupFilter) {
         this.groupFilter = this.search
       }
     }
   },
-  filters: { 
-    formatFilter (value, digits) {
+  filters: {
+    formatFilter(value, digits) {
       if (digits || digits === 0) {
         return value.toFixed(digits)
       } else {
@@ -89,42 +91,49 @@ export default {
     }
   },
   methods: {
-    reset () {
+    reset() {
       this.resetFilters()
       this.updateListValues()
       this.watchChartChanges()
     },
-    resetFilters () {
+    resetFilters() {
       // set the inFilter to match the chart
       this.inFilter = Array.from(new Set(flat(this.dcChart.filters())))
       this.groupFilter = ''
     },
-    updateListValues () {
+    updateListValues() {
       // deep copy the groups so values do not get messed up when filtering
-      this.groups = JSON.parse(JSON.stringify(this.dcChart.group().order((value) => this.valueAccessor({ value })).top(Infinity)))
+      this.groups = JSON.parse(
+        JSON.stringify(
+          this.dcChart
+            .group()
+            .order((value) => this.valueAccessor({ value }))
+            .top(Infinity)
+        )
+      )
       if (this.options.slicesCap || this.othersLimit) {
-        this.others = this.groups.slice(this.options.slicesCap || this.othersLimit).map(d => d.key)
+        this.others = this.groups.slice(this.options.slicesCap || this.othersLimit).map((d) => d.key)
       } else {
         this.others = []
       }
     },
-    checkOthersFilterToggled () {
+    checkOthersFilterToggled() {
       // fix issue where a category would get excluded by mistake when:
       // - check a box in the 'others' category from this list
       // - click the 'others' category on the pie chart after
       // check for this case and add back in the category you clicked if necessary
       let currentFilters = this.dcChart.filters()
       let othersLabel = this.othersLabel || this.options.othersLabel || 'others'
-      const fixFilters = this.others.filter(k => !currentFilters.includes(k) && this.inFilter.includes(k))
+      const fixFilters = this.others.filter((k) => !currentFilters.includes(k) && this.inFilter.includes(k))
       if (currentFilters.includes(othersLabel) && fixFilters.length) {
         currentFilters.push(...fixFilters)
         this.inFilter = currentFilters
         this.dcChart.replaceFilter([currentFilters])
       }
     },
-    toggleFilterFor (key) {
+    toggleFilterFor(key) {
       if (this.inFilter.includes(key)) {
-        this.inFilter = this.inFilter.filter(k => k !== key)
+        this.inFilter = this.inFilter.filter((k) => k !== key)
       } else {
         this.inFilter.push(key)
       }
@@ -135,11 +144,11 @@ export default {
       this.dcChart.replaceFilter([this.inFilter])
       this.$nextTick(() => this.$dc.redrawAll())
     },
-    updateSearch () {
+    updateSearch() {
       this.$emit('update:search', this.groupFilter)
       this.$emit('update-search', this.groupFilter)
     },
-    watchChartChanges () {
+    watchChartChanges() {
       this.dcChart.on('renderlet', () => {
         this.updateListValues()
       })
@@ -151,49 +160,52 @@ export default {
         })
       })
     },
-    waitForChartInit (firstTry = false) {
-      this.waitInterval = setInterval(() => {
-        this.waitingTimer = ((this.waitingTimer + 1) % 100) + 1
-        this.$nextTick(() => {
-          if (this.dcChart) {
-            this.reset()
-            clearInterval(this.waitInterval)
-            this.waitInterval = null
-          }
-        })
-      }, firstTry ? 50 : 300)
+    waitForChartInit(firstTry = false) {
+      this.waitInterval = setInterval(
+        () => {
+          this.waitingTimer = ((this.waitingTimer + 1) % 100) + 1
+          this.$nextTick(() => {
+            if (this.dcChart) {
+              this.reset()
+              clearInterval(this.waitInterval)
+              this.waitInterval = null
+            }
+          })
+        },
+        firstTry ? 50 : 300
+      )
     }
   },
   computed: {
-    dcChart () {
+    dcChart() {
       // add waitingTimer (reactive) to the computed property as a dependency since this.$dc.chartRegistry.list() is not reactive
       if (typeof this.chart === 'string' && this.waitingTimer) {
-        return this.$dc.chartRegistry.list().find(c => c.name === this.chart)
+        return this.$dc.chartRegistry.list().find((c) => c.name === this.chart)
       } else {
         return this.chart
       }
     },
-    shownGroups () {
+    shownGroups() {
       if (!this.groupFilter || !this.groupFilter.length) {
         return this.groups
       } else {
-        return this.groups.filter(g => {
+        return this.groups.filter((g) => {
           const reg = new RegExp(this.groupFilter, 'gi')
           return reg.test(g.key)
         })
       }
     },
-    valueAccessor () {
-      return accessorFunc(this.options.valueAccessor || (d => d.value))
+    valueAccessor() {
+      return accessorFunc(this.options.valueAccessor || ((d) => d.value))
     },
-    computedDigits () {
+    computedDigits() {
       if (this.digits || this.digits === 0) {
         return this.digits
       } else {
         return this.options.digits
       }
     },
-    computedStyle () {
+    computedStyle() {
       let styles = []
       if (this.maxHeight) {
         styles.push('overflow-y: auto')
@@ -219,47 +231,47 @@ export default {
 </script>
 
 <style>
-  .dc-check-list-container {
-    text-align: left;
-    width: 100%;
-  }
-  .dc-check-list-container .dc-search-input-container .dc-search-input-label {
-    display: block;
-    font-weight: bold;
-    font-size: 0.85rem;
-    margin-bottom: -0.25rem;
-  }
-  .dc-check-list-container .dc-search-input-container .dc-search-input {
-    border-radius: 0.25rem;
-    padding: 0.25rem;
-    width: calc(100% - 1.25rem);
-    border-color: black;
-  }
+.dc-check-list-container {
+  text-align: left;
+  width: 100%;
+}
+.dc-check-list-container .dc-search-input-container .dc-search-input-label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: -0.25rem;
+}
+.dc-check-list-container .dc-search-input-container .dc-search-input {
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  width: calc(100% - 1.25rem);
+  border-color: black;
+}
 
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
+.dc-check-list-container .dc-checkbox-container .dc-checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox:nth-child(2n) {
-    background-color: whitesmoke;
-  }
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox .dc-option-box {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0.25rem;
-    margin: 0.25rem;
-    border: 2px solid black;
-  }
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox .dc-option-box.selected {
-    background-color: rgb(56, 140, 230, 1);
-  }
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox:hover .dc-option-box {
-    background-color: rgba(56, 140, 230, 0.25);
-  }
-  .dc-check-list-container .dc-checkbox-container .dc-checkbox:hover .dc-option-box.selected {
-    background-color: rgba(56, 140, 230, 0.75);
-  }
+.dc-check-list-container .dc-checkbox-container .dc-checkbox:nth-child(2n) {
+  background-color: whitesmoke;
+}
+.dc-check-list-container .dc-checkbox-container .dc-checkbox .dc-option-box {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  margin: 0.25rem;
+  border: 2px solid black;
+}
+.dc-check-list-container .dc-checkbox-container .dc-checkbox .dc-option-box.selected {
+  background-color: rgb(56, 140, 230, 1);
+}
+.dc-check-list-container .dc-checkbox-container .dc-checkbox:hover .dc-option-box {
+  background-color: rgba(56, 140, 230, 0.25);
+}
+.dc-check-list-container .dc-checkbox-container .dc-checkbox:hover .dc-option-box.selected {
+  background-color: rgba(56, 140, 230, 0.75);
+}
 </style>

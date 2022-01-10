@@ -5,7 +5,8 @@ export default {
   dimension: null, //crossfilter.dimension
   myName: 'baseChart',
   props: {
-    ndx: { // crossfilter object. e.g. this.$crossfilter(dataArray)
+    ndx: {
+      // crossfilter object. e.g. this.$crossfilter(dataArray)
       type: Object,
       required: true
     },
@@ -18,7 +19,7 @@ export default {
   },
   baseDefaultOptions: {
     disposeDimension: true,
-    render: true, // set false to stop rendering on startup
+    render: true // set false to stop rendering on startup
     // beforeDestroy: dimension.dispose()
     // valueAccessor: string, function,
     // margins: {top, left, bottom, right},
@@ -26,16 +27,16 @@ export default {
     // title: string, function,
     // label: string, function
   },
-  data () {
+  data() {
     return {
       chart: null
     }
   },
-  mounted () {
+  mounted() {
     this.drawChart()
   },
   methods: {
-    reset () {
+    reset() {
       if (this.chart) {
         this.chart.filter(null)
       }
@@ -78,7 +79,7 @@ export default {
       }
     },
     // allows children to hook into pre/post render hooks
-    renderChart () {
+    renderChart() {
       return new Promise((resolve) => {
         this.$emit('pre-render', this.chart)
         this.$nextTick(() => {
@@ -90,10 +91,11 @@ export default {
         })
       })
     },
-    render () { // to be extended by children if needed
+    render() {
+      // to be extended by children if needed
       this.chart.render()
     },
-    addChartExtras () {
+    addChartExtras() {
       if (this.name || this.computedOptions.name) {
         this.chart.name = this.name || this.computedOptions.name
       }
@@ -102,19 +104,19 @@ export default {
     }
   },
   computed: {
-    computedMargins () {
+    computedMargins() {
       if (typeof this.computedOptions.margins === 'number') {
-        let margin = this.computedOptions.margins 
+        let margin = this.computedOptions.margins
         return { top: margin, left: margin, right: margin, bottom: margin }
       } else {
         return Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
       }
     },
-    computedOptions () {
+    computedOptions() {
       return Object.assign({}, this.$options.baseDefaultOptions, this.$options.defaultOptions, this.options)
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
     if (this.chart) {
       // fix problems where things that change keys have filters that you can never recover data from
       // clear all filters from dimension when chart is destroyed.
@@ -139,6 +141,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

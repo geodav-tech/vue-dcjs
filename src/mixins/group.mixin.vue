@@ -4,7 +4,7 @@ export default {
   name: 'GroupMixin',
   props: {
     reducer: {
-      type: [String, Function, Object],
+      type: [String, Function, Object]
     },
     groupOptions: {
       /**
@@ -20,7 +20,7 @@ export default {
 
       if (this.groupOptions && this.groupOptions.order) {
         if (typeof this.groupOptions.order === 'string') {
-          group.order(d => d[this.groupOptions.order])
+          group.order((d) => d[this.groupOptions.order])
         } else if (typeof this.groupOptions.order === 'function') {
           group.order(this.groupOptions.order)
         }
@@ -45,7 +45,7 @@ export default {
         top: function (number = 1) {
           if (isGroupAll) {
             return Object.entries(group.value())
-              .map(([key, value]) => ({key, value}))
+              .map(([key, value]) => ({ key, value }))
               .sort((a, b) => valueFunc(b.value) - valueFunc(a.value))
               .slice(0, number)
           } else {
@@ -56,7 +56,7 @@ export default {
           var ret = []
           if (isGroupAll) {
             ret = Object.entries(group.value())
-              .map(([key, value]) => ({key, value}))
+              .map(([key, value]) => ({ key, value }))
               .sort((a, b) => valueFunc(b.value) - valueFunc(a.value))
           } else {
             ret = group.order((d) => valueFunc(d)).top(Infinity)
@@ -80,9 +80,9 @@ export default {
             this.all()
           }
           return _int2ord[i]
-        },
+        }
       }
-    },
-  },
+    }
+  }
 }
 </script>
