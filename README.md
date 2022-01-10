@@ -20,15 +20,17 @@ Vue.use(VueDc)
 ### available components
 - [`<dc-bar-chart>`](./src/components/dc-bar-chart)
 - [`<dc-checklist>`](./src/components/dc-checklist)
+- [`<dc-composite-line-chart>`]('./src/components/dc-composite-line-chart')
+- [`<dc-date-chart`](./src/components/dc-date/chart)
 - [`<dc-pie-chart>`](./src/components/dc-pie-chart)
 - [`<dc-row-chart>`](./src/components/dc-row-chart)
-- [`<dc-date-chart`](./src/components/dc-date/chart)
 
 ### mixins
 - [BaseChartMixin](./src/mixins#base-chart)
 - [DimensionMixin](./src/mixins/#dimension)
 - [GroupMixin]('./src/mixins/#group)
-- [AxisMixin]('./src/mixin/#axis)
+- [AxisMixin]('./src/mixins/#axis)
+- [LegendMixin]('./src/mixins/#axis)
 
 #
 

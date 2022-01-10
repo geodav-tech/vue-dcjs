@@ -63,7 +63,7 @@ export default {
         applyValues(xAxis, xAxisOptions.values)
         applySize(xAxis, xAxisOptions.size)
         if (xAxisOptions.x && typeof this.chart.x === 'function') {
-          this.chart.x(xAxisOptions.x)
+          this.chart.x(xAxisOptions.x(this.$options.dimension))
         }
       }
 
@@ -73,7 +73,7 @@ export default {
         applyValues(yAxis, yAxisOptions.values)
         applySize(yAxis, yAxisOptions.size)
         if (yAxisOptions.y && typeof this.chart.y === 'function') {
-          this.chart.y(yAxisOptions.y)
+          this.chart.y(yAxisOptions.y(this.$options.dimension))
         }
       }
     }

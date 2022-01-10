@@ -58,7 +58,7 @@ export default {
         this.chart.valueAccessor(accessorFunc(valueAccessor))
       }
       if (margins) {
-        this.chart.margins(margins)
+        this.chart.margins(this.computedMargins)
       }
       if (keyAccessor) {
         this.chart.keyAccessor(accessorFunc(keyAccessor))
@@ -103,7 +103,12 @@ export default {
   },
   computed: {
     computedMargins () {
-      return Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
+      if (typeof this.computedOptions.margins === 'number') {
+        let margin = this.computedOptions.margins 
+        return { top: margin, left: margin, right: margin, bottom: margin }
+      } else {
+        return Object.assign({ top: 30, right: 30, bottom: 30, left: 30 }, this.$options.defaultOptions?.margins, this.options?.margins)
+      }
     },
     computedOptions () {
       return Object.assign({}, this.$options.baseDefaultOptions, this.$options.defaultOptions, this.options)

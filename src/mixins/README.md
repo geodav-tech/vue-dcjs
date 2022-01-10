@@ -96,3 +96,35 @@ handles `dimension.group()` or `dimension.groupAll()` based functions. Includes 
 ### methods
 `applyAxisOptions(): void`
 apply the options specified in either the `axisOptions` prop or `computedOptions.axisOptions`
+
+
+
+# legend
+Adds legend capability and options to any chart that extends this mixin
+
+### props
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| legend | boolean | | set true to show legend, or use some form of legendOptions.legend or legendOptions.showLegend |
+| legendOptions | object | | legendOptions as a property or use options.legendOptions |
+
+### option
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| autoWidth | boolean | false | automatically adjust the width of the legend items using dc.legend.autoWidth |
+| itemWidth | number | | manually set the width of each legendItem |
+| gap | number | | manually adjust the gap between legend items |
+| highlightSelected | string | | highlight this key in the legend |
+| horizontal | boolean | false | make this legend horizontal instead of vertical |
+| itemHeight | number | | height of each legend item |
+| keyboardAccessible | boolean | false | individual legend items will be focusable from keyboard by pressing enter or space will behave as if clicked on. |
+| legendText | d => text | group name | sets the function which will display the legend item text. defaults to the name of the group |
+| legendWidth | number | 500 | sets the maximum width of the horizontal legend |
+| maxItems | number | | sets the maximum number of legend items to display |
+| x | number | 0 | sets the x position of the legend |
+| y | number | 0 | sets the y position of the legend |
+
+### methods
+`applyLegendOptions(): void`
+use during createChart after chart creation and groups have been applied. Adds the legend with appropriate options to the chart (if applicable).
+

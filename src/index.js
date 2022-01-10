@@ -3,6 +3,7 @@ import {DcPlugin, dc, d3, crossfilter} from './plugins/dc.plugin.js'
 import {
   DcBarChart,
   DcChecklist,
+  DcCompositeLineChart,
   DcDateChart,
   DcPieChart,
   DcRowChart
@@ -37,6 +38,7 @@ const VueDc = {
     if (options.registerComponents) {
       Vue.component('dc-bar-chart', DcBarChart)
       Vue.component('dc-checklist', DcChecklist)
+      Vue.component('dc-composite-line-chart', DcCompositeLineChart)
       Vue.component('dc-date-chart', DcDateChart)
       Vue.component('dc-row-chart', DcRowChart)
       Vue.component('dc-pie-chart', DcPieChart)

@@ -6,20 +6,22 @@
     <bar-tasks :ndx="ndx" />
     <bar-team :ndx="ndx" />
     <date-hour :ndx="ndx" />
+    <composite-line-metric :ndx="ndx" />
   </div>
 </template>
 
 <script>
 import sampleData from '../sample-data'
-import RowUsers from './row-users.vue'
-import PieTeam from './pie-team.vue'
 import BarTasks from './bar-tasks.vue'
 import BarTeam from './bar-team.vue'
-import PieChecklistTeam from './pie-checklist-team.vue'
+import CompositeLineMetric from './composite-line-metric.vue'
 import DateHour from './date-hour.vue'
+import PieChecklistTeam from './pie-checklist-team.vue'
+import PieTeam from './pie-team.vue'
+import RowUsers from './row-users.vue'
 
 export default {
-  components: { RowUsers, PieTeam, BarTasks, BarTeam, PieChecklistTeam, DateHour },
+  components: { BarTasks, BarTeam, CompositeLineMetric, DateHour, PieChecklistTeam, PieTeam, RowUsers},
   data () {
     return {
       ndx: null
