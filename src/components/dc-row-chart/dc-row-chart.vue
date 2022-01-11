@@ -67,6 +67,9 @@ export default {
     render() {
       this.$super(BaseChartMixin).render()
       this.axisChart?.render()
+    },
+    callOnCreate() {
+      this.$emit('on-create', this.chart, this.axisChart)
     }
   },
   computed: {

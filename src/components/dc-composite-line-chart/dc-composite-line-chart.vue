@@ -31,6 +31,11 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      groupCharts: []
+    }
+  },
   methods: {
     createChart() {
       this.$options.dimension = this.createDimension()
@@ -54,7 +59,7 @@ export default {
         this.chart.x(this.$d3.scaleLinear().domain([bottom, top]))
       }
 
-      let groupCharts = this.groups.map((chartGroup) => {
+      this.groupCharts = this.groups.map((chartGroup) => {
         let groupChart = new this.$dc.LineChart(this.chart)
           .group(group, chartGroup.name)
           .valueAccessor(accessorFunc(chartGroup.valueAccessor || ((d) => d.value)))
@@ -68,8 +73,11 @@ export default {
         return groupChart
       })
 
-      this.chart.compose(groupCharts)
+      this.chart.compose(this.groupCharts)
       this.applyLegendOptions()
+    },
+    callOnCreate() {
+      this.$emit('on-create', this.chart, this.groupCharts)
     }
   }
 }

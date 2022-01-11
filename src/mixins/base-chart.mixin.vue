@@ -45,6 +45,9 @@ export default {
       // clear chart?
       this.createChart()
       this.addChartExtras()
+
+      this.callOnCreate()
+
       if (this.computedOptions.render) {
         this.renderChart()
       }
@@ -101,6 +104,10 @@ export default {
       }
       // set chart.vueOptions to be able to pass chart without having to additionally pass it's computedOptions
       this.chart.vueOptions = this.computedOptions
+    },
+    callOnCreate() {
+      // charts with multiple components may wish to pass extras. make this an overridable function
+      this.$emit('on-create', this.chart)
     }
   },
   computed: {

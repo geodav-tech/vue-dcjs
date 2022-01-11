@@ -19,6 +19,7 @@ Provides default functionality for any type of chart
 | margins | number, { top?: number, left?: number, bottom?: number, right?: number} | { top: 30, left: 30, right: 30, bottom: 30} | the spacing around each side of the chart body. pass a single number for all sides |
 | title | string, ({ key, value }) => string | d => \`${d.key}: ${d.value}\` | hoverable title from group |
 | label | string, ({ key, value }) => string | d => d.key | rendered title on top of bars/slices/etc |
+| onCreate | (chart) => void | | pass a callback function to make adjustments to the chart before being rendered |
 
 ### methods
 `reset(): void`

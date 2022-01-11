@@ -180,6 +180,9 @@ export default {
         const maxEnd = Math.floor(this.top / Math.min(8, Math.ceil(this.top / 12)))
         this.chart.focus([-1, maxEnd])
       }
+    },
+    callOnCreate() {
+      this.$emit('on-create', this.chart, this.scaleChart)
     }
   },
   computed: {
