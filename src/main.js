@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import dcPlugin from './plugins/dc.plugin'
+import { DcPlugin } from './plugins/dc.plugin'
+
 import router from './router'
 
 Vue.config.productionTip = false
@@ -17,7 +18,7 @@ Vue.prototype.$super = function (options) {
   })
 }
 
-Vue.use(dcPlugin)
+Vue.use(DcPlugin)
 
 new Vue({
   router,

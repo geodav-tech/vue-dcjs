@@ -3,8 +3,10 @@ import { DcPlugin, dc, d3, crossfilter } from './plugins/dc.plugin.js'
 import { DcBarChart, DcChecklist, DcCompositeLineChart, DcDateChart, DcPieChart, DcRowChart, DcStackedBarChart } from './components'
 
 const defaultOptions = {
-  registerComponents: true // Vue.component(everything) by default? will use dc-chart-name for prefixes
-  // defaultColors: for dc plugin, array of string colors (or I think there is a function definition as well)
+  registerComponents: true, // Vue.component(everything) by default? will use dc-chart-name for prefixes
+  // defaultColors: for dc.defaultOptions.defaultColors
+  // useWindowResize: window.addEventListener(resize => dc.renderAll())
+  // resizeTimeout how long to wait before calling the renderAll. prevents glitchy re-rendering if lots of resize events fire
 }
 
 const VueDc = {
@@ -25,6 +27,7 @@ const VueDc = {
     }
 
     // register $dc, $d3, $crossfilter
+    // also set up window resize watcher if specified
     Vue.use(DcPlugin, options)
 
     // register out of the box components

@@ -6,6 +6,12 @@ require('dc/dist/style/dc.min.css')
 
 dc.AxisChart = AxisChart
 
+const defaultOptions = {
+  // defaultColors: string[] of colors for ordinal charts
+  useWindowResize: true, // on window resize, resize the charts to best fit their space
+  resizeTimeout: 100 // wait at least this many ms to resize the charts (prevents glitching when slowly resizing the window)
+}
+
 /**
  * import DcPlugin from 'this.file'
  * Vue.use(DcPlugin)
@@ -13,14 +19,30 @@ dc.AxisChart = AxisChart
  * binds dc, d3, and crossfilter to vue via $dc, $d3, $crossfilter
  */
 const DcPlugin = {
-  install(Vue, options) {
+  install(Vue, _options) {
+    const options = Object.assign({}, defaultOptions, _options)
     if (options?.defaultColors) {
-      dc.config.defaultColors = options.defaultColors
+      dc.config.defaultColors(options.defaultColors)
     }
 
     Vue.prototype.$dc = dc
     Vue.prototype.$d3 = d3
     Vue.prototype.$crossfilter = crossfilter
+
+    if (options.useWindowResize) {
+      let resizeTimeout = null
+      // I don't think there's really any way for us to know when/how to destroy this, so I'm assuming vue will figure it out
+      // most likely this is only destroyed when you leave the page and everything is destroyed anyway
+      window.addEventListener('resize', () => {
+        if (resizeTimeout) {
+          clearTimeout(resizeTimeout)
+        }
+        resizeTimeout = setTimeout(() => {
+          dc.renderAll()
+          resizeTimeout = null
+        }, options.resizeTimeout)
+      })
+    }
   }
 }
 

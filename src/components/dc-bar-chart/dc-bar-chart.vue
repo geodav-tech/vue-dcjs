@@ -26,11 +26,13 @@ export default {
   data() {
     return {
       scaleChart: null,
-      top: 0
+      top: 0,
+      hasReplacedRenderFunc: false
     }
   },
   methods: {
     createChart() {
+      this.hasReplacedRenderFunc = false
       let { elastic, scrollable, minScrollable, scrollHeight, groupAll, valueAccessor, label, filterFunction, mouseZoom, barPadding, barGap, outerBarPadding } =
         this.computedOptions
       this.$options.dimension = this.createDimension()
@@ -185,6 +187,22 @@ export default {
     render() {
       this.$super(BaseChartMixin).render()
       if (this.canScroll) {
+        if (!this.hasReplacedRenderFunc) {
+          // Calling `dc.renderAll()` messed up mouse zooming with this chart
+          // so this fixes things when using the window resize handler which calls dc.renderAll() to resize the charts
+          // rewriting this function without `this._configureMouseZoom()` seems to work?
+          // http://dc-js.github.io/dc.js/docs/html/base_coordinate-grid-mixin.js.html#sunlight-1-line-1150
+          // https://github.com/dc-js/dc.js/issues/1857
+          this.chart._doRender = function () {
+            this.resetSvg();
+            this._preprocessData();
+            this._generateG();
+            this._generateClipPath();
+            this._drawChart(true);
+            return this
+          }
+          this.hasReplacedRenderFunc = true
+        }
         this.scaleChart?.render()
         const maxEnd = Math.floor(this.top / Math.min(8, Math.ceil(this.top / 12)))
         this.chart.focus([-1, maxEnd])
