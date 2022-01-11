@@ -97,7 +97,9 @@ export default {
         } else {
           this.dimension().filter(null)
         }
-        // FIXME send filter event?
+        // hook this custom filter logic back into the on('filtered') event handler
+        // http://dc-js.github.io/dc.js/docs/html/base_base-mixin.js.html#sunlight-1-line-844
+        this._listeners.call('filtered', this, this, focusFilter)
       }
 
       this.chart.filterAll = function () {
@@ -157,6 +159,15 @@ export default {
       if (scrollable) {
         let { top, bottom, left, right } = this.computedMargins
         this.chart.margins({ top: 0, bottom, left, right })
+        
+        // do not send focus events as filter events to anyone listening to this.chart.on('filtered')
+        // http://dc-js.github.io/dc.js/docs/html/base_base-mixin.js.html#sunlight-1-line-844
+        this.chart._invokeFilteredListener = function(f) {
+          // ignore 'RangedFilter' type. it's coming from the scale chart as long as brushing is disabled
+          if (f !== undefined && f.filterType !== 'RangedFilter') {
+            return this._listeners.call('filtered', this, this, f)
+          }
+        }
 
         this.scaleChart = new this.$dc.BarChart(`#chart-${this._uid}-range`)
           .dimension(this.$options.dimension)
