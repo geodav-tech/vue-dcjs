@@ -33,21 +33,7 @@ export default {
   data() {
     return {
       constructedNdx: null,
-      groups: null,
-      colors: [
-        '#ffcab1',
-        '#69a2b0',
-        '#659157',
-        '#a1c084',
-        '#e05263',
-        '#950952',
-        '#5e0035',
-        '#020202',
-        '#023618',
-        '#3d405b',
-        '#9C95DC',
-        '#0B7189'
-      ]
+      groups: null
     }
   },
   mounted() {
@@ -58,11 +44,12 @@ export default {
   },
   methods: {
     createGroups() {
-      this.groups = Array.from(new Set(this.computedNdx.all().map((d) => d.team))).map((team, i) => {
+      let uniqueTeams = Array.from(new Set(this.computedNdx.all().map((d) => d.team)))
+      this.groups = uniqueTeams.map((team, i) => {
         return {
           name: team,
           valueAccessor: (d) => d.value[team] || 0,
-          color: this.colors[i % this.colors.length]
+          color: this.$d3.interpolateTurbo((i + 1) / (uniqueTeams.length))
         }
       })
     },
