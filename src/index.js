@@ -1,6 +1,6 @@
 // it seems important to use FULL filenames with extensions
 import { DcPlugin, dc, d3, crossfilter } from './plugins/dc.plugin.js'
-import { DcBarChart, DcChecklist, DcCompositeLineChart, DcDateChart, DcPieChart, DcRowChart } from './components'
+import { DcBarChart, DcChecklist, DcCompositeLineChart, DcDateChart, DcPieChart, DcRowChart, DcStackedBarChart } from './components'
 
 const defaultOptions = {
   registerComponents: true // Vue.component(everything) by default? will use dc-chart-name for prefixes
@@ -33,8 +33,9 @@ const VueDc = {
       Vue.component('dc-checklist', DcChecklist)
       Vue.component('dc-composite-line-chart', DcCompositeLineChart)
       Vue.component('dc-date-chart', DcDateChart)
-      Vue.component('dc-row-chart', DcRowChart)
       Vue.component('dc-pie-chart', DcPieChart)
+      Vue.component('dc-row-chart', DcRowChart)
+      Vue.component('dc-stacked-bar-chart', DcStackedBarChart)
     }
   }
 }

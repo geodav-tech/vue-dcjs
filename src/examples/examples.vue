@@ -7,6 +7,8 @@
     <bar-team :ndx="ndx" />
     <date-hour :ndx="ndx" />
     <composite-line-metric :ndx="ndx" />
+    <stacked-team-project :ndx="ndx" />
+    <stacked-team-avatar :ndx="ndx" />
   </div>
 </template>
 
@@ -19,9 +21,21 @@ import DateHour from './date-hour.vue'
 import PieChecklistTeam from './pie-checklist-team.vue'
 import PieTeam from './pie-team.vue'
 import RowUsers from './row-users.vue'
+import StackedTeamProject from './stacked-team-project.vue'
+import StackedTeamAvatar from './stacked-team-avatar.vue'
 
 export default {
-  components: { BarTasks, BarTeam, CompositeLineMetric, DateHour, PieChecklistTeam, PieTeam, RowUsers },
+  components: {
+    BarTasks,
+    BarTeam,
+    CompositeLineMetric,
+    DateHour,
+    PieChecklistTeam,
+    PieTeam,
+    RowUsers,
+    StackedTeamProject,
+    StackedTeamAvatar
+  },
   data() {
     return {
       ndx: null

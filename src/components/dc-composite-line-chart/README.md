@@ -1,7 +1,5 @@
 ### \<dc-composite-line-chart>
 
-
-### extends
 ### extends
 - [BaseChartMixin](../../mixins#base-chart)
 - [DimensionMixin](../../mixins/#dimension)
