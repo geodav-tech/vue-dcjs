@@ -48,6 +48,13 @@ export default {
 
       this.callOnCreate()
 
+      if (this.computedOptions.onFilter) {
+        this.chart.on('filtered', this.computedOptions.onFilter)
+      }
+      if (this.computedOptions.onClick) {
+        this.chart.on('click', this.computedOptions.onClick)
+      }
+
       if (this.computedOptions.render) {
         this.renderChart()
       }
