@@ -7,7 +7,8 @@
     <bar-team :ndx="ndx" />
     <date-hour :ndx="ndx" />
     <composite-line-metric :ndx="ndx" />
-    <stacked-team-project :ndx="ndx" />
+    <!-- this one causes performance issues because it's n+1 charts composed together where n is project count -->
+    <!-- <stacked-team-project :ndx="ndx" /> -->
     <stacked-team-avatar :ndx="ndx" />
   </div>
 </template>
