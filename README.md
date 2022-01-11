@@ -25,6 +25,7 @@ Vue.use(VueDc)
 - [`<dc-pie-chart>`](./src/components/dc-pie-chart)
 - [`<dc-row-chart>`](./src/components/dc-row-chart)
 - [`<dc-stacked-bar-chart>`]('./src/components/dc-stacked-bar-chart')
+- [`<dc-number-display>`]('./src/components/dc-number-display)
 
 ### mixins
 - [BaseChartMixin](./src/mixins#base-chart)

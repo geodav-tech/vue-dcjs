@@ -1,5 +1,13 @@
 <template>
   <div class="examples-page">
+    <div class="example-flex-item example-container">
+      <div class="example-flex-item">
+        <total-hours :ndx="ndx" />
+      </div>
+      <div class="example-flex-item">
+        <percent-hours :ndx="ndx" />
+      </div>
+    </div>
     <row-users :ndx="ndx" />
     <pie-team :ndx="ndx" />
     <pie-checklist-team :ndx="ndx" />
@@ -24,6 +32,8 @@ import PieTeam from './pie-team.vue'
 import RowUsers from './row-users.vue'
 import StackedTeamProject from './stacked-team-project.vue'
 import StackedTeamAvatar from './stacked-team-avatar.vue'
+import TotalHours from './total-hours.vue'
+import PercentHours from './percent-hours.vue'
 
 export default {
   components: {
@@ -35,7 +45,9 @@ export default {
     PieTeam,
     RowUsers,
     StackedTeamProject,
-    StackedTeamAvatar
+    StackedTeamAvatar,
+    TotalHours,
+    PercentHours
   },
   data() {
     return {
@@ -49,6 +61,12 @@ export default {
 </script>
 
 <style>
+.examples-page .example-flex-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
 .examples-page > .example-container {
   margin-top: 1rem;
   padding-bottom: 1rem;
