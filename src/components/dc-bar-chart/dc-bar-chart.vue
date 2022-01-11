@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     createChart() {
-      let { elastic, scrollable, minScrollable, scrollHeight, groupAll, valueAccessor, label, filterFunction, mouseZoom } =
+      let { elastic, scrollable, minScrollable, scrollHeight, groupAll, valueAccessor, label, filterFunction, mouseZoom, barPadding, barGap, outerBarPadding } =
         this.computedOptions
       this.$options.dimension = this.createDimension()
       let ordinalValueAccessor = accessorFunc(valueAccessor || ((v) => v))
@@ -40,8 +40,8 @@ export default {
       this.top = group.all().length
 
       const linearDomain = [-0.5, this.top - 0.5]
-      let barGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / minScrollable / this.top : 0
-      barGap = Math.max(Math.ceil(barGap), 1)
+      let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / minScrollable / this.top : 0
+      defaultBarGap = Math.max(Math.ceil(defaultBarGap), 1)
 
       this.chart = new this.$dc.BarChart(`#chart-${this._uid}`)
         .dimension(this.$options.dimension)
@@ -50,7 +50,7 @@ export default {
         .xUnits(this.$dc.units.integers)
         .centerBar(true)
         .brushOn(false)
-        .gap(barGap)
+        .gap(defaultBarGap)
 
       this.$super(BaseChartMixin).createChart()
 
@@ -140,6 +140,15 @@ export default {
         chart.xAxis().tickValues(d3.range(min, max + 1))
         chart.rescale() // allow x axis to match ordering changes
       })
+
+      if (barPadding !== undefined) {
+        this.chart.barPadding(barPadding)
+      } else if (barGap !== undefined) {
+        this.chart.gap(barGap)
+      }
+      if (outerBarPadding !== undefined) {
+        this.chart.outerPadding(outerBarPadding)
+      }
 
       // FIXME text wrapping x axis in shared thing?
 

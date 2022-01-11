@@ -6,7 +6,7 @@
 
 <script>
 import { BaseChartMixin, DimensionMixin, GroupMixin, AxisMixin, LegendMixin } from '../../mixins'
-import { accessorFunc } from '../../dc-utils'
+import { accessorFunc, constrain } from '../../dc-utils'
 
 export default {
   name: 'DcStackedBarChart',
@@ -65,7 +65,7 @@ export default {
       let { add, remove, init } = this.stackReducer
       const group = this.stackedGroup(this.$options.dimension.groupAll().reduce(add, remove, init))
 
-      const { elastic, title } = this.computedOptions
+      const { elastic, title, barPadding, barGap, outerBarPadding } = this.computedOptions
 
       this.chart = new this.$dc.BarChart(`#chart-${this._uid}`).dimension(this.$options.dimension)
 
@@ -75,6 +75,19 @@ export default {
         this.chart.x(this.$d3.scaleBand().domain(this.groups))
         this.chart.xUnits(this.$dc.units.ordinal)
       }
+      let paddingDivisor = group.all().length || 1
+      this.chart.barPadding(constrain(2 / paddingDivisor, 0.1, 0.75))
+
+      if (barPadding !== undefined) {
+        this.chart.barPadding(barPadding)
+      } else if (barGap !== undefined) {
+        this.chart.gap(barGap)
+      }
+      if (outerBarPadding !== undefined) {
+        this.chart.outerPadding(outerBarPadding)
+      }
+
+      
 
       if (elastic) {
         this.chart.elasticY(true)
