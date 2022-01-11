@@ -98,7 +98,7 @@ export default {
           this.chart.selectAll('.pie-label-group text.pie-label').transition().call(wrap)
         }
 
-        this.chart.on('renderlet', (chart) => {
+        this.chart.on('renderlet.vue-dcjs', (chart) => {
           const radius = this.getRadius()
           if (this.chart.radius() !== radius) {
             this.chart.height(radius)
@@ -106,7 +106,7 @@ export default {
             this.chart.redraw()
           }
         })
-        this.chart.on('pretransition', handleLabelTransition)
+        this.chart.on('pretransition.vue-dcjs', handleLabelTransition)
       }
     },
     renderChart() {

@@ -122,7 +122,7 @@ export default {
         }
       }
 
-      this.chart.on('pretransition', function (chart) {
+      this.chart.on('pretransition.vue-dcjs', function (chart) {
         chart.selectAll('rect.bar').on('click.ordinal-select', function (e, d) {
           var i = focusFilter.indexOf(d.data.key)
           if (i >= 0) {
@@ -135,7 +135,7 @@ export default {
         })
       })
 
-      this.chart.on('preRedraw', function (chart) {
+      this.chart.on('preRedraw.vue-dcjs', function (chart) {
         const domain = chart.x().domain()
         const min = Math.ceil(domain[0])
         const max = Math.floor(domain[1])
