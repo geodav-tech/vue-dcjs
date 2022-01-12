@@ -56,3 +56,4 @@ const VueDc = {
 // fix warning prefer_named_exports by naming this export
 export * from './components'
 export { VueDc, dc, d3, crossfilter }
+export default VueDc
