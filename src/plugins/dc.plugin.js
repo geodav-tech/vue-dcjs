@@ -39,16 +39,20 @@ const DcPlugin = {
 
     if (options.useWindowResize) {
       let resizeTimeout = null
+      let lastWidth = window.innerWidth
       // I don't think there's really any way for us to know when/how to destroy this, so I'm assuming vue will figure it out
       // most likely this is only destroyed when you leave the page and everything is destroyed anyway
       window.addEventListener('resize', () => {
         if (resizeTimeout) {
           clearTimeout(resizeTimeout)
         }
-        resizeTimeout = setTimeout(() => {
-          dc.renderAll()
-          resizeTimeout = null
-        }, options.resizeTimeout)
+        if (lastWidth !== window.innerWidth) {
+          resizeTimeout = setTimeout(() => {
+            dc.renderAll()
+            resizeTimeout = null
+            lastWidth = window.innerWidth
+          }, options.resizeTimeout)
+        }
       })
     }
   }
