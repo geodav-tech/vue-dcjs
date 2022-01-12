@@ -12,6 +12,16 @@ import { VueDc } from 'vue-dcjs'
 Vue.use(VueDc)
 ```
 
+### Vue.use option
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| registerComponents | boolean | true | Automatically register all vue-dcjs charts with Vue.component(everything). Charts will be kebab-case as shown below in the components list. |
+| defaultColors | string[] | d3.schemeCategory20c | this sets dc's defaultColors for ordinal charts |
+| useWindowResize | boolean | true | add an event listener to the window which watches for resize events. when the window is resized: re-render all the charts to resize them automatically. |
+| resizeTimeout | number | 100 | to avoid re-rendering too much, there is a timeout on the resize handler. how long should the wait be. too short may re-render too much. too long may feel delayed |
+| useResetListener | boolean | true | automatically attach a dom element(s) using `resetSelector`. the button will only be visible when the connected chart has filters. the button is clickable and will clear all filters on the chart. |
+| resetSelector | (chart) => element(s) | `chart => document.querySelector(chart.anchor()).closest('.example-container').querySelectorAll('.example-reset-button')` | define how we retrieve the reset button to connect our chart to. This should be the result of `querySelector` or `querySelectorAll` |
+
 ### anywhere in vue instance
 - `this.$dc` [dc instance](https://dc-js.github.io/dc.js/) with added [AxisChart](./src/plugins/axis-chart.class.js)
 - `this.$d3` [d3 instance](https://github.com/d3/d3/blob/main/API.md)

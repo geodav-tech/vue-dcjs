@@ -14,6 +14,9 @@
 | minScrollable | number | 12 | the minimum number of entries for scrolling to be enabled even if scrollable is true |
 | scrollHeight | number | 12 | the height of the scrollbar above the main chart |
 | mouseZoom | boolean | true | enable zooming in and out with the mouse when scrolling is enabled |
+| barPadding | number | | call this.chart.barPadding(barPadding) |
+| barGap | number | | call this.chart.gap(barGap). not compatable with barPadding |
+| outerBarPadding | | call this.chart.outerPadding(outerBarPadding) |
 
 ### Examples
 all charts should share a crossfilter instance, somewhere in a parent component you should have something like:
