@@ -1,11 +1,5 @@
 <template>
-  <div class="example-container total-hours-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-number-display" target="_blank">Number display</a>
-      showing total hours within all filters
-    </label>
-    <br>
-    <br>
+  <example-container class="total-hours-container" link="src/components/dc-number-display" linkText="Number display" label="showing total hours within all filters">
     <dc-number-display
       :ndx="ndx"
       reducer="hours"
@@ -14,13 +8,14 @@
         formatNumber: ',.1f'
       }"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcNumberDisplay } from '../components'
+import ExampleContainer from './example-container.vue'
 export default {
-  components: { DcNumberDisplay },
+  components: { DcNumberDisplay, ExampleContainer },
   props: {
     ndx: {
       // if not passed we will construct our own

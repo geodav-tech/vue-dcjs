@@ -1,11 +1,5 @@
 <template>
-  <div class="example-container percent-hours-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-number-display" target="_blank">Number display</a>
-      showing percentage of hours within all filters
-    </label>
-    <br>
-    <br>
+  <example-container class="percent-hours-container" link="src/components/dc-number-display" linkText="Number display" label="showing percent of total hours">
     <dc-number-display
       :ndx="computedNdx"
       reducer="hours"
@@ -15,13 +9,14 @@
         valueAccessor: (d, i, total) => d / (total || 1)
       }"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcNumberDisplay } from '../components'
+import ExampleContainer from './example-container.vue'
 export default {
-  components: { DcNumberDisplay },
+  components: { DcNumberDisplay, ExampleContainer },
   props: {
     ndx: {
       // if not passed we will construct our own

@@ -29,7 +29,9 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      resetButtonFunction: null,
+      resetButtons: [],
     }
   },
   mounted() {
@@ -53,6 +55,10 @@ export default {
       }
       if (this.computedOptions.onClick) {
         this.chart.on('click', this.computedOptions.onClick)
+      }
+
+      if (this.$VueDcOptions.useResetListener && typeof this.$VueDcOptions.resetSelector === 'function') {
+        this.setupResetListener()
       }
 
       if (this.computedOptions.render) {
@@ -88,6 +94,9 @@ export default {
         this.chart.width(width)
       }
     },
+    onResetButtonClick() {
+
+    },
     // allows children to hook into pre/post render hooks
     renderChart() {
       return new Promise((resolve) => {
@@ -115,6 +124,38 @@ export default {
     callOnCreate() {
       // charts with multiple components may wish to pass extras. make this an overridable function
       this.$emit('on-create', this.chart)
+    },
+    setupResetListener () {
+      const { resetSelector } = this.$VueDcOptions
+      let resetButtons = resetSelector(this.chart)
+      if (typeof resetButtons.forEach !== 'function') {
+        resetButtons = [resetButtons]
+      }
+      this.resetButtons = resetButtons // store this for later to de-register
+
+      // ensure we can remove this later
+      this.resetButtonFunction = () => {
+        this.chart.filterAll()
+        this.$dc.redrawAll()
+      }
+
+      resetButtons.forEach(button => {
+        button.addEventListener('click', this.resetButtonFunction)
+      })
+
+      const updateButtonVisibility = () => {
+        let hasFilter = this.chart.hasFilter()
+        this.resetButtons.forEach(instance => {
+          if (hasFilter) {
+            instance.classList.remove('dc-reset-is-hidden')
+          } else {
+            instance.classList.add('dc-reset-is-hidden')
+          }
+        })
+      }
+
+      this.chart.on('filtered.reset', updateButtonVisibility)
+      updateButtonVisibility() // update this on startup as well
     }
   },
   computed: {
@@ -155,4 +196,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.dc-reset-is-hidden {
+  display: none !important;
+}
+</style>

@@ -1,24 +1,19 @@
 <template>
-  <div class="pie-checklist-container example-container">
-    <div class="flex-container">
-      <pie-team :ndx="computedNdx" class="flex-item" @post-render="(chart) => (pieChart = chart)" />
-      <div class="flex-item" style="padding-left: 1rem">
-        <label class="example-label">
-          <a href="" target="_blank">Checklist</a>
-          for pie chart
-        </label>
-        <dc-checklist v-if="pieChart" :chart="pieChart" :digits="0" :max-height="324" />
-      </div>
-    </div>
-  </div>
+  <example-container class="pie-checklist-container">
+    <pie-team :ndx="computedNdx" class="flex-item" @post-render="(chart) => (pieChart = chart)" />
+    <example-container link="src/components/dc-checklist" linkText="Checklist" label="for pie chart" :reset="false">
+      <dc-checklist v-if="pieChart" :chart="pieChart" :digits="0" :max-height="324" />
+    </example-container>
+  </example-container>
 </template>
 
 <script>
 import { DcChecklist } from '../components'
+import ExampleContainer from './example-container.vue'
 import PieTeam from './pie-team.vue'
 
 export default {
-  components: { DcChecklist, PieTeam },
+  components: { DcChecklist, PieTeam, ExampleContainer },
   props: {
     ndx: {
       // if not passed we will construct our own
@@ -45,19 +40,15 @@ export default {
 </script>
 
 <style>
-.pie-checklist-container .flex-container {
+.pie-checklist-container {
   display: flex;
-}
-.pie-checklist-container .flex-container .flex-item {
-  display: flex;
-  flex: 1;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
-.pie-checklist-container .flex-container .flex-item .example-label,
-.pie-checklist-container .flex-container .flex-item .dc-search-input-container,
-.pie-checklist-container .flex-container .flex-item .dc-checkbox-container {
-  width: 100%;
+.pie-checklist-container .example-container {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>

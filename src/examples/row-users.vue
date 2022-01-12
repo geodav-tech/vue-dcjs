@@ -1,30 +1,28 @@
 <template>
-  <div class="row-users-container example-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-row-chart" target="_blank">Row chart</a>
-      by users
-    </label>
+  <example-container class="row-users-container" link="src/components/dc-row-chart" linkText="Row chart" label="by users">
     <dc-row-chart
       v-if="computedNdx"
       :ndx="computedNdx"
       :options="{
-        label: (d) => d.key.split('.').slice(1).join('.')
+        label: (d) => d.key.split('.').slice(1).join('.'),
+        margins: {left: 2}
       }"
       :dimension-constructor="(d) => `${d.user_id}.${d.name}`"
       reducer="hours"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcRowChart } from '../components'
 import sampleData from '../sample-data.js'
+import ExampleContainer from './example-container.vue'
 
 export default {
-  components: { DcRowChart },
+  components: { DcRowChart, ExampleContainer },
   props: {
     ndx: {
-      // if not passed we will construct our own
+     // if not passed we will construct our own
       type: Object
     }
   },

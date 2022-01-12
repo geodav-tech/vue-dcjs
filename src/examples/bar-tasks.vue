@@ -1,9 +1,5 @@
 <template>
-  <div class="example-container bar-tasks-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-bar-chart" target="_blank">Bar chart</a>
-      by tasks
-    </label>
+  <example-container class="bar-tasks-container" link="src/components/dc-bar-chart" linkText="Bar chart" label="by team">
     <dc-bar-chart
       :ndx="computedNdx"
       :options="{
@@ -45,15 +41,16 @@
         init: () => ({})
       }"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcBarChart } from '../components'
 import sampleData from '../sample-data.js'
+import ExampleContainer from './example-container.vue'
 
 export default {
-  components: { DcBarChart },
+  components: { DcBarChart, ExampleContainer },
   props: {
     ndx: {
       // if not passed we will construct our own

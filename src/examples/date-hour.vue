@@ -1,20 +1,18 @@
 <template>
-  <div class="example-container date-hour-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-date-chart" target="_blank"> Date chart </a>
-      showing hours
-    </label>
+  <example-container class="date-hour-container" link="src/components/dc-date-chart" linkText="Date chart" label="by hours">
     <dc-date-chart :ndx="computedNdx" :options="{}" reducer="hours" />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcDateChart } from '../components'
 import sampleData from '../sample-data.js'
+import ExampleContainer from './example-container.vue'
 
 export default {
   components: {
-    DcDateChart
+    DcDateChart,
+    ExampleContainer
   },
   props: {
     ndx: {

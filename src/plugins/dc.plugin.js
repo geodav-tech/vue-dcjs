@@ -9,7 +9,10 @@ dc.AxisChart = AxisChart
 const defaultOptions = {
   // defaultColors: string[] of colors for ordinal charts
   useWindowResize: true, // on window resize, resize the charts to best fit their space
-  resizeTimeout: 100 // wait at least this many ms to resize the charts (prevents glitching when slowly resizing the window)
+  resizeTimeout: 100, // wait at least this many ms to resize the charts (prevents glitching when slowly resizing the window)
+  // default this to work in the example
+  useResetListener: true, // use this.chart.on('filtered.reset') and the resetSelector to determine show/hide the reset button
+  resetSelector: chart => document.querySelector(chart.anchor()).closest('.example-container').querySelectorAll('.example-reset-button')
 }
 
 /**
@@ -21,6 +24,9 @@ const defaultOptions = {
 const DcPlugin = {
   install(Vue, _options) {
     const options = Object.assign({}, defaultOptions, _options)
+
+    Vue.prototype.$VueDcOptions = options // let us access these options later
+
     if (options?.defaultColors) {
       dc.config.defaultColors(options.defaultColors)
     }

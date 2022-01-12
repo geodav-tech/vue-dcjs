@@ -1,9 +1,5 @@
 <template>
-  <div class="pie-team-container example-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-pie-chart" target="_blank">Pie chart</a>
-      by team
-    </label>
+  <example-container class="pie-team-container" link="src/components/dc-pie-chart" linkText="Pie chart" label="by team">
     <dc-pie-chart
       :ndx="computedNdx"
       :options="{
@@ -17,14 +13,15 @@
       @pre-render="$emit('pre-render', $event)"
       @post-render="$emit('post-render', $event)"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcPieChart } from '../components'
+import ExampleContainer from './example-container.vue'
 
 export default {
-  components: { DcPieChart },
+  components: { DcPieChart, ExampleContainer },
   props: {
     ndx: {
       // if not passed we will construct our own

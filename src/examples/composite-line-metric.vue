@@ -1,11 +1,5 @@
 <template>
-  <div class="composite-line-metric-container example-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-composite-line-chart" target="_blank">
-        Composite line chart
-      </a>
-      by team hours
-    </label>
+  <example-container class="composite-line-metric-container" link="src/components/dc-composite-line-chart" linkText="Composite line chart" label="by team hours">
     <dc-composite-line-chart
       :ndx="ndx"
       v-if="groups"
@@ -14,16 +8,18 @@
       :groups="groups"
       :options="chartOptions"
     />
-  </div>
+  </example-container>
 </template>
 
 <script>
 import { DcCompositeLineChart } from '../components'
 import sampleData from '../sample-data'
+import ExampleContainer from './example-container.vue'
 
 export default {
   components: {
-    DcCompositeLineChart
+    DcCompositeLineChart,
+    ExampleContainer
   },
   props: {
     ndx: {

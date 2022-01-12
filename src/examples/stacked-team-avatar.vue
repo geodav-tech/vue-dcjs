@@ -1,11 +1,10 @@
 <template>
-  <div class="stacked-team-avatar-container example-container">
-    <label class="example-label">
-      <a href="https://github.com/geodav-tech/vue-dcjs/tree/master/src/components/dc-stacked-bar-chart" target="_blank">
-        Stacked bar chart
-      </a>
-      showing hours on a team, stacked by if the user has uploaded an avatar or not
-    </label>
+  <example-container
+    class="stacked-team-avatar-container"
+    link="src/components/dc-stacked-bar-chart"
+    linkText="Stacked bar chart"
+    label="showing hours on a team, stacked by if the user has uploaded an avatar or not"
+  >
     <dc-stacked-bar-chart
       v-if="stacks.length && groups.length"
       :ndx="computedNdx"
@@ -29,14 +28,15 @@
         },
         height: 420
       }"
-    ></dc-stacked-bar-chart>
-  </div>
+    />
+  </example-container>
 </template>
 
 <script>
 import { DcStackedBarChart } from '../components'
+import ExampleContainer from './example-container.vue'
 export default {
-  components: { DcStackedBarChart },
+  components: { DcStackedBarChart, ExampleContainer },
   props: {
     ndx: {
       type: Object

@@ -67,16 +67,4 @@ export default {
   align-items: center;
   flex: 1;
 }
-.examples-page > .example-container {
-  margin-top: 1rem;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid gainsboro;
-}
-
-.examples-page .example-label {
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-decoration: underline;
-}
 </style>
