@@ -1,7 +1,7 @@
 {
   "name": "vue-dcjs",
   "description": "A Vue component library and bindings for dc, the charting javascript library.",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "private": false,
   "contributors": [
     {
@@ -16,7 +16,7 @@
     "serve": "vue-cli-service serve",
 
     "build": "vue-cli-service build",
-    "bundle": "bili src/index.js",
+    "bundle": "bili src/index.js --bundle-node-modules",
     "build-all": "npm run build && npm run bundle",
 
     "publish-pages": "git subtree push --prefix dist origin gh-pages",
