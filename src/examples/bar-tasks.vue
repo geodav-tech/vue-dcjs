@@ -1,5 +1,5 @@
 <template>
-  <example-container class="bar-tasks-container" link="src/components/dc-bar-chart" linkText="Bar chart" label="by team">
+  <example-container class="bar-tasks-container" link="src/components/dc-bar-chart" linkText="Bar chart" label="by task">
     <dc-bar-chart
       :ndx="computedNdx"
       :options="{
