@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { flat, accessorFunc } from '@/dc-utils'
+import { flat, accessorFunc } from '../../dc-utils'
 export default {
   name: 'DcChecklist',
   props: {

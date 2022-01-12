@@ -3,7 +3,7 @@
     <example-container link="#vue-dcjs" linkText="Vue dc-js" class="home-container" :reset="false">
 
       <div class="vue-dcjs-logo-container">
-        <img src="@/assets/Logo.png" class="vue-dcjs-logo">
+        <img src="../assets/Logo.png" class="vue-dcjs-logo">
       </div>
       <div class="about">
         <ul>

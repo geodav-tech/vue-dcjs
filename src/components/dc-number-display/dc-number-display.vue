@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { BaseChartMixin, GroupMixin } from '@/mixins'
+import { BaseChartMixin, GroupMixin } from '../../mixins'
 import { accessorFunc } from '../../dc-utils'
 
 export default {
