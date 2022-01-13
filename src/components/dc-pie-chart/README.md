@@ -1,10 +1,10 @@
 ### \<dc-pie-chart>
-- [Home](../../../#available-components)
+- [Home]('https://github.com/geodav-tech/vue-dcjs#available-components')
 
 ### extends
 - [BaseChartMixin](../../mixins#base-chart)
 - [DimensionMixin](../../mixins/#dimension)
-- [GroupMixin]('../../mixins/#group)
+- [GroupMixin](../../mixins/#group)
 
 ### options
 | minRadius | number | 0 | ensure the pie chart is at least this big |

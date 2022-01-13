@@ -1,5 +1,5 @@
 # base-chart
-- [Home](../../#available-components)
+- [Home]('https://github.com/geodav-tech/vue-dcjs#available-components')
 Provides default functionality for any type of chart
 
 ### props

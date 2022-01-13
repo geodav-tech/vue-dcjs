@@ -1,10 +1,10 @@
 # \<dc-row-chart>
-- [Home](../../../#available-components)
+- [Home]('https://github.com/geodav-tech/vue-dcjs#available-components')
 
 ### extends
 - [BaseChartMixin](../../mixins#base-chart)
 - [DimensionMixin](../../mixins/#dimension)
-- [GroupMixin]('../../mixins/#group)
+- [GroupMixin](../../mixins/#group)
 
 ### options
 | Name | Type | Default | Description |

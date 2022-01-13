@@ -1,5 +1,5 @@
 ### \<dc-checklist>
-- [Home](../../../#available-components)
+- [Home]('https://github.com/geodav-tech/vue-dcjs#available-components')
 
 ### Options
 | Name | Type | Default | Description |

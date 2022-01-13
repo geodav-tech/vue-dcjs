@@ -30,19 +30,19 @@ Vue.use(VueDc)
 ### available components
 - [`<dc-bar-chart>`](./src/components/dc-bar-chart)
 - [`<dc-checklist>`](./src/components/dc-checklist)
-- [`<dc-composite-line-chart>`]('./src/components/dc-composite-line-chart')
-- [`<dc-date-chart`](./src/components/dc-date/chart)
+- [`<dc-composite-line-chart>`](./src/components/dc-composite-line-chart)
+- [`<dc-date-chart`](./src/components/dc-date-chart)
 - [`<dc-pie-chart>`](./src/components/dc-pie-chart)
 - [`<dc-row-chart>`](./src/components/dc-row-chart)
-- [`<dc-stacked-bar-chart>`]('./src/components/dc-stacked-bar-chart')
-- [`<dc-number-display>`]('./src/components/dc-number-display)
+- [`<dc-stacked-bar-chart>`](./src/components/dc-stacked-bar-chart)
+- [`<dc-number-display>`](./src/components/dc-number-display)
 
 ### mixins
 - [BaseChartMixin](./src/mixins#base-chart)
 - [DimensionMixin](./src/mixins/#dimension)
-- [GroupMixin]('./src/mixins/#group)
+- [GroupMixin](./src/mixins/#group)
 - [AxisMixin]('./src/mixins/#axis)
-- [LegendMixin]('./src/mixins/#axis)
+- [LegendMixin](./src/mixins/#axis)
 
 #
 

@@ -1,9 +1,9 @@
 ### \<dc-number-display>
-- [Home](../../../#available-components)
+- [Home]('https://github.com/geodav-tech/vue-dcjs#available-components')
 
 ### extends
 - [BaseChartMixin](../../mixins#base-chart)
-- [GroupMixin]('../../mixins/#group)
+- [GroupMixin](../../mixins/#group)
 
 ### options
 | Name | Type | Default | Description |
