@@ -12,7 +12,9 @@ const defaultOptions = {
   resizeTimeout: 100, // wait at least this many ms to resize the charts (prevents glitching when slowly resizing the window)
   // default this to work in the example
   useResetListener: true, // use this.chart.on('filtered.reset') and the resetSelector to determine show/hide the reset button
-  resetSelector: chart => document.querySelector(chart.anchor()).closest('.example-container')?.querySelectorAll('.example-reset-button')
+  resetSelector: chart => {
+    return document.querySelector(chart.anchor()).closest('.example-container')?.querySelectorAll('.example-reset-button') || []
+  }
 }
 
 let dcConfig = Object.assign({}, defaultOptions)
