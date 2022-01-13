@@ -1,6 +1,6 @@
 <template>
   <div class="dc-chart-container dc-row-chart-container">
-    <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :style="computedStyle"></div>
+    <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :class="{'is-scrollable': axisChart}" :style="computedStyle"></div>
     <div v-if="computedOptions.scrollable" :id="`chart-${_uid}-axis`" class="dc-chart dc-axis-chart dc-row-axis-chart"></div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     barHeight: 20,
     axisChartheight: 50,
     scrollHeight: '200px',
-    scrollbarPadding: 8 // about the width of the scroll bar we are padding
+    scrollbarPadding: 0 // about the width of the scroll bar we are padding
   },
   data() {
     return {
@@ -100,4 +100,10 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.dc-chart.dc-row-chart.is-scrollable .axis path,
+.dc-chart.dc-row-chart.is-scrollable .axis g.tick line:not(.grid-line)  {
+  display: none;
+  stroke: none;
+}
+</style>
