@@ -69,7 +69,8 @@ export default {
       this.axisChart?.render()
     },
     callOnCreate() {
-      this.$emit('on-create', this.chart, this.axisChart)
+      this.computedOptions?.onCreate?.(this.chart, this.axisChart)
+      this.$emit('create', this.chart, this.axisChart)
     }
   },
   computed: {

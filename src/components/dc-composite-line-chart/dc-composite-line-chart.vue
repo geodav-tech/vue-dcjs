@@ -77,7 +77,8 @@ export default {
       this.applyLegendOptions()
     },
     callOnCreate() {
-      this.$emit('on-create', this.chart, this.groupCharts)
+      this.computedOptions?.onCreate?.(this.chart, this.groupCharts)
+      this.$emit('create', this.chart, this.groupCharts)
     }
   }
 }

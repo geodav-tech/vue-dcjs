@@ -125,7 +125,8 @@ export default {
     },
     callOnCreate() {
       // charts with multiple components may wish to pass extras. make this an overridable function
-      this.$emit('on-create', this.chart)
+      this.computedOptions?.onCreate?.(this.chart)
+      this.$emit('create', this.chart)
     },
     setupResetListener () {
       try {

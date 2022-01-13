@@ -220,7 +220,8 @@ export default {
       }
     },
     callOnCreate() {
-      this.$emit('on-create', this.chart, this.scaleChart)
+      this.computedOptions?.onCreate?.(this.chart, this.scaleChart)
+      this.$emit('create', this.chart, this.scaleChart)
     }
   },
   computed: {
