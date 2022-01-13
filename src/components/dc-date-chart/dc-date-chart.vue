@@ -16,7 +16,7 @@ export default {
     renderArea: true,
     limitTicksToNumDays: true, // limit the number of ticks to match the number of days under maxTicks
     useD3TimeDay: true, // if passed no dimensionConstructor or string, will use d3.timeDay to construct dimension
-    snapDateCalculation: true,
+    snapDateCalculation: false,
     useUtcSnapping: false
   },
   methods: {
