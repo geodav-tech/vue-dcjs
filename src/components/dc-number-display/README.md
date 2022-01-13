@@ -39,6 +39,7 @@ Please see [sample-data](../../sample-data.js) to see the data we are using in t
 ```
 
 - percentage of total hours that remain across all filters in ndx
+```html
 <dc-number-display
   :ndx="ndx"
   reducer="hours"
