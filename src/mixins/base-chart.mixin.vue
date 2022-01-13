@@ -129,26 +129,34 @@ export default {
       this.$emit('create', this.chart)
     },
     setupResetListener () {
+      let charts = this.chart?.children ? [this.chart, ...this.chart.children()] : [this.chart]
       try {
         const { resetSelector } = dcConfig
-        let resetButtons = resetSelector(this.chart)
-        if (typeof resetButtons.forEach !== 'function') {
-          resetButtons = [resetButtons]
-        }
-        this.resetButtons = resetButtons // store this for later to de-register
+        this.resetButtons = charts.reduce((buttons, chart) => {
+          let result = resetSelector(chart)
+          if (typeof result.forEach !== 'function') {
+            buttons.push(result)
+          } else {
+            result.forEach(res => {
+              buttons.push(res)
+            })
+          }
+          return buttons
+        }, [])
   
         // ensure we can remove this later
         this.resetButtonFunction = () => {
-          this.chart.filterAll()
+          charts.forEach(chart => {
+            chart.filterAll()
+          })
           this.$dc.redrawAll()
         }
   
-        resetButtons.forEach(button => {
+        this.resetButtons.forEach(button => {
           button.addEventListener('click', this.resetButtonFunction)
         })
-  
         const updateButtonVisibility = () => {
-          let hasFilter = this.chart.hasFilter()
+          let hasFilter = charts.some(chart => chart.hasFilter())
           this.resetButtons.forEach(instance => {
             if (hasFilter) {
               instance.classList.remove('dc-reset-is-hidden')
@@ -158,7 +166,9 @@ export default {
           })
         }
   
-        this.chart.on('filtered.reset', updateButtonVisibility)
+        charts.forEach(chart => {
+          chart.on('filtered.reset', updateButtonVisibility)
+        })
         updateButtonVisibility() // update this on startup as well
       } catch (e) {
         console.error('Could not attach reset listener using resetSelector', e)
