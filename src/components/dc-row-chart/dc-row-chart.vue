@@ -101,9 +101,14 @@ export default {
 </script>
 
 <style>
+.dc-chart.dc-row-chart.is-scrollable > svg {
+  position: relative;
+  top: 6px;
+}
 .dc-chart.dc-row-chart.is-scrollable .axis path,
+.dc-chart.dc-row-chart.is-scrollable .axis g.tick text,
 .dc-chart.dc-row-chart.is-scrollable .axis g.tick line:not(.grid-line)  {
-  display: none;
+  display: none !important;
   stroke: none;
 }
 </style>
