@@ -20,7 +20,7 @@ const defaultOptions = {
 
 const VueDc = {
   install(Vue, _options) {
-    const options = Object.assign({}, defaultOptions, options)
+    const options = Object.assign({}, defaultOptions, _options)
     // hmm do we prevent this from polluting the namespace?
     // what if the user overrides $super in their code??
     // https://forum.vuejs.org/t/call-the-overrided-method-from-extend-mixin-think-super/1469
