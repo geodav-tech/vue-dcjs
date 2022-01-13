@@ -117,7 +117,7 @@ export default {
             var groupKey = d.layer + keySeparator + d.x
             return chart.filter() && !chart.filters().some((f) => f[0] === groupKey)
           })
-          .on('click.vue-dcjs', function (evt, d) {
+          .on('click', function (evt, d) {
             // filter this stack (default is whole row)
             chart.filter([d.layer + keySeparator + d.x])
             dc.redrawAll()
