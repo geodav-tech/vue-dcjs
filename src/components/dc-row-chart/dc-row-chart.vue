@@ -1,7 +1,7 @@
 <template>
   <div class="dc-chart-container dc-row-chart-container">
     <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :class="{'is-scrollable': axisChart}" :style="computedStyle"></div>
-    <div v-if="computedOptions.scrollable" :id="`chart-${_uid}-axis`" class="dc-chart dc-axis-chart dc-row-axis-chart"></div>
+    <div v-show="canScroll" :id="`chart-${_uid}-axis`" class="dc-chart dc-axis-chart dc-row-axis-chart"></div>
   </div>
 </template>
 
@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      axisChart: null
+      axisChart: null,
+      canScroll: false
     }
   },
   methods: {
@@ -32,19 +33,20 @@ export default {
       let { elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
+      this.canScroll = scrollable && ((group.size() * barHeight) > minHeight)
 
       this.chart = new this.$dc.RowChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group)
 
       this.$super(BaseChartMixin).createChart()
-      let rowChartMargin = scrollable ? Object.assign({}, this.computedMargins, { bottom: -1 }) : this.computedMargins
+      let rowChartMargin = this.canScroll ? Object.assign({}, this.computedMargins, { bottom: -1 }) : this.computedMargins
       this.chart.margins(rowChartMargin)
 
       if (elastic) {
         this.chart.elasticX(true)
       }
-
-      if (scrollable) {
-        this.chart.height(Math.max(minHeight, group.size() * barHeight))
+      
+      if (this.canScroll) {
+        this.chart.height(group.size() * barHeight)
         this.chart.transitionDuration(1000)
 
         let axisChartMargin = Object.assign({}, this.computedMargins, { top: 0 }) // enforce top margin
@@ -76,7 +78,7 @@ export default {
   computed: {
     computedStyle() {
       let styles = []
-      if (this.computedOptions.scrollable) {
+      if (this.canScroll) {
         styles.push('overflow-y: auto; overflow-x: hidden;')
         if (this.computedOptions.scrollHeight) {
           styles.push(`max-height: ${this.computedOptions.scrollHeight}`)
@@ -90,8 +92,8 @@ export default {
         this.$options.defaultOptions?.margins,
         this.options?.margins
       )
-      const { scrollable, scrollbarPadding } = this.computedOptions
-      if (scrollable && scrollbarPadding) {
+      const { scrollbarPadding } = this.computedOptions
+      if (this.canScroll && scrollbarPadding) {
         margins.right += scrollbarPadding
       }
       return margins
