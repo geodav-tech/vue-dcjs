@@ -132,7 +132,16 @@ export default {
       // in flex containers, this was returning 0 always
       // look outside the dc-chart-container element to see the available space there
       if (!suggestedRadius && container.parentNode && container.parentNode.parentNode) {
-        suggestedRadius = container.parentNode.parentNode.clientWidth
+        let paddingOffset = 0
+        let node = container.parentNode.parentNode
+        try {
+          const nodeStyle = window.getComputedStyle(node, null)
+          paddingOffset += parseInt(nodeStyle.getPropertyValue('padding-left')) || 0
+          paddingOffset += parseInt(nodeStyle.getPropertyValue('padding-right')) || 0
+        } catch {
+          paddingOffset = 0
+        }
+        suggestedRadius = node.clientWidth - paddingOffset
       }
       let { minRadius, maxRadius } = this.computedOptions
       return constrain(suggestedRadius, minRadius, maxRadius)
