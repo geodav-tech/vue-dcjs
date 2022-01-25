@@ -54,7 +54,8 @@ export default {
     },
     computedValidateFunction(d, stack, group) {
       if (this.validateFunction || this.computedOptions.validateFunction) {
-        return this.validateFunction(d, stack, group)
+        let validate = this.validateFunction || this.computedOptions.validateFunction
+        return validate(d, stack, group)
       } else {
         const stackKey = this.stackKey(stack)
         return this.stackAccessorFunc(d) === stackKey && this.groupAccessorFunc(d) === group
@@ -194,7 +195,7 @@ export default {
             this.stacks.forEach((stack) => {
               let stackKey = this.stackKey(stack)
               if (this.computedValidateFunction(v, stack, group)) {
-                p[`${group}${this.keySeparator}${stackKey}`] += accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v) || 0
+                p[`${group}${this.keySeparator}${stackKey}`] += accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
               }
             })
           })
@@ -205,7 +206,7 @@ export default {
             this.stacks.forEach((stack) => {
               let stackKey = this.stackKey(stack)
               if (this.computedValidateFunction(v, stack, group)) {
-                p[`${group}${this.keySeparator}${stackKey}`] -= accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v) || 0
+                p[`${group}${this.keySeparator}${stackKey}`] -= accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
               }
             })
           })
