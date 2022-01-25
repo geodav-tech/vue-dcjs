@@ -168,7 +168,7 @@ export default {
 
       // FIXME text wrapping x axis in shared thing?
 
-      if (scrollable) {
+      if (this.canScroll) {
         let { top, bottom, left, right } = this.computedMargins
         this.chart.margins({ top: 0, bottom, left, right })
 
