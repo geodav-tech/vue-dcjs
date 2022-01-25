@@ -76,7 +76,7 @@ export default {
       if (valueAccessor) {
         this.chart.valueAccessor(accessorFunc(valueAccessor))
       }
-      if (margins) {
+      if (margins && this.chart.margins) {
         this.chart.margins(this.computedMargins)
       }
       if (keyAccessor) {
