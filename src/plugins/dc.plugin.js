@@ -50,7 +50,15 @@ const DcPlugin = {
         }
         if (lastWidth !== window.innerWidth) {
           resizeTimeout = setTimeout(() => {
-            dc.renderAll()
+            dc.chartRegistry.list().forEach(chart => {
+              // this will set the transition duration to 0 while we render
+              // this makes the resize less flashy/distracting
+              let lastTransitionDuration = chart.transitionDuration()
+              chart.transitionDuration(0)
+              chart.render()
+              // but then put the duration back to whatever it was before the render
+              chart.transitionDuration(lastTransitionDuration)
+            })
             resizeTimeout = null
             lastWidth = window.innerWidth
           }, options.resizeTimeout)
