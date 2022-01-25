@@ -1,26 +1,25 @@
 <template>
   <div class="home">
     <example-container link="#vue-dcjs" linkText="Vue dc-js" class="home-container" :reset="false">
-
       <div class="vue-dcjs-logo-container">
-        <img src="../assets/Logo.png" class="vue-dcjs-logo">
+        <img src="../assets/Logo.png" class="vue-dcjs-logo" />
       </div>
       <div class="about">
         <ul>
           <li v-for="(info, index) in aboutInfo" :key="`info-${index}`">
-            <b>{{ info.text }}</b>:
+            <b>{{ info.text }}</b
+            >:
             <a v-if="info.href" :href="info.href" target="_blank">{{ info.value }}</a>
             <span v-else>{{ info.value }}</span>
           </li>
         </ul>
       </div>
 
-      <hr>
+      <hr />
       <div class="example-label">Examples</div>
-      <hr>
+      <hr />
 
       <examples />
-
     </example-container>
   </div>
 </template>

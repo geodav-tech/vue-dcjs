@@ -1,5 +1,10 @@
 <template>
-  <example-container class="total-hours-container" link="src/components/dc-number-display" linkText="Number display" label="showing total hours within all filters">
+  <example-container
+    class="total-hours-container"
+    link="src/components/dc-number-display"
+    linkText="Number display"
+    label="showing total hours within all filters"
+  >
     <dc-number-display
       :ndx="ndx"
       reducer="hours"

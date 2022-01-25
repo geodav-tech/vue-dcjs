@@ -4,16 +4,12 @@
       <label class="example-label">
         <!-- idk why but sometimes there was a space between the link and the label, but most of the time there was not -->
         <!-- so this must stay on a single line without any spaces and have the &nbsp; in order to maintain consistency -->
-        <a :href="githubLink" target="_blank" style="display: contents">{{linkText}}</a>&nbsp;{{ label }}
+        <a :href="githubLink" target="_blank" style="display: contents">{{ linkText }}</a>&nbsp;{{ label }}
       </label>
-      <a class="example-reset-button" v-if="reset">
-        RESET
-      </a>
+      <a class="example-reset-button" v-if="reset"> RESET </a>
     </div>
 
-    <slot>
-    </slot>
-
+    <slot> </slot>
   </div>
 </template>
 
@@ -29,7 +25,7 @@ export default {
     }
   },
   computed: {
-    githubLink () {
+    githubLink() {
       return `https://github.com/geodav-tech/vue-dcjs/tree/master/${this.link}`
     }
   }
@@ -49,10 +45,10 @@ export default {
   margin: 0;
 }
 .example-container .example-container:first-child {
-  padding-left: 0
+  padding-left: 0;
 }
 .example-container .example-container:last-child {
-  padding-right: 0
+  padding-right: 0;
 }
 
 .example-container .example-header {
@@ -78,5 +74,4 @@ export default {
   font-size: 1.2rem;
   font-weight: bold;
 }
-
 </style>

@@ -19,7 +19,7 @@ const defaultOptions = {
 }
 
 const VueDc = {
-  install(Vue, _options) {
+  install (Vue, _options) {
     const options = Object.assign({}, defaultOptions, _options)
     // hmm do we prevent this from polluting the namespace?
     // what if the user overrides $super in their code??
@@ -55,5 +55,6 @@ const VueDc = {
 
 // fix warning prefer_named_exports by naming this export
 export * from './components'
+export * from './mixins'
 export { VueDc, dc, d3, crossfilter }
 export default VueDc

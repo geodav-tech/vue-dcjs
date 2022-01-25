@@ -88,8 +88,6 @@ export default {
         this.chart.outerPadding(outerBarPadding)
       }
 
-      
-
       if (elastic) {
         this.chart.elasticY(true)
       }
@@ -195,7 +193,8 @@ export default {
             this.stacks.forEach((stack) => {
               let stackKey = this.stackKey(stack)
               if (this.computedValidateFunction(v, stack, group)) {
-                p[`${group}${this.keySeparator}${stackKey}`] += accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
+                p[`${group}${this.keySeparator}${stackKey}`] +=
+                  accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
               }
             })
           })
@@ -206,7 +205,8 @@ export default {
             this.stacks.forEach((stack) => {
               let stackKey = this.stackKey(stack)
               if (this.computedValidateFunction(v, stack, group)) {
-                p[`${group}${this.keySeparator}${stackKey}`] -= accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
+                p[`${group}${this.keySeparator}${stackKey}`] -=
+                  accessorFunc(this.computedOptions.valueAccessor || ((d) => d.value))(v, stack, group) || 0
               }
             })
           })

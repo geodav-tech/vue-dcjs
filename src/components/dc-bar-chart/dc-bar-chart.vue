@@ -33,8 +33,20 @@ export default {
   methods: {
     createChart() {
       this.hasReplacedRenderFunc = false
-      let { elastic, scrollable, minScrollable, scrollHeight, groupAll, valueAccessor, label, filterFunction, mouseZoom, barPadding, barGap, outerBarPadding } =
-        this.computedOptions
+      let {
+        elastic,
+        scrollable,
+        minScrollable,
+        scrollHeight,
+        groupAll,
+        valueAccessor,
+        label,
+        filterFunction,
+        mouseZoom,
+        barPadding,
+        barGap,
+        outerBarPadding
+      } = this.computedOptions
       this.$options.dimension = this.createDimension()
       let ordinalValueAccessor = accessorFunc(valueAccessor || ((v) => v))
       const group = this.ordinalToLinear(this.createGroup(this.$options.dimension, groupAll), ordinalValueAccessor, groupAll)
@@ -159,10 +171,10 @@ export default {
       if (scrollable) {
         let { top, bottom, left, right } = this.computedMargins
         this.chart.margins({ top: 0, bottom, left, right })
-        
+
         // do not send focus events as filter events to anyone listening to this.chart.on('filtered')
         // http://dc-js.github.io/dc.js/docs/html/base_base-mixin.js.html#sunlight-1-line-844
-        this.chart._invokeFilteredListener = function(f) {
+        this.chart._invokeFilteredListener = function (f) {
           // ignore 'RangedFilter' type. it's coming from the scale chart as long as brushing is disabled
           if (f !== undefined && f.filterType !== 'RangedFilter') {
             return this._listeners.call('filtered', this, this, f)
@@ -205,11 +217,11 @@ export default {
           // http://dc-js.github.io/dc.js/docs/html/base_coordinate-grid-mixin.js.html#sunlight-1-line-1150
           // https://github.com/dc-js/dc.js/issues/1857
           this.chart._doRender = function () {
-            this.resetSvg();
-            this._preprocessData();
-            this._generateG();
-            this._generateClipPath();
-            this._drawChart(true);
+            this.resetSvg()
+            this._preprocessData()
+            this._generateG()
+            this._generateClipPath()
+            this._drawChart(true)
             return this
           }
           this.hasReplacedRenderFunc = true

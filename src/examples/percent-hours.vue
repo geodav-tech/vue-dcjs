@@ -1,5 +1,10 @@
 <template>
-  <example-container class="percent-hours-container" link="src/components/dc-number-display" linkText="Number display" label="showing percent of total hours">
+  <example-container
+    class="percent-hours-container"
+    link="src/components/dc-number-display"
+    linkText="Number display"
+    label="showing percent of total hours"
+  >
     <dc-number-display
       :ndx="computedNdx"
       reducer="hours"

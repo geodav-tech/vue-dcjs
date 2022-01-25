@@ -33,7 +33,7 @@ export default {
     return {
       chart: null,
       resetButtonFunction: null,
-      resetButtons: [],
+      resetButtons: []
     }
   },
   mounted() {
@@ -96,9 +96,7 @@ export default {
         this.chart.width(width)
       }
     },
-    onResetButtonClick() {
-
-    },
+    onResetButtonClick() {},
     // allows children to hook into pre/post render hooks
     renderChart() {
       return new Promise((resolve) => {
@@ -128,7 +126,7 @@ export default {
       this.computedOptions?.onCreate?.(this.chart)
       this.$emit('create', this.chart)
     },
-    setupResetListener () {
+    setupResetListener() {
       let charts = this.chart?.children ? [this.chart, ...this.chart.children()] : [this.chart]
       try {
         const { resetSelector } = dcConfig
@@ -137,27 +135,27 @@ export default {
           if (typeof result.forEach !== 'function') {
             buttons.push(result)
           } else {
-            result.forEach(res => {
+            result.forEach((res) => {
               buttons.push(res)
             })
           }
           return buttons
         }, [])
-  
+
         // ensure we can remove this later
         this.resetButtonFunction = () => {
-          charts.forEach(chart => {
+          charts.forEach((chart) => {
             chart.filterAll()
           })
           this.$dc.redrawAll()
         }
-  
-        this.resetButtons.forEach(button => {
+
+        this.resetButtons.forEach((button) => {
           button.addEventListener('click', this.resetButtonFunction)
         })
         const updateButtonVisibility = () => {
-          let hasFilter = charts.some(chart => chart.hasFilter())
-          this.resetButtons.forEach(instance => {
+          let hasFilter = charts.some((chart) => chart.hasFilter())
+          this.resetButtons.forEach((instance) => {
             if (hasFilter) {
               instance.classList.remove('dc-reset-is-hidden')
             } else {
@@ -165,8 +163,8 @@ export default {
             }
           })
         }
-  
-        charts.forEach(chart => {
+
+        charts.forEach((chart) => {
           chart.on('filtered.reset', updateButtonVisibility)
         })
         updateButtonVisibility() // update this on startup as well

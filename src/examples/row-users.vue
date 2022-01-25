@@ -5,7 +5,7 @@
       :ndx="computedNdx"
       :options="{
         label: (d) => d.key.split('.').slice(1).join('.'),
-        margins: {left: 2}
+        margins: { left: 2 }
       }"
       :dimension-constructor="(d) => `${d.user_id}.${d.name}`"
       reducer="hours"
@@ -22,7 +22,7 @@ export default {
   components: { DcRowChart, ExampleContainer },
   props: {
     ndx: {
-     // if not passed we will construct our own
+      // if not passed we will construct our own
       type: Object
     }
   },
@@ -43,5 +43,3 @@ export default {
   }
 }
 </script>
-
-<style></style>

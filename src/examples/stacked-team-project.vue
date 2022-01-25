@@ -1,5 +1,10 @@
 <template>
-  <example-container class="stacked-team-project-container" link="src/components/dc-stacked-bar-chart" linkText="Stacked bar chart" label="showing hours on a team, stacked by project">
+  <example-container
+    class="stacked-team-project-container"
+    link="src/components/dc-stacked-bar-chart"
+    linkText="Stacked bar chart"
+    label="showing hours on a team, stacked by project"
+  >
     <dc-stacked-bar-chart
       v-if="stacks.length && groups.length"
       :ndx="computedNdx"

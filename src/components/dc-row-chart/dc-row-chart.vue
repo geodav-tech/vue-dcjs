@@ -1,6 +1,6 @@
 <template>
   <div class="dc-chart-container dc-row-chart-container">
-    <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :class="{'is-scrollable': axisChart}" :style="computedStyle"></div>
+    <div :id="`chart-${_uid}`" class="dc-chart dc-row-chart" :class="{ 'is-scrollable': axisChart }" :style="computedStyle"></div>
     <div v-show="canScroll" :id="`chart-${_uid}-axis`" class="dc-chart dc-axis-chart dc-row-axis-chart"></div>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
       let { elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
       const group = this.createGroup(this.$options.dimension)
-      this.canScroll = scrollable && ((group.size() * barHeight) > minHeight)
+      this.canScroll = scrollable && group.size() * barHeight > minHeight
 
       this.chart = new this.$dc.RowChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group)
 
@@ -44,7 +44,7 @@ export default {
       if (elastic) {
         this.chart.elasticX(true)
       }
-      
+
       if (this.canScroll) {
         this.chart.height(group.size() * barHeight)
         this.chart.transitionDuration(1000)
@@ -109,7 +109,7 @@ export default {
 }
 .dc-chart.dc-row-chart.is-scrollable .axis path,
 .dc-chart.dc-row-chart.is-scrollable .axis g.tick text,
-.dc-chart.dc-row-chart.is-scrollable .axis g.tick line:not(.grid-line)  {
+.dc-chart.dc-row-chart.is-scrollable .axis g.tick line:not(.grid-line) {
   display: none !important;
   stroke: none;
 }

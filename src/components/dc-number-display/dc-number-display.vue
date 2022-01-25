@@ -10,28 +10,27 @@ export default {
   name: 'DcNumberDisplay',
   mixins: [BaseChartMixin, GroupMixin],
   methods: {
-    createChart () {
+    createChart() {
       const group = this.createGroup(this.ndx, true)
-      this.chart = new this.$dc.NumberDisplay(`#chart-${this._uid}`)
-        .group(group)
+      this.chart = new this.$dc.NumberDisplay(`#chart-${this._uid}`).group(group)
 
       this.chart.anchorName = () => {
         return `#chart-${this._uid}`
       }
 
       this.$super(BaseChartMixin).createChart()
-      
+
       let { html, singular, plural, formatNumber, valueAccessor } = this.computedOptions
-      
+
       // pass the unfiltered total the the valueAccessor to allow for percentages
       let unfilteredTotal = group.value()
-      this.chart.valueAccessor((d, i) => accessorFunc(valueAccessor || (d => d))(d, i, unfilteredTotal))
+      this.chart.valueAccessor((d, i) => accessorFunc(valueAccessor || ((d) => d))(d, i, unfilteredTotal))
 
       if (html) {
         this.chart.html(html)
       } else if (singular) {
-        plural = plural || (singular + 's')
-        this.chart.html({ one: `%number ${singular}`, some: `%number ${plural}`, none: `%number ${plural}`})
+        plural = plural || singular + 's'
+        this.chart.html({ one: `%number ${singular}`, some: `%number ${plural}`, none: `%number ${plural}` })
       }
 
       if (formatNumber) {
@@ -43,8 +42,8 @@ export default {
 }
 </script>
 <style>
-  span.dc-number-display {
-    font-weight: bold;
-    font-size: 1.25rem;
-  }
+span.dc-number-display {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
 </style>

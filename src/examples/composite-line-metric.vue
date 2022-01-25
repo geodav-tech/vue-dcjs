@@ -1,5 +1,10 @@
 <template>
-  <example-container class="composite-line-metric-container" link="src/components/dc-composite-line-chart" linkText="Composite line chart" label="by team hours">
+  <example-container
+    class="composite-line-metric-container"
+    link="src/components/dc-composite-line-chart"
+    linkText="Composite line chart"
+    label="by team hours"
+  >
     <dc-composite-line-chart
       :ndx="ndx"
       v-if="groups"
@@ -45,7 +50,7 @@ export default {
         return {
           name: team,
           valueAccessor: (d) => d.value[team] || 0,
-          color: this.$d3.interpolateTurbo((i + 1) / (uniqueTeams.length))
+          color: this.$d3.interpolateTurbo((i + 1) / uniqueTeams.length)
         }
       })
     },
