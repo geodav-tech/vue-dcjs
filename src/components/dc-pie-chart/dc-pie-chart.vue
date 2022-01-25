@@ -101,6 +101,7 @@ export default {
         this.chart.on('renderlet.vue-dcjs', (chart) => {
           const radius = this.getRadius()
           if (this.chart.radius() !== radius) {
+            this.chart.radius(radius)
             this.chart.height(radius)
             this.chart.width(radius)
             this.chart.redraw()
