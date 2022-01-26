@@ -185,7 +185,7 @@ export default {
           .dimension(this.$options.dimension)
           .group(group)
           .height(scrollHeight + top)
-          .margins({ left, top, right: right - 10, bottom: 2 })
+          .margins({ left, top, right, bottom: 2 })
           .x(this.$d3.scaleLinear().domain(linearDomain))
           .xUnits(this.$dc.units.integers)
           .keyAccessor((kv) => group.ord2int(kv.key))
@@ -266,6 +266,7 @@ export default {
   position: relative;
 }
 .dc-scroll-bar-chart-container .dc-scroll-bar-range .custom-brush-handle {
+  cursor: ew-resize;
   stroke: black;
 }
 
