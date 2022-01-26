@@ -52,7 +52,7 @@ export default {
 
       this.top = group.all().length
 
-      const linearDomain = [-0.5, this.top - 0.5]
+      const linearDomain = [-0.52, this.top - 0.5]
       let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / minScrollable / this.top : 0
       defaultBarGap = Math.max(Math.ceil(defaultBarGap), 1)
 
