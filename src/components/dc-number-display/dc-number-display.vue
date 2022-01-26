@@ -41,9 +41,3 @@ export default {
   }
 }
 </script>
-<style>
-span.dc-number-display {
-  font-weight: bold;
-  font-size: 1.25rem;
-}
-</style>
