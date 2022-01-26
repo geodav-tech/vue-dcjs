@@ -30,7 +30,7 @@ export default {
         // use !== undefined to allow false/0 values to be accepted
 
         if (autoWidth !== undefined) {
-          legend.autoWidth(autoWidth)
+          legend.autoItemWidth(autoWidth)
         } else if (itemWidth !== undefined) {
           legend.itemWidth(itemWidth)
         }
