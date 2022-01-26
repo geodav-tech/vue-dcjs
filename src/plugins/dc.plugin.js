@@ -4,7 +4,20 @@ import crossfilter from 'crossfilter2'
 import { AxisChart } from './axis-chart.class'
 require('dc/dist/style/dc.min.css')
 
-dc.AxisChart = AxisChart
+const renderAllNoTransitions = () => {
+  dc.chartRegistry.list().forEach(chart => {
+    // this will set the transition duration to 0 while we render
+    // this makes the resize less flashy/distracting
+    let lastTransitionDuration = chart.transitionDuration()
+    chart.transitionDuration(0)
+    chart.render()
+    // but then put the duration back to whatever it was before the render
+    chart.transitionDuration(lastTransitionDuration)
+  })
+}
+
+// assign extras via Object.assign to prevent module mutated warning
+Object.assign(dc, { AxisChart,  renderAllNoTransitions })
 
 const defaultOptions = {
   // defaultColors: string[] of colors for ordinal charts
@@ -50,15 +63,7 @@ const DcPlugin = {
         }
         if (lastWidth !== window.innerWidth) {
           resizeTimeout = setTimeout(() => {
-            dc.chartRegistry.list().forEach(chart => {
-              // this will set the transition duration to 0 while we render
-              // this makes the resize less flashy/distracting
-              let lastTransitionDuration = chart.transitionDuration()
-              chart.transitionDuration(0)
-              chart.render()
-              // but then put the duration back to whatever it was before the render
-              chart.transitionDuration(lastTransitionDuration)
-            })
+            dc.renderAllNoTransitions()
             resizeTimeout = null
             lastWidth = window.innerWidth
           }, options.resizeTimeout)
