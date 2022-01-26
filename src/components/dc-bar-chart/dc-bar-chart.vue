@@ -35,7 +35,6 @@ export default {
       this.hasReplacedRenderFunc = false
       let {
         elastic,
-        scrollable,
         minScrollable,
         scrollHeight,
         groupAll,
@@ -65,6 +64,7 @@ export default {
         .centerBar(true)
         .brushOn(false)
         .gap(defaultBarGap)
+        .title((kv) => `${kv.key}: ${ordinalValueAccessor(kv.value)}`)
 
       this.$super(BaseChartMixin).createChart()
 
