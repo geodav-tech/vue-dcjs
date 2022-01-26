@@ -78,7 +78,8 @@ export default {
         this.chart.elasticY(true)
       }
 
-      this.chart.xAxis().tickFormat((d) => accessorFunc(label || ((d) => d))(group.int2ord(d))).ticks(this.top)
+      let xAxisFormat = accessorFunc(this.computedAxisOptions.x?.format || (d => d))
+      this.chart.xAxis().tickFormat(d => xAxisFormat(group.int2ord(d))).ticks(this.top)
       if (this.top <= minScrollable / 4) {
         const l = this.top || 1
         this.chart.barPadding(minScrollable / 2 / l)
