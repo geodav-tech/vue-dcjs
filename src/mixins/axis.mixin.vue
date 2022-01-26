@@ -63,6 +63,9 @@ export default {
         applyFormat(xAxis, xAxisOptions.format)
         applyValues(xAxis, xAxisOptions.values)
         applySize(xAxis, xAxisOptions.size)
+        if (xAxisOptions.tilt) {
+          this.$d3.select(this.chart.anchor()).classed('tilted-x-axis', true)
+        }
         if (xAxisOptions.x && typeof this.chart.x === 'function') {
           this.chart.x(xAxisOptions.x(this.$options.dimension))
         }
@@ -81,21 +84,19 @@ export default {
   },
   computed: {
     computedAxisOptions() {
-      let options = { x: null, y: null }
-      if (this.computedOptions.xAxis) {
-        options.x = Object.assign({}, this.computedOptions.xAxis)
+      return {
+        x: Object.assign({}, this.computedOptions?.xAxis, this.axisOptions?.x),
+        y:  Object.assign({}, this.computedOptions?.yAxis, this.axisOptions?.y)
       }
-      if (this.computedOptions.yAxis) {
-        options.y = Object.assign({}, this.computedOptions.yAxis)
-      }
-      if (this.axisOptions?.x) {
-        options.x = Object.assign({}, options.x, this.axisOptions.x)
-      }
-      if (this.axisOptions?.y) {
-        options.y = Object.assign({}, options.y, this.axisOptions.y)
-      }
-      return options
     }
   }
 }
 </script>
+
+<style>
+.dc-chart.tilted-x-axis .axis.x .tick text{
+  text-anchor: end;
+  transform: rotate(-33deg) translate(-4px, -2px);
+}
+
+</style>

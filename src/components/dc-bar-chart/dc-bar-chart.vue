@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import { BaseChartMixin, DimensionMixin, GroupMixin } from '../../mixins'
+import { AxisMixin, BaseChartMixin, DimensionMixin, GroupMixin } from '../../mixins'
 import { accessorFunc } from '../../dc-utils.js'
 
 export default {
   name: 'DcBarChart',
-  mixins: [BaseChartMixin, DimensionMixin, GroupMixin],
+  mixins: [BaseChartMixin, DimensionMixin, GroupMixin, AxisMixin],
   defaultOptions: {
     elastic: true,
     scrollable: false,
@@ -67,6 +67,7 @@ export default {
         .title((kv) => `${kv.key}: ${ordinalValueAccessor(kv.value)}`)
 
       this.$super(BaseChartMixin).createChart()
+      this.applyAxisOptions()
 
       this.chart.keyAccessor((kv) => group.ord2int(kv.key))
       this.chart.valueAccessor((kv) => ordinalValueAccessor(kv.value))
@@ -248,10 +249,6 @@ export default {
 .dc-chart-container.dc-scroll-bar-chart-container {
   position: relative;
   z-index: 0;
-}
-.dc-scroll-bar-chart-container .dc-bar-chart .axis.x .tick text {
-  text-anchor: end;
-  transform: rotate(-33deg) translate(-4px, -8px);
 }
 
 .dc-scroll-bar-chart-container .dc-scroll-bar-range.hidden,
