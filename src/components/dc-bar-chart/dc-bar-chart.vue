@@ -53,7 +53,7 @@ export default {
       this.top = group.all().length
 
       const linearDomain = [-0.52, this.top - 0.5]
-      let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / minScrollable / this.top : 0
+      let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / 2 / minScrollable / this.top : 0
       defaultBarGap = Math.max(Math.ceil(defaultBarGap), 1)
 
       this.chart = new this.$dc.BarChart(`#chart-${this._uid}`)
@@ -78,7 +78,7 @@ export default {
         this.chart.elasticY(true)
       }
 
-      this.chart.xAxis().tickFormat((d) => accessorFunc(label || ((d) => d))(group.int2ord(d)))
+      this.chart.xAxis().tickFormat((d) => accessorFunc(label || ((d) => d))(group.int2ord(d))).ticks(this.top)
       if (this.top <= minScrollable / 4) {
         const l = this.top || 1
         this.chart.barPadding(minScrollable / 2 / l)
