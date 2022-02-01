@@ -195,6 +195,8 @@ export default {
           .valueAccessor((kv) => ordinalValueAccessor(kv.value))
           .brushOn(true)
           .transitionDuration(0)
+          .gap(0)
+
         this.scaleChart.filterHandler(function () {}) // ensure the scale chart has no filterFunction (it will mess up scaling on all charts)
         this.scaleChart.yAxis().ticks(0)
         this.scaleChart.xAxis().ticks(0)
