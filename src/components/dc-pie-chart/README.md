@@ -7,6 +7,8 @@
 - [GroupMixin]('../../mixins/#group)
 
 ### options
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
 | minRadius | number | 0 | ensure the pie chart is at least this big |
 | maxRadius | number | Infinity | ensure that the pie chart is not any bigger than this |
 | innerRadius | number, string | 0 | make the chart a donut. supports either exactly in px or as `x%` | 
