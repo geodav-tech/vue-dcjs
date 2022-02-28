@@ -87,3 +87,8 @@ npm run build-all
 npm run publish-all
 ```
 boom, you're done
+
+- if you're feeling really brave
+```
+npm run release-all --message "Your commit message"
+```

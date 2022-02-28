@@ -1,7 +1,7 @@
 {
   "name": "vue-dcjs",
   "description": "A Vue component library and bindings for dc, the charting javascript library.",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "private": false,
   "contributors": [
     {
@@ -21,6 +21,8 @@
 
     "publish-pages": "git subtree push --prefix dist origin gh-pages",
     "publish-all": "git push && npm publish && npm run publish-pages",
+
+    "release-all": "npm run build-all && git add . && git commit -m \"$npm_config_message\" && npm run publish-all",
 
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
