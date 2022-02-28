@@ -10,8 +10,8 @@ export default {
   name: 'DcNumberDisplay',
   mixins: [BaseChartMixin, GroupMixin],
   methods: {
-    createChart() {
-      const group = this.createGroup(this.ndx, true)
+    async createChart() {
+      const group = await this.createGroup(this.ndx, true)
       this.chart = new this.$dc.NumberDisplay(`#chart-${this._uid}`).group(group)
 
       this.chart.anchorName = () => {

@@ -45,9 +45,9 @@ export default {
         this.chart.filter(null)
       }
     },
-    drawChart() {
+    async drawChart() {
       // clear chart?
-      this.createChart()
+      await this.createChart()
       this.addChartExtras()
 
       this.callOnCreate()

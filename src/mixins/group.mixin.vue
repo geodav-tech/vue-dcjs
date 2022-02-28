@@ -34,9 +34,16 @@ export default {
         let { add, remove, init } = this.reducer
         group.reduce(add, remove, init)
       }
-
-      this.$emit('group-created', group)
-      return group
+      return new Promise((resolve, reject) => {
+        let resolveTimeout = setTimeout(() => {
+          return resolve(group)
+        })
+        this.$emit('group-created', group, (replaceGroup) => {
+          // parent called back with a replacement
+          clearTimeout(resolveTimeout)
+          return resolve(replaceGroup)
+        })
+      })
     },
     // https://github.com/dc-js/dc.js/blob/develop/web-src/examples/focus-ordinal-bar.html
     ordinalToLinear(group, valueFunc, isGroupAll = false) {

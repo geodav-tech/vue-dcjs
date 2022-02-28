@@ -62,10 +62,10 @@ export default {
       }
       return this.ndx.dimension(dimensionAccessor, this.dimensionIsArray)
     },
-    createChart() {
+    async createChart() {
       let { elastic, renderArea } = this.computedOptions
       this.$options.dimension = this.createDimension()
-      let group = this.createGroup(this.$options.dimension)
+      let group = await this.createGroup(this.$options.dimension)
       let { top, bottom, days } = this.getDateBounds()
 
       this.chart = new this.$dc.LineChart(`#chart-${this._uid}`)

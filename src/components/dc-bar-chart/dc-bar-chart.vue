@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    createChart() {
+    async createChart() {
       this.hasReplacedRenderFunc = false
       let {
         elastic,
@@ -48,12 +48,12 @@ export default {
       } = this.computedOptions
       this.$options.dimension = this.createDimension()
       let ordinalValueAccessor = accessorFunc(valueAccessor || ((v) => v))
-      const group = this.ordinalToLinear(this.createGroup(this.$options.dimension, groupAll), ordinalValueAccessor, groupAll)
+      const group = this.ordinalToLinear(await this.createGroup(this.$options.dimension, groupAll), ordinalValueAccessor, groupAll)
 
       this.top = group.all().length
 
       const linearDomain = [-0.52, this.top - 0.5]
-      let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / 2 / minScrollable / this.top : 0
+      let defaultBarGap = this.top ? document.querySelector(`#chart-${this._uid}`).clientWidth / minScrollable / this.top : 0
       defaultBarGap = Math.max(Math.ceil(defaultBarGap), 1)
 
       this.chart = new this.$dc.BarChart(`#chart-${this._uid}`)
@@ -195,7 +195,7 @@ export default {
           .valueAccessor((kv) => ordinalValueAccessor(kv.value))
           .brushOn(true)
           .transitionDuration(0)
-          .gap(0)
+          .gap(1)
 
         this.scaleChart.filterHandler(function () {}) // ensure the scale chart has no filterFunction (it will mess up scaling on all charts)
         this.scaleChart.yAxis().ticks(0)

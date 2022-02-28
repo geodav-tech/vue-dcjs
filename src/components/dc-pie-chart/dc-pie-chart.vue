@@ -21,9 +21,9 @@ export default {
     labelWrapSeparator: ';|;' // if using improved labels you can separate key and value by this separator
   },
   methods: {
-    createChart() {
+    async createChart() {
       this.$options.dimension = this.createDimension()
-      const group = this.createGroup(this.$options.dimension)
+      const group = await this.createGroup(this.$options.dimension)
       this.chart = new this.$dc.PieChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group).externalRadiusPadding(12)
       this.$super(BaseChartMixin).createChart()
 

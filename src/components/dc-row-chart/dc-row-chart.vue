@@ -28,11 +28,11 @@ export default {
     }
   },
   methods: {
-    createChart() {
+    async createChart() {
       // merge in default options
       let { elastic, scrollable, minHeight, barHeight, axisChartHeight, valueAccessor, keyAccessor } = this.computedOptions
       this.$options.dimension = this.createDimension()
-      const group = this.createGroup(this.$options.dimension)
+      const group = await this.createGroup(this.$options.dimension)
       this.canScroll = scrollable && group.size() * barHeight > minHeight
 
       this.chart = new this.$dc.RowChart(`#chart-${this._uid}`).dimension(this.$options.dimension).group(group)

@@ -36,10 +36,15 @@ export default {
       groupCharts: []
     }
   },
+  watch: {
+    groups () {
+      console.log('group change', this.groups)
+    }
+  },
   methods: {
-    createChart() {
+    async createChart() {
       this.$options.dimension = this.createDimension()
-      const group = this.createGroup(this.$options.dimension)
+      const group = await this.createGroup(this.$options.dimension)
 
       let { elastic, keyAccessor, renderArea } = this.computedOptions
 
