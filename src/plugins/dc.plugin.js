@@ -10,7 +10,11 @@ const renderAllNoTransitions = () => {
     // this makes the resize less flashy/distracting
     let lastTransitionDuration = chart.transitionDuration()
     chart.transitionDuration(0)
-    chart.render()
+    if (chart.vueRender) { // if this is a vue-dc chart we can override with a custom render function to accomplish certain fixes
+      chart.vueRender()
+    } else {
+      chart.render()
+    }
     // but then put the duration back to whatever it was before the render
     chart.transitionDuration(lastTransitionDuration)
   })

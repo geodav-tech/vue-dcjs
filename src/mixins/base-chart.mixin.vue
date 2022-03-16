@@ -95,6 +95,9 @@ export default {
       if (width) {
         this.chart.width(width)
       }
+
+      // allow our custom `renderAllNoTransitions` to call the overridden render func for vue-based charts
+      this.chart.vueRender = () => this.render()
     },
     onResetButtonClick() {},
     // allows children to hook into pre/post render hooks
