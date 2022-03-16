@@ -73,6 +73,16 @@ export default {
      */
     createChart() {
       const { valueAccessor, margins, keyAccessor, title, label, height, width } = this.computedOptions
+      function defaultTitleAccessor(d) {
+        const key = keyAccessor ? accessorFunc(keyAccessor)(d) : d.key
+        let value = valueAccessor ? accessorFunc(valueAccessor)(d) : d.value
+        if (dcConfig.titleRoundDigits >= 0) {
+          value = value.toFixed(dcConfig.titleRoundDigits)
+        }
+        return `${key}: ${value}`
+      }
+      this.chart.title(accessorFunc(title || defaultTitleAccessor))
+
       if (valueAccessor) {
         this.chart.valueAccessor(accessorFunc(valueAccessor))
       }

@@ -71,7 +71,6 @@ export default {
 
       this.chart.keyAccessor((kv) => group.ord2int(kv.key))
       this.chart.valueAccessor((kv) => ordinalValueAccessor(kv.value))
-      this.chart.title(this.titleAccessor)
       this.chart.transitionDuration(this.canScroll ? 50 : 250)
 
       if (elastic) {

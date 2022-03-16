@@ -31,7 +31,8 @@ const defaultOptions = {
   useResetListener: true, // use this.chart.on('filtered.reset') and the resetSelector to determine show/hide the reset button
   resetSelector: chart => {
     return document.querySelector(chart.anchor()).closest('.example-container')?.querySelectorAll('.example-reset-button') || []
-  }
+  },
+  titleRoundDigits: -1,
 }
 
 let dcConfig = Object.assign({}, defaultOptions)

@@ -18,7 +18,7 @@ Vue.prototype.$super = function (options) {
   })
 }
 
-Vue.use(DcPlugin)
+Vue.use(DcPlugin, { titleRoundDigits: 1 })
 
 new Vue({
   router,
