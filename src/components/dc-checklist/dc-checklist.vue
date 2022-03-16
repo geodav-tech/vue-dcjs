@@ -52,6 +52,10 @@ export default {
     },
     othersLabel: {
       type: String
+    },
+    forceFilter: { // d => boolean to filter out empty/fake groups
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -103,14 +107,13 @@ export default {
     },
     updateListValues() {
       // deep copy the groups so values do not get messed up when filtering
-      this.groups = JSON.parse(
-        JSON.stringify(
-          this.dcChart
-            .group()
-            .order((value) => this.valueAccessor({ value }))
-            .top(Infinity)
-        )
-      )
+      let groups = this.dcChart.group()
+        .order((value) => this.valueAccessor({ value }))
+        .top(Infinity)
+      if (this.forceFilter && typeof this.forceFilter === 'function') {
+        groups = groups.filter(this.forceFilter)
+      }
+      this.groups = JSON.parse(JSON.stringify(groups))
       if (this.options.slicesCap || this.othersLimit) {
         this.others = this.groups.slice(this.options.slicesCap || this.othersLimit).map((d) => d.key)
       } else {
