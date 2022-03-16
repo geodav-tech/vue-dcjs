@@ -110,19 +110,13 @@ export default {
         this.chart.on('pretransition.vue-dcjs', handleLabelTransition)
       }
     },
-    renderChart() {
-      return new Promise((resolve) => {
-        this.$super(BaseChartMixin)
-          .renderChart()
-          .then(() => {
-            this.$nextTick(() => {
-              if (this.computedOptions.useImprovedLabels) {
-                this.chart.redraw() // fix label position
-              }
-              return resolve()
-            })
+    render() {
+        this.$super(BaseChartMixin).render()
+        if (this.computedOptions.useImprovedLabels) {
+          this.$nextTick(() => {
+            this.chart.redraw() // fix label position
           })
-      })
+        }
     },
     getRadius() {
       let container = document.querySelector(`#chart-${this._uid}`)
