@@ -12,6 +12,7 @@
 <script>
 import { AxisMixin, BaseChartMixin, DimensionMixin, GroupMixin } from '../../mixins'
 import { accessorFunc } from '../../dc-utils.js'
+import { dcConfig } from '../../plugins/dc.plugin.js'
 
 export default {
   name: 'DcBarChart',
@@ -40,11 +41,14 @@ export default {
         groupAll,
         valueAccessor,
         label,
+        title,
+        titleSuffix,
         filterFunction,
         mouseZoom,
         barPadding,
         barGap,
-        outerBarPadding
+        outerBarPadding,
+        digits
       } = this.computedOptions
       this.$options.dimension = this.createDimension()
       let ordinalValueAccessor = accessorFunc(valueAccessor || ((v) => v))
@@ -64,7 +68,6 @@ export default {
         .centerBar(true)
         .brushOn(false)
         .gap(defaultBarGap)
-        .title((kv) => `${kv.key}: ${ordinalValueAccessor(kv.value)}`)
 
       this.$super(BaseChartMixin).createChart()
       this.applyAxisOptions()
@@ -72,6 +75,22 @@ export default {
       this.chart.keyAccessor((kv) => group.ord2int(kv.key))
       this.chart.valueAccessor((kv) => ordinalValueAccessor(kv.value))
       this.chart.transitionDuration(this.canScroll ? 50 : 250)
+
+      const titleDigits =  digits || digits === 0 ? digits : dcConfig.titleRoundDigits
+      function defaultTitleAccessor(d) {
+        const key = d.key
+        // these require valueAccessor to pass d.value not d.... confusing
+        let value = valueAccessor ? accessorFunc(valueAccessor)(d.value) : d.value
+        if (value?.toFixed && titleDigits >= 0) {
+          value = value.toFixed(titleDigits)
+        }
+        let title = `${key}: ${value}`
+        if (titleSuffix) {
+          title += titleSuffix
+        }
+        return title
+      }
+      this.chart.title(accessorFunc(title || defaultTitleAccessor))
 
       if (elastic) {
         this.chart.elasticY(true)

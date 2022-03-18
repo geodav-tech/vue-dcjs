@@ -72,14 +72,19 @@ export default {
      * but you must create the chart first
      */
     createChart() {
-      const { valueAccessor, margins, keyAccessor, title, label, height, width } = this.computedOptions
+      const { valueAccessor, margins, keyAccessor, title, label, height, width, digits, titleSuffix } = this.computedOptions
+      const titleDigits =  digits || digits === 0 ? digits : dcConfig.titleRoundDigits
       function defaultTitleAccessor(d) {
         const key = keyAccessor ? accessorFunc(keyAccessor)(d) : d.key
         let value = valueAccessor ? accessorFunc(valueAccessor)(d) : d.value
-        if (dcConfig.titleRoundDigits >= 0) {
-          value = value.toFixed(dcConfig.titleRoundDigits)
+        if (value?.toFixed && titleDigits >= 0) {
+          value = value.toFixed(titleDigits)
         }
-        return `${key}: ${value}`
+        let title = `${key}: ${value}`
+        if (titleSuffix) {
+          title += titleSuffix
+        }
+        return title
       }
       this.chart.title(accessorFunc(title || defaultTitleAccessor))
 
