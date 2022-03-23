@@ -11,7 +11,7 @@
       :options="{
         html: { some: '%number hours worked', none: '%number hours worked', one: '%number hours worked' },
         formatNumber: ',.1%',
-        valueAccessor: (d, i, total) => d / (total || 1)
+        valueAccessor: (d, total) => d / (total || 1)
       }"
     />
   </example-container>

@@ -22,9 +22,14 @@ export default {
 
       let { html, singular, plural, formatNumber, valueAccessor } = this.computedOptions
 
-      // pass the unfiltered total the the valueAccessor to allow for percentages
-      let unfilteredTotal = group.value()
-      this.chart.valueAccessor((d, i) => accessorFunc(valueAccessor || ((d) => d))(d, i, unfilteredTotal))
+      // resetting the value accessor whenever the data changes is required to recompute the unfilteredTotal
+      const makeValueAccessor = () => (d) => accessorFunc(valueAccessor || ((d) => d))(d, group.value())
+      this.ndx.onChange(type => {
+        if (type === 'dataAdded' || type === 'dataRemoved') {
+          this.chart.valueAccessor(makeValueAccessor())
+        }
+      })
+      this.chart.valueAccessor(makeValueAccessor())
 
       if (html) {
         this.chart.html(html)

@@ -14,7 +14,7 @@
 
 ### note:
 - This chart's valueAccessor prop receives the total unfiltered value (upon chart creation)
-	- e.g. instead of (d, i) => value, you will get (d, i, unfilteredTotal) => value
+	- e.g. instead of (d) => value, you will get (d, unfilteredTotal) => value
 
 ### examples
 all charts should share a crossfilter instance, somewhere in a parent component you should have something like:
@@ -46,7 +46,7 @@ Please see [sample-data](../../sample-data.js) to see the data we are using in t
   :options="{
     html: { some: '%number hours worked', none: '%number hours worked', one: '%number hours worked' },
     formatNumber: ',.1%',
-    valueAccessor: (d, i, total) => d / (total || 1)
+    valueAccessor: (d, total) => d / (total || 1)
   }"
 />
 ```
