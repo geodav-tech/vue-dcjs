@@ -16,6 +16,7 @@
 | useD3TimeDay | boolean | true | default to using `d3.timeDay(dimension-constructor)` when constructing the dimension |
 | snapDateCalculation | boolean | true | snap the top/bottom to the start, end of a day when calculating the number of days and domain |
 | useUtcSnapping | boolean | false | use `setUTCHours` instead of `setHours` when snapping to start/end of domain |
+| fakeGroupingSettings | { startDate: dateString, endDate: dateString, fillValue: object || function} | fill out any missing dates between start and end (inclusive) with fillValue. function form passes the date the value is for |
 
 ### note
 Unlike other charts, this chart can default the dimension constructor to `dc.timeDay(dc.pluck('date')(d))`

@@ -17,14 +17,20 @@ export default {
     limitTicksToNumDays: true, // limit the number of ticks to match the number of days under maxTicks
     useD3TimeDay: true, // if passed no dimensionConstructor or string, will use d3.timeDay to construct dimension
     snapDateCalculation: false,
-    useUtcSnapping: false
+    useUtcSnapping: false,
+    fakeGroupingSettings: null // { startDate, endDate, fillValue }
   },
   methods: {
     getDateBounds() {
-      const keyAccessor = accessorFunc(this.computedOptions.keyAccessor || ((d) => d.date))
+      const keyAccessor = accessorFunc(this.computedOptions.keyAccessor || ((d) => d?.date))
 
       let top = new Date(keyAccessor(this.$options.dimension.top(1)[0]))
       let bottom = new Date(keyAccessor(this.$options.dimension.bottom(1)[0]))
+
+      if (this.computedOptions.fakeGroupingSettings && this.computedOptions.fakeGroupingSettings.startDate && this.computedOptions.fakeGroupingSettings.endDate) {
+        bottom = new Date(this.computedOptions.fakeGroupingSettings.startDate)
+        top = new Date(this.computedOptions.fakeGroupingSettings.endDate)
+      }
 
       let { snapDateCalculation, useUtcSnapping } = this.computedOptions
       if (snapDateCalculation) {
@@ -62,10 +68,46 @@ export default {
       }
       return this.ndx.dimension(dimensionAccessor, this.dimensionIsArray)
     },
+    // the user can specify a date range and fillValue to fill out any missing days from the data
+    // this will zero-out any missing days making the chart look more accurate!
+    fakeGroup (group, fakeGroupingSettings) {
+      let startDate = new Date(fakeGroupingSettings.startDate)
+      let endDate = new Date(fakeGroupingSettings.endDate)
+      const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24))
+      return {
+        all() {
+          const original = group.all()
+          const originalDays = original.map(kv => kv.key.toISOString())
+          const result = []
+          const fillValue = fakeGroupingSettings.fillValue || {}
+          for (let i = 0; i <= days; i++) {
+            const thisDate = new Date(startDate)
+            thisDate.setDate(startDate.getDate() + i)
+
+            if (originalDays.includes(thisDate.toISOString())) {
+              continue // this date is already covered, we'll skip it
+            }
+            if (typeof fillValue === 'object') {
+              result.push(Object.assign({}, fillValue, { date: thisDate }))
+            } else  if (typeof fillValue === 'function') {
+              result.push(fillValue(thisDate))
+            }
+          }
+          // to draw the line left to right properly these MUST be sorted
+          return original.concat(result).sort((a, b) => a.key - b.key)
+        },
+        domain () {
+          return [startDate, endDate]
+        }
+      }
+    },
     async createChart() {
       let { elastic, renderArea } = this.computedOptions
       this.$options.dimension = this.createDimension()
       let group = await this.createGroup(this.$options.dimension)
+      if (this.computedOptions.fakeGroupingSettings && this.computedOptions.fakeGroupingSettings.startDate && this.computedOptions.fakeGroupingSettings.endDate) {
+        group = this.fakeGroup(group, this.computedOptions.fakeGroupingSettings)
+      }
       let { top, bottom, days } = this.getDateBounds()
 
       this.chart = new this.$dc.LineChart(`#chart-${this._uid}`)
