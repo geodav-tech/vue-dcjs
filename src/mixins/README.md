@@ -92,7 +92,8 @@ handles `dimension.group()` or `dimension.groupAll()` based functions. Includes 
 | ticks | number | | the count of ticks to show |
 | format | string, number, (d) => value | `axis.tickFormat()` if string `d3.format(string)`, if number `d3.format(,.${number}f)`, if function just call function |
 | values | number[], string[] | | apply `axis.tickValues(values)` if you wish to show only specific values, this is the best option |
-| size | number | 6 | apply `axis.tickSize(size)` changes the size in px of the ticks on this axis
+| size | number | 6 | apply `axis.tickSize(size)` changes the size in px of the ticks on this axis |
+| autoTicks | bool | false | apply automatic number of ticks (up to 10 or a maximum passed to ticks) based on the value. e.g. if the max value is 2, there will be 2 ticks instead of 10 |
 
 
 ### methods
