@@ -14,17 +14,12 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
-
     "build": "vue-cli-service build",
     "bundle": "bili src/index.js --bundle-node-modules",
     "build-all": "npm run build && npm run bundle",
-
     "publish-pages": "git subtree push --prefix dist origin gh-pages",
     "publish-all": "git push && npm publish && npm run publish-pages",
-
     "release-all": "npm run build-all && git add . && git commit -m \"$npm_config_message\" && npm run publish-all",
-
-    "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -36,25 +31,29 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "core-js": "^3.6.5",
-    "vue-router": "^3.2.0",
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-e2e-nightwatch": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "bili": "^5.0.5",
-    "chromedriver": "96",
+    "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "geckodriver": "^1.20.0",
     "rollup-plugin-vue": "^5.0.0",
+    "vue-router": "^3.2.0",
     "vue-template-compiler": "^2.6.11"
   },
   "main": "bundle/index.js",
   "files": [
     "bundle/*"
   ],
-  "keywords": ["vue", "dc", "dcjs", "chart", "graph", "dc-js"]
+  "keywords": [
+    "vue",
+    "dc",
+    "dcjs",
+    "chart",
+    "graph",
+    "dc-js"
+  ]
 }
