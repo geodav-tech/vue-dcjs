@@ -36,11 +36,6 @@ export default {
       groupCharts: []
     }
   },
-  watch: {
-    groups () {
-      console.log('group change', this.groups)
-    }
-  },
   methods: {
     async createChart() {
       this.$options.dimension = this.createDimension()
