@@ -19,6 +19,11 @@ export default {
       type: Object
     }
   },
+  data () {
+    return {
+      autoTickHandler: null
+    }
+  },
   methods: {
     applyAxisOptions() {
       let xAxisOptions = this.computedAxisOptions.x
@@ -80,14 +85,39 @@ export default {
           this.chart.y(yAxisOptions.y(this.$options.dimension))
         }
       }
+
+      if (yAxis && this.computedAxisOptions.autoTicks && this.ndx) {
+        this.ndx.onChange(evt => {
+          if (evt === 'filtered') {
+            const maxTicks = Math.max(yAxisOptions?.ticks || 0, 10)
+            const valueAccessor = this.chart?.valueAccessor()
+            const group = this.chart?.group()
+            const top = group?.top?.(1)?.[0]
+            let maxValue = maxTicks
+            try {
+              maxValue = Math.ceil(valueAccessor(top))
+            } catch {
+              maxValue = maxTicks
+            }
+            const ticks = Math.min(maxTicks, Math.max(1, maxValue))
+            yAxis.ticks(ticks)
+          }
+        })
+      }
     }
   },
   computed: {
     computedAxisOptions() {
       return {
         x: Object.assign({}, this.computedOptions?.xAxis, this.axisOptions?.x),
-        y:  Object.assign({}, this.computedOptions?.yAxis, this.axisOptions?.y)
+        y:  Object.assign({}, this.computedOptions?.yAxis, this.axisOptions?.y),
+        autoTicks: this.computedOptions?.autoTicks || this.axisOptions?.autoTicks || false
       }
+    }
+  },
+  beforeDestroy () {
+    if (this.autoTickHandler) {
+      this.autoTickHandler()
     }
   }
 }
