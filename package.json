@@ -1,7 +1,7 @@
 {
   "name": "vue-dcjs",
   "description": "A Vue component library and bindings for dc, the charting javascript library.",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "private": false,
   "contributors": [
     {
