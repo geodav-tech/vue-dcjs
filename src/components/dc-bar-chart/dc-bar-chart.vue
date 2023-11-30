@@ -139,6 +139,29 @@ export default {
         this.applyFilter()
       }
 
+      // .filters now provides the actual keys as filters (dc-checklist support)
+      this.chart.filters = () => [...focusFilter]
+
+      // keep the original replaceFilter function for zoom settings
+      this.chart._originalReplaceFilter = this.chart.replaceFilter
+      this.chart.replaceFilter = function (filters) {
+        // replaceFilter can be called by the dc-checklist
+        // if everything is an array, it's a real request to replace filters the way we would expect
+        if (filters.every(filter => Array.isArray(filter))) {
+          focusFilter = []
+          // filters should look something like [['management', 'team2']] (double array)
+          filters.forEach(filter => {
+            // push inner array elements to the focus filter
+            focusFilter.push(...filter)
+          })
+          this.applyFilter() // apply the focus filter
+          return this // return the chart
+        } else {
+          // if this is not an array, then this is really a request to change the scroll area
+          return this._originalReplaceFilter(filters)
+        }
+      }
+
       const dc = this.$dc
       const d3 = this.$d3
       this.chart.fadeDeselectedArea = function (brushSelection) {

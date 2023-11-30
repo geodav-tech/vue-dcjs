@@ -11,6 +11,7 @@
 import { DcChecklist } from '../components'
 import ExampleContainer from './example-container.vue'
 import PieTeam from './pie-team.vue'
+import sampleData from '../sample-data'
 
 export default {
   components: { DcChecklist, PieTeam, ExampleContainer },

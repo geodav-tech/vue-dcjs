@@ -87,6 +87,21 @@ export default {
             this.all()
           }
           return _int2ord[i]
+        },
+        order: function(callback) {
+          if (isGroupAll) {
+            // if this is a groupAll, we'll have to manually figure this out
+            // generally this is used for dc-checklist
+            const order = Object.entries(group.value()).map(([key, value]) => ({ key, value })).sort((a, b) => callback(b.value) - callback(a.value))
+            // since we just turned the return into an array, we have to fake some dc functions we expect to use on the array
+            // dc-checklist uses top, but we'll also add .all in case
+            order.top = (num) => order.slice(0, num)
+            order.all = () => order
+            return order
+          } else {
+            // if this isn't a groupAll, it has an order function and you can just use that
+            return group.order(callback)
+          }
         }
       }
     }

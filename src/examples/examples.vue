@@ -18,6 +18,7 @@
     <!-- this one causes performance issues because it's n+1 charts composed together where n is project count -->
     <!-- <stacked-team-project :ndx="ndx" /> -->
     <stacked-team-avatar :ndx="ndx" />
+    <bar-checklist :ndx="ndx" />
   </div>
 </template>
 
@@ -34,6 +35,7 @@ import StackedTeamProject from './stacked-team-project.vue'
 import StackedTeamAvatar from './stacked-team-avatar.vue'
 import TotalHours from './total-hours.vue'
 import PercentHours from './percent-hours.vue'
+import BarChecklist from './bar-checklist.vue'
 
 export default {
   components: {
@@ -47,7 +49,8 @@ export default {
     StackedTeamProject,
     StackedTeamAvatar,
     TotalHours,
-    PercentHours
+    PercentHours,
+    BarChecklist
   },
   data() {
     return {

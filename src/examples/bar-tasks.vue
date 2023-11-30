@@ -40,6 +40,8 @@
         },
         init: () => ({})
       }"
+      @pre-render="$emit('pre-render', $event)"
+      @post-render="$emit('post-render', $event)"
     />
   </example-container>
 </template>
