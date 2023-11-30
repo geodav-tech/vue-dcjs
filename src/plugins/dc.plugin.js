@@ -21,6 +21,7 @@ const renderAllNoTransitions = () => {
 }
 
 // assign extras via Object.assign to prevent module mutated warning
+// eslint-disable-next-line no-import-assign
 Object.assign(dc, { AxisChart,  renderAllNoTransitions })
 
 const defaultOptions = {

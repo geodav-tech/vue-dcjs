@@ -1,5 +1,5 @@
 import { CapMixin, ColorMixin, MarginMixin, transition } from 'dc'
-import { axisBottom, extent as d3Extent, scaleLinear } from 'd3'
+import { axisBottom, axisLeft, axisRight, axisTop, extent as d3Extent, scaleLinear } from 'd3'
 
 // https://gist.github.com/ialarmedalien/ebca7eeb67c6d0b0a7809c46ef160cd0
 // Adapted into a class implementation by shawn@geodav.tech
@@ -78,7 +78,8 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
       return this._type
     }
     if (this.validAxisTypes.indexOf(type) !== -1) {
-      this._theAxis = d3[type]()
+      const axis = { axisBottom, axisTop, axisRight, axisLeft }[type]
+      this._theAxis = axis()
       this._type = type
     } else {
       console.error(type + ' is not a valid d3 axis type')
@@ -144,7 +145,7 @@ export class AxisChart extends CapMixin(ColorMixin(MarginMixin)) {
   constructor(parent, chartGroup) {
     super(parent, chartGroup)
     this._minHeight = 0
-    this._defaultHeightCalc = el => 24
+    this._defaultHeightCalc = () => 24
     this.anchor(parent, chartGroup)
   }
 }
