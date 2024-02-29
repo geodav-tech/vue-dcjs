@@ -103,7 +103,6 @@ export default {
     resetFilters() {
       // set the inFilter to match the chart
       this.inFilter = Array.from(new Set(flat(this.dcChart.filters())))
-      this.groupFilter = ''
     },
     updateListValues() {
       // deep copy the groups so values do not get messed up when filtering
