@@ -272,7 +272,7 @@ export default {
           this.hasReplacedRenderFunc = true
         }
         this.scaleChart?.render()
-        const maxEnd = Math.floor(this.top / Math.min(8, Math.ceil(this.top / 12)))
+        const maxEnd = Math.min(12, Math.floor(this.top / Math.min(8, Math.ceil(this.top / 12))))
         this.chart.focus([-1, maxEnd])
       }
     },
