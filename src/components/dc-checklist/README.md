@@ -11,6 +11,8 @@
 | digits | number | | limit the digits shown in the value of each item |
 | maxHeight | number | | limit the height of the checklist and make the component scrollable |
 | othersLabel | string | 'others' | if there is an 'others' category, what is it's key |
+| forceFilter | d => boolean | null | forcefully filter out groups (e.g. empty or fake groups) to avoid issues in the checklist display |
+| keyDisplay | d => string | null | key to display in the checklist ui, and to use as key for searching. display only, does not affect data |
 
 ### Examples
 all charts should share a crossfilter instance, somewhere in a parent component you should have something like:

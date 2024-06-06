@@ -11,7 +11,7 @@
         <slot name="option" v-bind:option="item" v-bind:value="inFilter.includes(item.key)">
           <span class="dc-option-box" :class="{ selected: inFilter.includes(item.key) }" />
           <span class="dc-option-label" :class="{ selected: inFilter.includes(item.key) }">
-            {{ item.key }} ({{ item.value | formatFilter(computedDigits) }})
+            {{ displayKey(item) }} ({{ item.value | formatFilter(computedDigits) }})
           </span>
         </slot>
       </div>
@@ -56,6 +56,10 @@ export default {
     forceFilter: { // d => boolean to filter out empty/fake groups
       type: Function,
       default: null
+    },
+    keyDisplay: { // d => string to display and search key
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -76,7 +80,7 @@ export default {
     }
   },
   watch: {
-    dcChart(to, from) {
+    dcChart(_to, _from) {
       this.reset()
     },
     search() {
@@ -189,13 +193,18 @@ export default {
         return this.chart
       }
     },
+    displayKey () {
+      return (option) => {
+        return this.keyDisplay ? this.keyDisplay(option) : option?.key || ''
+      }
+    },
     shownGroups() {
       if (!this.groupFilter || !this.groupFilter.length) {
         return this.groups
       } else {
         return this.groups.filter((g) => {
           const reg = new RegExp(this.groupFilter, 'gi')
-          return reg.test(g.key)
+          return reg.test(this.displayKey(g))
         })
       }
     },
