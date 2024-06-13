@@ -18,6 +18,7 @@
 
 <script>
 import { DcPieChart } from '../components'
+import sampleData from '../sample-data'
 import ExampleContainer from './example-container.vue'
 
 export default {

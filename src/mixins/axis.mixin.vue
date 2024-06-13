@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'AxisMixin',
   props: {
     /**
      * x: AxisOptions,

@@ -31,13 +31,14 @@ import DateHour from './date-hour.vue'
 import PieChecklistTeam from './pie-checklist-team.vue'
 import PieTeam from './pie-team.vue'
 import RowUsers from './row-users.vue'
-import StackedTeamProject from './stacked-team-project.vue'
+// import StackedTeamProject from './stacked-team-project.vue'
 import StackedTeamAvatar from './stacked-team-avatar.vue'
 import TotalHours from './total-hours.vue'
 import PercentHours from './percent-hours.vue'
 import BarChecklist from './bar-checklist.vue'
 
 export default {
+  name: 'VueDcjsExamples',
   components: {
     BarTasks,
     BarTeam,
@@ -46,7 +47,7 @@ export default {
     PieChecklistTeam,
     PieTeam,
     RowUsers,
-    StackedTeamProject,
+    // StackedTeamProject,
     StackedTeamAvatar,
     TotalHours,
     PercentHours,

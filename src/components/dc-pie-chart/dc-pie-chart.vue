@@ -98,7 +98,7 @@ export default {
           this.chart.selectAll('.pie-label-group text.pie-label').transition().call(wrap)
         }
 
-        this.chart.on('renderlet.vue-dcjs', (chart) => {
+        this.chart.on('renderlet.vue-dcjs', (_chart) => {
           const radius = this.getRadius()
           if (this.chart.radius() !== radius) {
             this.chart.radius(radius)

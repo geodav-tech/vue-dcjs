@@ -57,12 +57,12 @@ export default {
       let { useD3TimeDay } = this.computedOptions
       const timeDay = (d) => this.$d3.timeDay(new Date(d))
 
-      let dimensionAccessor = useD3TimeDay ? (d) => timeDay(this.$dc.pluck('date')(d)) : dc.pluck('date')
+      let dimensionAccessor = useD3TimeDay ? (d) => timeDay(this.$dc.pluck('date')(d)) : this.$dc.pluck('date')
 
       if (typeof this.dimensionConstructor === 'string') {
         dimensionAccessor = useD3TimeDay
           ? (d) => timeDay(this.$dc.pluck(this.dimensionConstructor)(d))
-          : dc.pluck(this.dimensionConstructor)
+          : this.$dc.pluck(this.dimensionConstructor)
       } else if (typeof this.dimensionConstructor === 'function') {
         dimensionAccessor = this.dimensionConstructor
       }

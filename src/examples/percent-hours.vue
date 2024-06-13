@@ -19,7 +19,9 @@
 
 <script>
 import { DcNumberDisplay } from '../components'
+import sampleData from '../sample-data'
 import ExampleContainer from './example-container.vue'
+
 export default {
   components: { DcNumberDisplay, ExampleContainer },
   props: {

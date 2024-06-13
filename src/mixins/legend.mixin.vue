@@ -1,5 +1,6 @@
 <script>
 export default {
+  name: 'LegendMixin',
   props: {
     legend: {
       type: Boolean

@@ -34,7 +34,7 @@ export default {
         let { add, remove, init } = this.reducer
         group.reduce(add, remove, init)
       }
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve, _reject) => {
         let resolveTimeout = setTimeout(() => {
           return resolve(group)
         })

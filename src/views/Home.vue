@@ -29,7 +29,7 @@ import Examples from '../examples'
 import ExampleContainer from '../examples/example-container.vue'
 export default {
   components: { Examples, ExampleContainer },
-  name: 'Home',
+  name: 'HomeView',
   data() {
     return {
       aboutInfo: [

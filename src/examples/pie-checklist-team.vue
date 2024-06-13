@@ -4,6 +4,10 @@
     <example-container link="src/components/dc-checklist" linkText="Checklist" label="for pie chart" :reset="false">
       <dc-checklist v-if="pieChart" :chart="pieChart" :digits="0" :max-height="324" />
     </example-container>
+    <example-container link="src/components/dc-checklist" linkText="Checklist" label="for pie chart" :reset="false">
+      <span>this is duplicated on purpose to test 2 checklists listening to the same chart</span>
+      <dc-checklist v-if="pieChart" :chart="pieChart" :digits="0" :max-height="324" />
+    </example-container>
   </example-container>
 </template>
 

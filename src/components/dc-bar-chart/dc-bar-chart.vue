@@ -40,7 +40,6 @@ export default {
         scrollHeight,
         groupAll,
         valueAccessor,
-        label,
         title,
         titleSuffix,
         filterFunction,
@@ -104,7 +103,7 @@ export default {
       }
 
       let focusFilter = []
-      this.chart.filterHandler(function (dimension, filters) {}) // disable built in filtering
+      this.chart.filterHandler(function (_dimension, _filters) {}) // disable built in filtering
 
       // overwrite with our own filtering logic
       this.chart.hasFilter = function (f) {
@@ -164,7 +163,7 @@ export default {
 
       const dc = this.$dc
       const d3 = this.$d3
-      this.chart.fadeDeselectedArea = function (brushSelection) {
+      this.chart.fadeDeselectedArea = function (_brushSelection) {
         let bars = this.chartBodyG().selectAll('rect.bar')
         if (focusFilter.length) {
           bars.classed(dc.constants.SELECTED_CLASS, function (d) {

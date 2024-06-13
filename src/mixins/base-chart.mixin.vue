@@ -5,7 +5,6 @@ import { dcConfig } from '../plugins/dc.plugin.js'
 export default {
   name: 'BaseChartMixin',
   dimension: null, //crossfilter.dimension
-  myName: 'baseChart',
   props: {
     ndx: {
       // crossfilter object. e.g. this.$crossfilter(dataArray)
