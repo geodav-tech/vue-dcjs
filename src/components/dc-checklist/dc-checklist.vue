@@ -155,12 +155,10 @@ export default {
       this.$emit('update-search', this.groupFilter)
     },
     watchChartChanges() {
-      // FIXME this prevents multiple checklists from listening to the same chart.
-      // is that okay?
-      this.dcChart.on('renderlet.checklist', () => {
+      this.dcChart.on(`renderlet.checklist_${this._uid}`, () => {
         this.updateListValues()
       })
-      this.dcChart.on('filtered.checklist', () => {
+      this.dcChart.on(`filtered.checklist_${this._uid}`, () => {
         this.$nextTick(() => {
           this.checkOthersFilterToggled()
           this.resetFilters()
