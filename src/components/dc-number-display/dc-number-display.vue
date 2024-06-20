@@ -9,6 +9,13 @@ import { accessorFunc } from '../../dc-utils'
 export default {
   name: 'DcNumberDisplay',
   mixins: [BaseChartMixin, GroupMixin],
+  props: {
+    // number displays don't have filters, so we don't need reset listeners
+    hasResetListener: {
+      type: Boolean,
+      default: false
+    }
+  },
   methods: {
     async createChart() {
       const group = await this.createGroup(this.ndx, true)

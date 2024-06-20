@@ -16,6 +16,10 @@ export default {
     },
     options: {
       type: Object
+    },
+    hasResetListener: {
+      type: Boolean,
+      default: true
     }
   },
   baseDefaultOptions: {
@@ -58,7 +62,7 @@ export default {
         this.chart.on('click', this.computedOptions.onClick)
       }
 
-      if (dcConfig.useResetListener && typeof dcConfig.resetSelector === 'function') {
+      if (dcConfig.useResetListener && typeof dcConfig.resetSelector === 'function' && this.hasResetListener) {
         this.setupResetListener()
       }
 
